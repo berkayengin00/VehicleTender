@@ -24,8 +24,8 @@ namespace VehicleTender.DAL.Concrete
 			{
 				list = db.Brands.Select(x => new SelectListItem()
 				{
-					Text = x.Id.ToString(),
-					Value = x.BrandName
+					Value = x.Id.ToString(),
+					Text = x.BrandName
 				}).ToList();
 			}
 			return list;

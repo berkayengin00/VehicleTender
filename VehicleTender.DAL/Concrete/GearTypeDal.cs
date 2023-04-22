@@ -15,8 +15,8 @@ namespace VehicleTender.DAL.Concrete
 		{
 			return base.Select<SelectListItem>(x => new SelectListItem()
 			{
-				Text = x.Id.ToString(),
-				Value = x.Name
+				Value = x.Id.ToString(),
+				Text = x.Name
 			});
 		}
 	}
