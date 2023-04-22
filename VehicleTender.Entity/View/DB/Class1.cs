@@ -9,6 +9,7 @@ namespace VehicleTender.Entity.View.DB
 {
 	public class DbVehicleAddVmForAdmin
 	{
+
 		[DisplayName("Model Yılı")]
 		public DateTime VehicleAge { get; set; }
 		[DisplayName("Versiyon")]
@@ -37,5 +38,7 @@ namespace VehicleTender.Entity.View.DB
 		public int ColorId { get; set; }
 		[DisplayName("Marka")]
 		public int BrandId { get; set; }
+
+		public int UserId { get; set; }
 	}
 }

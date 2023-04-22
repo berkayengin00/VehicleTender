@@ -1,5 +1,6 @@
-﻿@{
-    var email = HttpContext.Current.Session["Admin"]?.ToString();
+﻿@using VehicleTender.Entity.View
+@{
+	var email = (HttpContext.Current.Session["Admin"] as SessionVMForAdmin)?.Email;
 }
 
 <!DOCTYPE html>

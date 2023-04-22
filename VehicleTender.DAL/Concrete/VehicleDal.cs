@@ -20,6 +20,7 @@ namespace VehicleTender.DAL.Concrete
 
 		public int Add(DbVehicleAddVmForAdmin vm)
 		{
+			vm.CreatedDate= DateTime.Now;
 			return base.Insert(new Vehicle()
 			{
 				BodyTypeId = vm.BodyTypeId,
@@ -35,9 +36,13 @@ namespace VehicleTender.DAL.Concrete
 				Version = vm.Version,
 				KiloMeter = vm.KiloMeter,
 				Description = vm.Description,
-				VehicleAge = vm.VehicleAge,
+				VehicleAge = DateTime.Now.Date,
 			});
 		}
+
+
+
+
 
 		
 	}

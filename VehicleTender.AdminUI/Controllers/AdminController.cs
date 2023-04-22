@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebSockets;
@@ -11,9 +12,10 @@ using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
-    public class AdminController : Controller
-    {
+	public class AdminController : Controller
+	{
 		// GET: Admin
+		private int adminId = 0;
 		public ActionResult Index()
 		{
 			return View();
@@ -24,7 +26,7 @@ namespace VehicleTender.AdminUI.Controllers
 
 			return View();
 		}
-		
+
 		public ActionResult AddVehicle()
 		{
 			var result = new VehicleAddVMForAdmin()
@@ -42,7 +44,9 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost]
 		public ActionResult AddVehicle(DbVehicleAddVmForAdmin vm)
 		{
-			var result = new VehicleDal();
+			// todo vehicleage için view üzerinde ekleme yapılacak
+			vm.UserId = GetUserId();
+			var result = new VehicleDal().Add(vm);
 			return RedirectToAction("AddVehicle");
 		}
 
@@ -69,7 +73,7 @@ namespace VehicleTender.AdminUI.Controllers
 			List<CorporateCustomer> list = new CorporateCustomerDal().GetAll();
 			return View(list);
 		}
-		
+
 		public ActionResult CorporateCustomerAdd()
 		{
 			return View(new CorporateCustomerAddVM());
@@ -83,5 +87,17 @@ namespace VehicleTender.AdminUI.Controllers
 			return result > 0 ? View("Index") : View("CorporateCustomerAdd");
 
 		}
+
+		/// <summary>
+		///	Sistemde kayıtlı olan adminin id'sini döndürür.
+		/// </summary>
+		/// <returns></returns>
+		[NonAction]
+		public int GetUserId()
+		{
+			return adminId = Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
+		}
+
+
 	}
 }
