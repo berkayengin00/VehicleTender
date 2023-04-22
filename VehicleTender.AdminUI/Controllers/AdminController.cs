@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebSockets;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.Concrete;
+using VehicleTender.Entity.View;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -21,9 +23,23 @@ namespace VehicleTender.AdminUI.Controllers
 
 			return View();
 		}
+		
+		public ActionResult AddVehicle()
+		{
+			var result = new VehicleAddVMForAdmin()
+			{
+				Brands = new BrandDal().GetAllBrand(),
+				BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
+				Colors = new ColorDal().GetAllColors(),
+				FuelTypes = new FuelDal().GetAllFuelTypes(),
+				GearTypes = new GearTypeDal().GetAllGearTypes(),
+				Models = new ModelDal().GetAllModels(),
+			};
+			return View(result);
+		}
 
 		[HttpPost]
-		public ActionResult AddCar()
+		public ActionResult AddVehicle(Vehicle vehicle)
 		{
 			return View();
 		}
@@ -36,13 +52,15 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult RetailCustomerAdd()
 		{
-			return View();
+			
+			return View(new RetailCustomerAddVM());
 		}
 
 		[HttpPost]
-		public ActionResult RetailCustomerAdd(RetailCustomer retailCustomer)
+		public ActionResult RetailCustomerAdd(RetailCustomerAddVM vm)
 		{
-			return View();
+			int result = new RetailCustomerDal().Add(vm);
+			return RedirectToAction("RetailCustomerAdd");
 		}
 
 		public ActionResult CorporateCustomersGetAll()
@@ -50,11 +68,19 @@ namespace VehicleTender.AdminUI.Controllers
 			List<CorporateCustomer> list = new CorporateCustomerDal().GetAll();
 			return View(list);
 		}
+		
+		public ActionResult CorporateCustomerAdd()
+		{
+			return View(new CorporateCustomerAddVM());
+		}
 
 		[HttpPost]
-		public ActionResult CorporateCustomerAdd(CorporateCustomer corporateCustomer)
+		public ActionResult CorporateCustomerAdd(CorporateCustomerAddVM vm)
 		{
-			return View();
+			int result = new CorporateCustomerDal().Add(vm);
+			ViewBag.Result = result > 0 ? "Kurumsal Müşteri Kaydedildi" : "Hata!!!";
+			return result > 0 ? View("Index") : View("CorporateCustomerAdd");
+
 		}
 	}
 }

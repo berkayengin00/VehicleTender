@@ -134,5 +134,15 @@ namespace VehicleTender.DAL.CrudRepository
 		{
 			//_db.Database.Log = Console.Write;
 		}
+		/// <summary>
+		/// Parametre Olarak VerilenTipe göre ilgili tablonun verilerini getirir.
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="express"></param>
+		/// <returns></returns>
+		public List<TResult> Select<TResult>(Func<TEntity,TResult> express)
+		{
+			return _db.Set<TEntity>().Select(express).ToList();
+		}
 	}
 }

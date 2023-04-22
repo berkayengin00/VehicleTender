@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "AddVehicle";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+@model VehicleTender.Entity.View.VehicleAddVMForAdmin
+<div class="container">
+
+    @using (@Html.BeginForm("AddVehicle", "Admin", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        <fieldset class="row">
+
+            <!-- Form Name -->
+            <!--<legend>Contact Us Today!</legend>-->
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x=>x.BrandId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+	                    @Html.DropDownListFor(x => x.BrandId,Model.Brands,new {@class="form-select",required=true})
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.ModelId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+	                    @Html.DropDownListFor(x => x.ModelId,Model.Models, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.BodyTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+	                    @Html.DropDownListFor(x => x.BodyTypeId,Model.BodyTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.FuelTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+	                    @Html.DropDownListFor(x => x.FuelTypeId,Model.FuelTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.GearTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.GearTypeId,Model.GearTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.KiloMeter, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.KiloMeter, new { @class = "form-control", Type = "number", placeholder = "Kilometre Bilgisi", required = "true" })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.Version, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.Version, new { @class = "form-control", Type = "text", placeholder = "Versiyon Bilgisi", required = "true" })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-12">
+	            @Html.LabelFor(x => x.Description, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.Description, new { @class = "form-control", Type = "text-area", placeholder = "Ek Özellikler", required = "true" })
+		            </div>
+	            </div>
+            </div>
+
+
+
+        </fieldset>
+
+        <div class="form-group row text-end">
+            <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+        </div>
+    }
+</div>
+

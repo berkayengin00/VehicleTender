@@ -14,6 +14,26 @@ namespace VehicleTender.DAL.Concrete
 		{
 		}
 
+
+		public int Add(RetailCustomerAddVM vm)
+		{
+			return base.Insert(new RetailCustomer()
+			{
+				FirstName = vm.FirstName,
+				LastName = vm.LastName,
+				CreatedBy = 1,
+				CreatedDate = DateTime.Now,
+				Email = vm.Email,
+				IsActive = true,
+				IsVerify = true,
+				PasswordHash = vm.PasswordHash,
+				PhoneNumber = vm.PhoneNumber,
+				UpdatedBy = 1,
+				UpdatedDate = DateTime.Now,
+				UserType = 1
+			});
+		}
+
 		public List<RetailCustomerVMForAdmin> GetAllCustomerForAdmin()
 		{
 			List<RetailCustomerVMForAdmin> list = null;

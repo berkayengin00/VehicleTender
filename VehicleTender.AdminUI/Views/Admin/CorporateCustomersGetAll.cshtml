@@ -1,8 +1,103 @@
-﻿
+﻿@using VehicleTender.Entity.Concrete
+
 @{
     ViewBag.Title = "CorporateCustomersGetAll";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
+@model List<VehicleTender.Entity.Concrete.CorporateCustomer>
 
-<h2>CorporateCustomersGetAll</h2>
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">DataTable with minimal features & hover style</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<table id="example2" class="table table-bordered table-hover">
+							<thead>
+							<tr>
+								<th>Şirket Adı</th>
+								<th>Ad</th>
+								<th>Soyad</th>
+								<th>Telefon Numarası</th>
+								<th>Email</th>
+								<th>Kayıt Tarihi</th>
+								<th>İl</th>
+								<th>İlçe</th>
+								<th>Adres</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							@foreach (CorporateCustomer item in Model)
+							{
+								<tr>
+									@Html.HiddenFor(x => item.Id)
+
+									<td>@item.CompanyName</td>
+									<td>@item.FirstName</td>
+									<td>@item.LastName</td>
+									<td>@item.PhoneNumber</td>
+									<td>@item.Email</td>
+									<td>@item.CreatedDate</td>
+									<td>@item.Province</td>
+									<td>@item.District</td>
+									<td>@item.Neighbourhood</td>
+									<th>
+										<input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning"/>
+									</th>
+								</tr>
+							}
+							</tbody>
+							<tfoot>
+							<tr>
+								<th>Şirket Adı</th>
+								<th>Ad</th>
+								<th>Soyad</th>
+								<th>Telefon Numarası</th>
+								<th>Email</th>
+								<th>Kayıt Tarihi</th>
+								<th>İl</th>
+								<th>İlçe</th>
+								<th>Adres</th>
+								<th></th>
+							</tr>
+							</tfoot>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</section>
+
+
+@section jscode
+{
+	<script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });</script>
+}
 

@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace VehicleTender.Entity.View
 {
-	public class RetailCustomerVMForAdmin
+	public class CorporateCustomerAddVM
 	{
-		[DisplayName("Id")]
-		public int UserId { get; set; }
 		[DisplayName("Ad")]
 		public string FirstName { get; set; }
 		[DisplayName("Soyad")]
@@ -21,9 +19,19 @@ namespace VehicleTender.Entity.View
 		public string Email { get; set; }
 		[DisplayName("Email Doğrulaması")]
 		public bool IsVerify { get; set; }
+		[DisplayName("Şirket Adı")]
+		public string CompanyName { get; set; }
+		[DisplayName("İl")]
+		public string Province { get; set; }
+		[DisplayName("İlçe")]
+		public string District { get; set; }
+		[DisplayName("Adres")]
+		public string Neighbourhood { get; set; }
+		[DisplayName("Şirket Türü")]
+		public string CompanyType { get; set; }
 		[DisplayName("Parola")]
 		public string PasswordHash { get; set; }
-		[DisplayName("Parola Tekrarı")]
+		[DisplayName("Parola Tekrar")]
 		public string PasswordHashAgain { get; set; }
 		[DisplayName("Aktif Mi?")]
 		public bool IsActive { get; set; }
