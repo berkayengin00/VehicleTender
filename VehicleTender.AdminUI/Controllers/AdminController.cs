@@ -7,6 +7,7 @@ using System.Web.WebSockets;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
+using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -39,9 +40,10 @@ namespace VehicleTender.AdminUI.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AddVehicle(Vehicle vehicle)
+		public ActionResult AddVehicle(DbVehicleAddVmForAdmin vm)
 		{
-			return View();
+			var result = new VehicleDal();
+			return RedirectToAction("AddVehicle");
 		}
 
 		public ActionResult RetailCustomersGetAll()
@@ -52,7 +54,6 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult RetailCustomerAdd()
 		{
-			
 			return View(new RetailCustomerAddVM());
 		}
 

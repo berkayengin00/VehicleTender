@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var email = HttpContext.Current.Session["Admin"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -197,7 +201,7 @@
                         <img src="/TemplateContent/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Berkay Engin</a>
+                        <a href="#" class="d-block">@email</a>
                     </div>
                 </div>
 

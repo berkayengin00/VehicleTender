@@ -7,6 +7,7 @@ namespace VehicleTender.DAL.Concrete
     {
 	    public EfVehicleTenderContext():base("connection")
 	    {
+            base.Configuration.LazyLoadingEnabled = false;
 	    }
         public DbSet<User> Users { get; set; }
         public DbSet<BodyType> BodyTypes { get; set; }
@@ -38,7 +39,8 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<VehicleStatus> VehicleStatus { get; set; }
         public DbSet<VehicleStatusHistory> VehicleStatusHistories { get; set; }
         public DbSet<VehicleTramer> VehicleTramers { get; set; }
-        
+        public DbSet<LogType> LogTypes { get; set; } 
+        public DbSet<LogDetail> LogDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
