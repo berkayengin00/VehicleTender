@@ -9,7 +9,7 @@ namespace VehicleTender.Entity.Concrete
         public int TenderStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public bool TenderType { get; set; }// Kurumsal mi Bİreysel mi Ayrı tablo daha mantıklı onun id si verilebilir
+        public int TenderTypeId { get; set; }// Kurumsal mi Bİreysel mi Ayrı tablo daha mantıklı onun id si verilebilir
         public decimal StartPrice { get; set; }
         public decimal MinPrice { get; set; }
         public int CreatedBy { get; set; }
@@ -19,6 +19,7 @@ namespace VehicleTender.Entity.Concrete
 
         public Vehicle Vehicle { get; set; }
         public TenderStatus TenderStatus { get; set; }
+        public TenderType TenderType { get; set; }
 
     }
 }

@@ -32,6 +32,7 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderHistory> TenderHistories { get; set; }
         public DbSet<TenderStatus> TenderStatus{ get; set; }
+        public DbSet<TenderType> TenderTypes { get; set; }
         public DbSet<Tramer> Tramers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleBoughtAndSold> VehicleBoughtAndSolds { get; set; }

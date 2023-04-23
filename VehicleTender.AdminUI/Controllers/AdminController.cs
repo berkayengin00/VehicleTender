@@ -94,6 +94,17 @@ namespace VehicleTender.AdminUI.Controllers
 
 		}
 
+		public ActionResult TenderAdd()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult TenderAdd(int a)
+		{
+			return View();
+		}
+
 		/// <summary>
 		///	Sistemde kayıtlı olan adminin id'sini döndürür.
 		/// </summary>
