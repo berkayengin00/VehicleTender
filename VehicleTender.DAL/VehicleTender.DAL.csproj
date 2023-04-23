@@ -85,6 +85,7 @@
     <Compile Include="Concrete\ModelDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
     <Compile Include="Concrete\StockDal.cs" />
+    <Compile Include="Concrete\TenderTypeDal.cs" />
     <Compile Include="Concrete\VehicleDal.cs" />
     <Compile Include="Concrete\VehicleStatuDal.cs" />
     <Compile Include="Concrete\VehicleStatusHistoryDal.cs" />

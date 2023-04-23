@@ -12,6 +12,7 @@ using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
+	[Authorize]
 	public class AdminController : Controller
 	{
 		// GET: Admin
@@ -20,13 +21,7 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 			return View();
 		}
-
-		public ActionResult GetAllCars()
-		{
-
-			return View();
-		}
-
+		
 		public ActionResult AddVehicle()
 		{
 			var result = new VehicleAddVMForAdmin()
@@ -96,11 +91,16 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult TenderAdd()
 		{
-			return View();
+			TenderAddVMForAdmin vm = new TenderAddVMForAdmin()
+			{
+				CompanyNames = new CorporateCustomerDal().GetAllCompanyName(),
+				TenderTypes	= new TenderTypeDal().GetAllTenderTypes(),
+			};
+			return View(vm);
 		}
 
 		[HttpPost]
-		public ActionResult TenderAdd(int a)
+		public ActionResult TenderAdd(TenderAddVMForAdmin vm)
 		{
 			return View();
 		}

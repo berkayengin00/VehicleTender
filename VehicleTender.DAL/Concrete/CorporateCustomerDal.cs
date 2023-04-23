@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -37,6 +38,15 @@ namespace VehicleTender.DAL.Concrete
 				UpdatedDate = DateTime.Now,
 				UserType = 1,
 
+			});
+		}
+
+		public List<SelectListItem> GetAllCompanyName()
+		{
+			return base.Select(x=> new SelectListItem()
+			{
+				Text = x.CompanyName,
+				Value = x.Id.ToString()
 			});
 		}
 	}

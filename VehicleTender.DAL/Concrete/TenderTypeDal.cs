@@ -1,18 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.Entity.Concrete;
 
 namespace VehicleTender.DAL.Concrete
 {
-	public class FuelDal : CrudRepository<FuelType>
+	public class TenderTypeDal:CrudRepository<TenderType>
 	{
-		public FuelDal() : base(new EfVehicleTenderContext())
+		public TenderTypeDal() : base(new EfVehicleTenderContext())
 		{
 		}
 
-		public List<SelectListItem> GetAllFuelTypes()
+		public List<SelectListItem> GetAllTenderTypes()
 		{
 			return base.Select(x => new SelectListItem()
 			{
