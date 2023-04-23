@@ -98,6 +98,7 @@
     <Compile Include="Concrete\VehicleStatus.cs" />
     <Compile Include="Concrete\VehicleStatusHistory.cs" />
     <Compile Include="Concrete\VehicleTramer.cs" />
+    <Compile Include="Enum\TenderStatuType.cs" />
     <Compile Include="Enum\VehicleStatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BrandVM.cs" />

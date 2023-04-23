@@ -5,6 +5,7 @@ namespace VehicleTender.Entity.Concrete
     public class Tender : BaseEntity
     {
         public int VehicleId { get; set; }
+        public string TenderName { get; set; }
         public int TenderStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
