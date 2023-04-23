@@ -84,7 +84,10 @@
     <Compile Include="Concrete\LoginDal.cs" />
     <Compile Include="Concrete\ModelDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
+    <Compile Include="Concrete\StockDal.cs" />
     <Compile Include="Concrete\VehicleDal.cs" />
+    <Compile Include="Concrete\VehicleStatuDal.cs" />
+    <Compile Include="Concrete\VehicleStatusHistoryDal.cs" />
     <Compile Include="CrudRepository\CrudRepository.cs" />
     <Compile Include="CrudRepository\ICrudRepository.cs" />
     <Compile Include="Migrations\202304212028296_mig1.cs" />
@@ -98,6 +101,10 @@
     <Compile Include="Migrations\202304221841345_mig21.cs" />
     <Compile Include="Migrations\202304221841345_mig21.designer.cs">
       <DependentUpon>202304221841345_mig21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304230634398_mig3.cs" />
+    <Compile Include="Migrations\202304230634398_mig3.designer.cs">
+      <DependentUpon>202304230634398_mig3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304221841345_mig21.resx">
       <DependentUpon>202304221841345_mig21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304230634398_mig3.resx">
+      <DependentUpon>202304230634398_mig3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

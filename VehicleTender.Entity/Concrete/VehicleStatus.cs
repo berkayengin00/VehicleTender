@@ -2,6 +2,6 @@
 {
     public class VehicleStatus : BaseEntity
     {
-        public int StatusName { get; set; }
+        public string StatusName { get; set; }
     }
 }

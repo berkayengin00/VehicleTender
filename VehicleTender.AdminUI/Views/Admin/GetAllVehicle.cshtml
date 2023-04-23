@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "RetailCustomersGetAll";
+    ViewBag.Title = "GetAllVehicle";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
 
-@using VehicleTender.Entity.Concrete
-@model List<VehicleTender.Entity.Concrete.RetailCustomer>
+@using VehicleTender.Entity.View
+@model List<VehicleVMForAdmin>
 
 <section class="content">
     <div class="container-fluid">
@@ -25,33 +25,38 @@
                                     <th>Telefone Numarası</th>
                                     <th>Email</th>
                                     <th>Kayıt Tarihi</th>
-                                    <th></th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+                             
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (RetailCustomer item in Model)
+                                @foreach (VehicleVMForAdmin item in Model)
                                 {
                                     <tr>
-                                        @Html.HiddenFor(x => item.Id)
-                                        <td>@item.FirstName</td>
-                                        <td>@item.LastName</td>
-                                        <td>@item.PhoneNumber</td>
-                                        <td>@item.Email</td>
-                                        <td>@item.CreatedDate</td>
+                                        @Html.HiddenFor(x => item)
+                                        <td>@item.Model</td>
+                                        <td>@item.Brand</td>
+                                        <td>@item.BodyType</td>
+                                        <td>@item.FuelType</td>
+                                        <td>@item.GearType</td>
+                                        <td>@item.StatusName</td>
                                         <td>
-                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning"/>
+                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                             <tfoot>
                                 <tr>
-	                                <th>Ad</th>
-	                                <th>Soyad</th>
-	                                <th>Telefone Numarası</th>
-	                                <th>Email</th>
-	                                <th>Kayıt Tarihi</th>
-	                                <th></th>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Telefone Numarası</th>
+                                    <th>Email</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+                                    
                                 </tr>
                             </tfoot>
                         </table>
@@ -73,7 +78,7 @@
 	<script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": true, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -84,7 +89,9 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "pageLength": 3,
+                "pageLength": 5,
             });
         });</script>
 }
+
+

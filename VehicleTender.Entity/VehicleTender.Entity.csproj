@@ -98,16 +98,18 @@
     <Compile Include="Concrete\VehicleStatus.cs" />
     <Compile Include="Concrete\VehicleStatusHistory.cs" />
     <Compile Include="Concrete\VehicleTramer.cs" />
+    <Compile Include="Enum\VehicleStatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BrandVM.cs" />
     <Compile Include="View\CorporateCustomerAddVM.cs" />
-    <Compile Include="View\DB\Class1.cs" />
+    <Compile Include="View\DB\DbVehicleAddVmForAdmin.cs" />
     <Compile Include="View\LoginVM.cs" />
     <Compile Include="View\RetailCustomerAddVM.cs" />
     <Compile Include="View\RetailCustomerListVMForAdmin.cs" />
     <Compile Include="View\RetailCustomerVMForAdmin.cs" />
     <Compile Include="View\SessionVMForAdmin.cs" />
     <Compile Include="View\VehicleAddVMForAdmin.cs" />
+    <Compile Include="View\VehicleVMForAdmin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

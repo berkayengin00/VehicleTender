@@ -50,6 +50,12 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("AddVehicle");
 		}
 
+		public ActionResult GetAllVehicle()
+		{
+			var list = new VehicleDal().GetAllForAdmin();
+			return View(list);
+		}
+
 		public ActionResult RetailCustomersGetAll()
 		{
 			List<RetailCustomer> list = new RetailCustomerDal().GetAll();
