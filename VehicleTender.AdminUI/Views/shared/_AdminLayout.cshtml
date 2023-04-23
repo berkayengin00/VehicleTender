@@ -269,13 +269,13 @@
                                     <a href="" class="nav-link"><i class="fas fa-angle-left right"></i> Kullanıcıları Listele</a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="@Url.Action("RetailCustomersGetAll", "Admin")" class="nav-link">
+                                            <a href="@Url.Action("GetAll", "RetailCustomer")" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Bireysel Müşteriler</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="@Url.Action("CorporateCustomersGetAll", "Admin")" class="nav-link">
+                                            <a href="@Url.Action("GetAll", "CorporateCustomer")" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Kurumsal Müşteriler</p>
                                             </a>
@@ -295,13 +295,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="@Url.Action("RetailCustomerAdd", "Admin")" class="nav-link">
+                                            <a href="@Url.Action("Add", "RetailCustomer")" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Bireysel Müşteri Ekle</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="@Url.Action("CorporateCustomerAdd", "Admin")" class="nav-link">
+                                            <a href="@Url.Action("Add", "CorporateCustomer")" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Kurumsal Müşteri Ekle</p>
                                             </a>
@@ -333,13 +333,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("GetAllVehicle","Admin")" class="nav-link">
+                                    <a href="@Url.Action("GetAll","Vehicle")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Araç Listele</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="@Url.Action("AddVehicle","Admin")" class="nav-link">
+                                    <a href="@Url.Action("Add","Vehicle")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Araç Ekle</p>
                                     </a>
@@ -351,13 +351,13 @@
 	                                </a>
 	                                <ul class="nav nav-treeview">
 		                                <li class="nav-item">
-			                                <a href="@Url.Action("TenderAdd", "Admin")" class="nav-link">
+			                                <a href="@Url.Action("Add", "Tender")" class="nav-link">
 				                                <i class="far fa-circle nav-icon"></i>
 				                                <p>İhale Oluştur</p>
 			                                </a>
 		                                </li>
 		                                <li class="nav-item">
-			                                <a href="@Url.Action("BuyNowAdd", "Admin")" class="nav-link">
+			                                <a href="@Url.Action("Index", "Admin")" class="nav-link">
 				                                <i class="far fa-circle nav-icon"></i>
 				                                <p>Hemen Al-Satış</p>
 			                                </a>

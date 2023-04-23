@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "GetAllVehicle";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View
+@model List<VehicleVMForAdmin>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Telefone Numarası</th>
+                                    <th>Email</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (VehicleVMForAdmin item in Model)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(x => item)
+                                        <td>@item.Model</td>
+                                        <td>@item.Brand</td>
+                                        <td>@item.BodyType</td>
+                                        <td>@item.FuelType</td>
+                                        <td>@item.GearType</td>
+                                        <td>@item.StatusName</td>
+                                        <td>
+                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Telefone Numarası</th>
+                                    <th>Email</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Kayıt Tarihi</th>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section jscode
+{
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "pageLength": 5,
+            });
+        });</script>
+}
+
+
