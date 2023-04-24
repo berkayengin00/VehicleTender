@@ -9,6 +9,7 @@ namespace VehicleTender.Entity.View
 {
 	public class VehicleVMForAdmin
 	{
+		public string LicencePlate { get; set; }
 		public int VehicleId { get; set; }
 		public DateTime VehicleAge { get; set; }
 		public string Version { get; set; }

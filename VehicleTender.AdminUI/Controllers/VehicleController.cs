@@ -6,25 +6,32 @@ using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View.DB;
 using VehicleTender.Entity.View;
+using System.Runtime.InteropServices.ComTypes;
+using System.Web.Caching;
 
 namespace VehicleTender.AdminUI.Controllers
 {
 	[Authorize]
-    public class VehicleController : Controller
-    {
+	public class VehicleController : Controller
+	{
 		// GET: Vehicle
 		public ActionResult Add()
 		{
-			var result = new VehicleAddVMForAdmin()
+			if (HttpContext.Cache["vehicleFeatures"] ==null)
 			{
-				Brands = new BrandDal().GetAllBrand(),
-				BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
-				Colors = new ColorDal().GetAllColors(),
-				FuelTypes = new FuelDal().GetAllFuelTypes(),
-				GearTypes = new GearTypeDal().GetAllGearTypes(),
-				Models = new ModelDal().GetAllModels(),
-			};
-			return View(result);
+				var result = new VehicleAddVMForAdmin()
+				{
+					Brands = new BrandDal().GetAllBrand(),
+					BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
+					Colors = new ColorDal().GetAllColors(),
+					FuelTypes = new FuelDal().GetAllFuelTypes(),
+					GearTypes = new GearTypeDal().GetAllGearTypes(),
+					Models = new ModelDal().GetAllModels(),
+				};
+				HttpContext.Cache.Insert("vehicleFeatures", result, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+			}
+
+			return View(HttpContext.Cache["vehicleFeatures"] as VehicleAddVMForAdmin);
 		}
 
 		[HttpPost]

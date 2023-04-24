@@ -25,6 +25,7 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>Plaka</th>
                                     <th>Model</th>
                                     <th>Marka</th>
                                     <th>Kasa Tipi</th>
@@ -41,6 +42,7 @@
                                 {
                                     <tr>
                                         @Html.HiddenFor(x => item)
+                                        <td>@item.LicencePlate</td>
                                         <td>@item.Model</td>
                                         <td>@item.Brand</td>
                                         <td>@item.BodyType</td>
@@ -56,6 +58,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+	                                <th>Plaka</th>
 	                                <th>Model</th>
 	                                <th>Marka</th>
 	                                <th>Kasa Tipi</th>

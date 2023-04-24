@@ -107,6 +107,7 @@ namespace VehicleTender.DAL.Concrete
 						EmailOfTheAdder = user.Email,
 						FuelType = fuelType.Name,
 						GearType = gearType.Name,
+						LicencePlate = vehicle.LicensePlate,
 						StatusName = (from vsh in db.VehicleStatusHistories
 									  where vsh.VehicleId == vehicle.Id
 									  join vehicleStatus in db.VehicleStatus on vsh.VehicleStatusId equals vehicleStatus.Id
