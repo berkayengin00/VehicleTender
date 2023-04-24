@@ -11,6 +11,8 @@ namespace VehicleTender.Entity.View
 {
 	public class VehicleAddVMForAdmin
 	{
+		[DisplayName("Plaka")]
+		public string LicensePlate { get; set; }
 		[DisplayName("Model Yılı")]
 		public DateTime VehicleAge { get; set; }
 		[DisplayName("Versiyon")]

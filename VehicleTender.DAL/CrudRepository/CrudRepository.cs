@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Transactions;
 
 namespace VehicleTender.DAL.CrudRepository
 {
@@ -81,6 +82,13 @@ namespace VehicleTender.DAL.CrudRepository
 			return save ? Save() : 0;
 		}
 
+		public int Insert(IEnumerable<TEntity> entities, bool save = true)
+		{
+			//_db.Entry(entities).State = EntityState.Added;
+			_db.Set<TEntity>().AddRange(entities);
+			return save ? Save() : 0;
+		}
+
 		/// <summary>
 		/// Veri tabanında veri günceller geriye etkilenen satır sayısını döner
 		/// Eğer parametre olarak save değeri verilmezse tek kaydetme olur. Transaction Uygulanmaz
@@ -112,19 +120,19 @@ namespace VehicleTender.DAL.CrudRepository
 		/// </summary>
 		public void SaveWithTransaction()
 		{
-			//using (TransactionScope transaction = new TransactionScope())
-			//{
-			//	try
-			//	{
-			//		Save();
-			//		transaction.Complete();
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		transaction.Dispose();
-			//		throw ex;
-			//	}
-			//}
+			using (TransactionScope transaction = new TransactionScope())
+			{
+				try
+				{
+					Save();
+					transaction.Complete();
+				}
+				catch (Exception ex)
+				{
+					transaction.Dispose();
+					throw ex;
+				}
+			}
 		}
 
 		/// <summary>

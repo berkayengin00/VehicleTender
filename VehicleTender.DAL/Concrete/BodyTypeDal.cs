@@ -17,7 +17,7 @@ namespace VehicleTender.DAL.Concrete
 
 		public List<SelectListItem> GetAllBodyTypes()
 		{
-			return base.Select<SelectListItem>(x=> new SelectListItem()
+			return base.Select(x=> new SelectListItem()
 			{
 				Text = x.Name,
 				Value = x.Id.ToString()

@@ -4,6 +4,7 @@ namespace VehicleTender.Entity.Concrete
 {
     public class Vehicle : BaseEntity
     {
+	    public string LicensePlate { get; set; }
         public DateTime VehicleAge { get; set; }
         public string Version { get; set; }
         public int KiloMeter { get; set; }

@@ -85,6 +85,8 @@
     <Compile Include="Concrete\ModelDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
     <Compile Include="Concrete\StockDal.cs" />
+    <Compile Include="Concrete\TenderDal.cs" />
+    <Compile Include="Concrete\TenderDetailDal.cs" />
     <Compile Include="Concrete\TenderTypeDal.cs" />
     <Compile Include="Concrete\VehicleDal.cs" />
     <Compile Include="Concrete\VehicleStatuDal.cs" />
@@ -114,6 +116,30 @@
     <Compile Include="Migrations\202304231552587_mig5.cs" />
     <Compile Include="Migrations\202304231552587_mig5.designer.cs">
       <DependentUpon>202304231552587_mig5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304240849030_mig6.cs" />
+    <Compile Include="Migrations\202304240849030_mig6.designer.cs">
+      <DependentUpon>202304240849030_mig6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241013044_mig7.cs" />
+    <Compile Include="Migrations\202304241013044_mig7.designer.cs">
+      <DependentUpon>202304241013044_mig7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241545534_mig8.cs" />
+    <Compile Include="Migrations\202304241545534_mig8.designer.cs">
+      <DependentUpon>202304241545534_mig8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241844387_mig9.cs" />
+    <Compile Include="Migrations\202304241844387_mig9.designer.cs">
+      <DependentUpon>202304241844387_mig9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304242042199_mig10.cs" />
+    <Compile Include="Migrations\202304242042199_mig10.designer.cs">
+      <DependentUpon>202304242042199_mig10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304242050563_mig11.cs" />
+    <Compile Include="Migrations\202304242050563_mig11.designer.cs">
+      <DependentUpon>202304242050563_mig11.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,6 +175,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304231552587_mig5.resx">
       <DependentUpon>202304231552587_mig5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304240849030_mig6.resx">
+      <DependentUpon>202304240849030_mig6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241013044_mig7.resx">
+      <DependentUpon>202304241013044_mig7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241545534_mig8.resx">
+      <DependentUpon>202304241545534_mig8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241844387_mig9.resx">
+      <DependentUpon>202304241844387_mig9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304242042199_mig10.resx">
+      <DependentUpon>202304242042199_mig10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304242050563_mig11.resx">
+      <DependentUpon>202304242050563_mig11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleTender.Entity.Concrete;
 
 namespace VehicleTender.Entity.View
 {
@@ -11,5 +12,6 @@ namespace VehicleTender.Entity.View
 	{
 		public int AdminId { get; set; }
 		public string Email { get; set; }
+		public List<Role> Roles { get; set; }
 	}
 }

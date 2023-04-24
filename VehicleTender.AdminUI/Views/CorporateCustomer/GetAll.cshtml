@@ -12,7 +12,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+	                    <h3 class="card-title">Kurumsal Müşteriler</h3>
+	                    <div class="row text-end">
+		                    <div class="col-md3">
+			                    @Html.ActionLink("Kurumsal Müşteri Ekle", "Add", "CorporateCustomer", "Add", new { @class = "btn btn-outline-success" })
+		                    </div>
+	                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -27,7 +32,8 @@
                                     <th>Kayıt Tarihi</th>
                                     <th>İl</th>
                                     <th>İlçe</th>
-                                    <th>Adres</th>
+	                                <th>Adres</th>
+	                                <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,7 +89,7 @@
 
 @section jscode
 {
-    <script>
+	<script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -91,12 +97,13 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
-                "lengthChange": false,
-                "searching": false,
+                "lengthChange": true,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
+                "pageLength":7,
             });
         });</script>
 }

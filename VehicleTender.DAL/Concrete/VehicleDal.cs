@@ -85,6 +85,7 @@ namespace VehicleTender.DAL.Concrete
 			List<VehicleVMForAdmin> list = null;
 			using (EfVehicleTenderContext db =new EfVehicleTenderContext())
 			{
+				// todo group by bakılacak
 				list = (from vehicle in db.Vehicles
 					join model in db.Models on vehicle.ModelId equals model.Id
 					join brand in db.Brands on model.BrandId equals brand.Id
@@ -93,8 +94,6 @@ namespace VehicleTender.DAL.Concrete
 					join bodyType in db.FuelTypes on vehicle.BodyTypeId equals bodyType.Id
 					join color in db.Colors on vehicle.ColorId equals color.Id
 					join user in db.Users on vehicle.CreatedBy equals user.Id
-					//join vsh in db.VehicleStatusHistories on vehicle.Id equals vsh.Id orderby vsh.StatusChangeDate descending
-					//join vs  in db.VehicleStatus on vsh.VehicleStatusId equals vs.Id
 					select new VehicleVMForAdmin()
 					{
 						VehicleId = vehicle.Id,
@@ -108,7 +107,6 @@ namespace VehicleTender.DAL.Concrete
 						EmailOfTheAdder = user.Email,
 						FuelType = fuelType.Name,
 						GearType = gearType.Name,
-						//StatusName = vs.StatusName
 						StatusName = (from vsh in db.VehicleStatusHistories
 									  where vsh.VehicleId == vehicle.Id
 									  join vehicleStatus in db.VehicleStatus on vsh.VehicleStatusId equals vehicleStatus.Id

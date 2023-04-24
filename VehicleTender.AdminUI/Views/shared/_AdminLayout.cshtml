@@ -43,10 +43,9 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-        <!-- Preloader -->
+    <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="~/TemplateContent/img/logo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -183,9 +182,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="@Url.Action("Index","Admin")" class="brand-link">
                 <img src="~/TemplateContent/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Car T ender</span>
+                <span class="brand-text font-weight-light">Araç İhale</span>
             </a>
 
             <!-- Sidebar -->
@@ -255,16 +254,36 @@
                                 </p>
                             </a>
                         </li>*@
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Kullanıcı İşlemleri
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">3</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                        <li class="nav-item menu-open">
+	                        <a href="#" class="nav-link active">
+		                        <i class="nav-icon fas fa-copy"></i>
+		                        <p>
+			                        Kullanıcı İşlemleri
+			                        <i class="fas fa-angle-left right"></i>
+			                        <span class="badge badge-info right">3</span>
+		                        </p>
+	                        </a>
+	                        <ul class="nav nav-treeview">
+		                        <li class="nav-item">
+			                        <a href="@Url.Action("GetAll", "RetailCustomer")" class="nav-link">
+				                        <i class="far fa-circle nav-icon"></i>
+				                        <p>Bireysel Müşteriler</p>
+			                        </a>
+		                        </li>
+		                        <li class="nav-item">
+			                        <a href="@Url.Action("GetAll", "CorporateCustomer")" class="nav-link">
+				                        <i class="far fa-circle nav-icon"></i>
+				                        <p>Kurumsal Müşteriler</p>
+			                        </a>
+		                        </li>
+		                        <li class="nav-item">
+			                        <a href="pages/layout/boxed.html" class="nav-link">
+				                        <i class="far fa-circle nav-icon"></i>
+				                        <p>Sistem Çalışanları</p>
+			                        </a>
+		                        </li>
+	                        </ul>
+                            <!--<ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="" class="nav-link"><i class="fas fa-angle-left right"></i> Kullanıcıları Listele</a>
                                     <ul class="nav nav-treeview">
@@ -287,8 +306,8 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="nav-item">
+                                </li>-->
+                                @*<li class="nav-item">
                                     <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                                         <i class="fas fa-angle-left right"></i>
                                         <p>Kullanıcı Ekle</p>
@@ -313,14 +332,14 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="nav-item">
+                                </li>*@
+                                <!--<li class="nav-item">
                                     <a href="pages/layout/boxed.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Rol Ver</p>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </li>
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
@@ -338,12 +357,12 @@
                                         <p>Araç Listele</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                @*<li class="nav-item">
                                     <a href="@Url.Action("Add","Vehicle")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Araç Ekle</p>
                                     </a>
-                                </li>
+                                </li>*@
                                 <li class="nav-item">
 	                                <a href="pages/layout/boxed.html" class="nav-link">
                                         <i class="fas fa-angle-left right"></i>
@@ -351,9 +370,9 @@
 	                                </a>
 	                                <ul class="nav nav-treeview">
 		                                <li class="nav-item">
-			                                <a href="@Url.Action("Add", "Tender")" class="nav-link">
+			                                <a href="@Url.Action("GetAll", "Tender")" class="nav-link">
 				                                <i class="far fa-circle nav-icon"></i>
-				                                <p>İhale Oluştur</p>
+				                                <p>İhale</p>
 			                                </a>
 		                                </li>
 		                                <li class="nav-item">
@@ -366,7 +385,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
@@ -778,7 +797,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         @*<li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-search"></i>
@@ -802,7 +821,7 @@
                                 </li>
                             </ul>
                         </li>*@
-                        <li class="nav-header">MISCELLANEOUS</li>
+                        <!--<li class="nav-header">MISCELLANEOUS</li>
                         <li class="nav-item">
                             <a href="iframe.html" class="nav-link">
                                 <i class="nav-icon fas fa-ellipsis-h"></i>
@@ -898,7 +917,7 @@
                                 <i class="nav-icon far fa-circle text-info"></i>
                                 <p>Informational</p>
                             </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -912,9 +931,9 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <!--<div class="col-sm-6">
                             <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
+                        </div>--><!-- /.col -->
 <!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -929,14 +948,7 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>@DateTime.Now.Year</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 0.0.5
-            </div>
-        </footer>
-
+        @Html.Partial("/Views/Admin/Footer.cshtml")
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->

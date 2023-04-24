@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "GetAllVehicle";
+    ViewBag.Title = "GetAll";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
 
 @using VehicleTender.Entity.View
-@model List<VehicleVMForAdmin>
+@model List<TenderListVMForAdmin>
 
 <section class="content">
     <div class="container-fluid">
@@ -13,34 +13,38 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+	                    <h3 class="card-title">İhaleler</h3>
+	                    <div class="row text-end">
+		                    <div class="col-md3">
+			                    @Html.ActionLink("İhale Ekle", "Add", "Tender", "Add", new { @class = "btn btn-outline-success" })
+		                    </div>
+	                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Ad</th>
-                                    <th>Soyad</th>
-                                    <th>Telefone Numarası</th>
-                                    <th>Email</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                             
+                                    <th>İhale Adı</th>
+                                    <th>Başlangıç Zamanı</th>
+                                    <th>Bitiş Zamanı</th>
+                                    <th>İhale Durumu</th>
+                                    <th>İhale Tipi</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (VehicleVMForAdmin item in Model)
+                                @foreach (TenderListVMForAdmin item in Model)
                                 {
                                     <tr>
-                                        @Html.HiddenFor(x => item)
-                                        <td>@item.Model</td>
-                                        <td>@item.Brand</td>
-                                        <td>@item.BodyType</td>
-                                        <td>@item.FuelType</td>
-                                        <td>@item.GearType</td>
-                                        <td>@item.StatusName</td>
+                                        @Html.HiddenFor(x => item.TenderId)
+                                        <td>@item.TenderName</td>
+                                        <td>@item.StartDateTime</td>
+                                        <td>@item.EndDateTime</td>
+                                        <td>@item.TenderStatusName</td>
+                                        <td>@item.TenderTypeName</td>
+                                        <td>@item.IsActive</td>
                                         <td>
                                             <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
                                         </td>
@@ -49,21 +53,19 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Ad</th>
-                                    <th>Soyad</th>
-                                    <th>Telefone Numarası</th>
-                                    <th>Email</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                                    
+	                                <th>İhale Adı</th>
+	                                <th>Başlangıç Zamanı</th>
+	                                <th>Bitiş Zamanı</th>
+	                                <th>İhale Durumu</th>
+	                                <th>İhale Tipi</th>
+	                                <th>Aktif Mi?</th>
+	                                <th></th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
                 <!-- /.card -->
             </div>
             <!-- /.col -->
@@ -75,21 +77,21 @@
 
 @section jscode
 {
-	<script>
+    <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": true, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "pageLength": 5,
+                "pageLength": 6,
             });
         });</script>
 }

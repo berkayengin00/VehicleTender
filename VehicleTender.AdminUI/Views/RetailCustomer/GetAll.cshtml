@@ -13,7 +13,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+	                    <h3 class="card-title">Bireysel Müşteriler</h3>
+	                    <div class="row text-end">
+		                    <div class="col-md3">
+			                    @Html.ActionLink("Bireysel Müşteri Ekle", "Add", "RetailCustomer", "Add", new { @class = "btn btn-outline-success" })
+		                    </div>
+	                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -83,7 +88,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "pageLength": 3,
+                "pageLength": 7,
             });
         });</script>
 }

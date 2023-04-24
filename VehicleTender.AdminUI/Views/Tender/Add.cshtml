@@ -3,6 +3,7 @@
     ViewBag.Title = "TenderAdd";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
+
 @model VehicleTender.Entity.View.TenderAddVMForAdmin
 
 <div class="container">
@@ -74,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            @*<div class="form-group col-md-6">
                 @Html.LabelFor(x => x.MinPrice, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
@@ -82,17 +83,9 @@
                         @Html.TextBoxFor(x => x.MinPrice, new { @class = "form-control", Type = "number", placeholder = "Minimum Fiyat", required = "true" })
                     </div>
                 </div>
-            </div>
+            </div>*@
 
-            <div class="form-group col-md-6">
-                @Html.LabelFor(x => x.StartPrice, new { @class = "col-md-4 control-label" })
-                <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.StartPrice, new { @class = "form-control", Type = "number", placeholder = "Başlangıç Fiyatı", required = "true" })
-                    </div>
-                </div>
-            </div>
+
 
             @*<div class="form-group col-md-12">
                     @Html.LabelFor(x => x.Description, new { @class = "col-md-4 control-label" })
@@ -104,8 +97,11 @@
                     </div>
                 </div>*@
 
-            <div class="form-group col-md-12">
-                <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+            <div class="form-group col-md-12 row">
+	            <div class="text-end">
+                    <input type="submit" name="name" value="Kaydet ve Devam Et" class="btn btn-outline-success col-md-3" id="kaydet" />
+	            </div>
+	            
             </div>
         </fieldset>
     }

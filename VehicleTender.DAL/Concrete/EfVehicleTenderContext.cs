@@ -33,6 +33,7 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<TenderHistory> TenderHistories { get; set; }
         public DbSet<TenderStatus> TenderStatus{ get; set; }
         public DbSet<TenderType> TenderTypes { get; set; }
+        public DbSet<TenderDetail> TenderDetails { get; set; }
         public DbSet<Tramer> Tramers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleBoughtAndSold> VehicleBoughtAndSolds { get; set; }
@@ -64,7 +65,8 @@ namespace VehicleTender.DAL.Concrete
 
 			modelBuilder.Entity<RetailCustomer>().ToTable("RetailCustomers");
 			modelBuilder.Entity<CorporateCustomer>().ToTable("CorporateCustomers");
-		}
+			modelBuilder.Entity<Vehicle>().Property(x => x.LicensePlate).IsRequired();
+        }
 
     }
 }

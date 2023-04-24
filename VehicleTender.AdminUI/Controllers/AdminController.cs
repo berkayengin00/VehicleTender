@@ -18,7 +18,12 @@ namespace VehicleTender.AdminUI.Controllers
 		// GET: Admin
 		public ActionResult Index()
 		{
-			return View();
+			return RedirectToAction("GetAll","RetailCustomer");
+		}
+
+		public PartialViewResult Footer()
+		{
+			return PartialView();
 		}
 
 	}

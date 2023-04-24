@@ -31,7 +31,7 @@
                     <a href="../../index2.html" class="h1"><b>Araç </b>İhale</a>
                 </div>
                 <div class="card-body">
-                    <p class="login-box-msg">Login For Admin</p>
+                    <p class="login-box-msg">Admin için giriş ekranı</p>
 
 
                     <div class="input-group mb-3">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", placeholder = "password", required = "true", Type = "password" })
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", placeholder = "parola", required = "true", Type = "password" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -54,7 +54,7 @@
                         <div class="col-8">
                                 @Html.CheckBoxFor(x=>x.RememberMe,new {Type="checkbox"})
 		                        <label for="remember">
-			                        Remember Me
+			                        Beni Hatırla
 		                        </label>
                         </div>
                         <!-- /.col -->
@@ -76,10 +76,10 @@
                     <!-- /.social-auth-links -->
 
                     <p class="mb-1">
-                        <a href="forgot-password.html">I forgot my password</a>
+                        <a href="forgot-password.html">Şifremi Unuttum</a>
                     </p>
                     <p class="mb-0">
-                        <a href="register.html" class="text-center">Register a new membership</a>
+                        <a href="register.html" class="text-center">Kayıt Ol</a>
                     </p>
                 </div>
                 <!-- /.card-body -->

@@ -55,7 +55,7 @@
                 <div class="inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "text", placeholder = "Telefone Numarası", required = "true" })
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength=11 })
                     </div>
                 </div>
             </div>

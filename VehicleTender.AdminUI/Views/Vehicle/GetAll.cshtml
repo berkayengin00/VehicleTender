@@ -13,20 +13,26 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with minimal features & hover style</h3>
+	                    <h3 class="card-title">Araçlar</h3>
+	                    <div class="row text-end">
+		                    <div class="col-md3">
+			                    @Html.ActionLink("Araç Ekle", "Add", "Vehicle", "Add", new { @class = "btn btn-outline-success" })
+		                    </div>
+	                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Ad</th>
-                                    <th>Soyad</th>
-                                    <th>Telefone Numarası</th>
-                                    <th>Email</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
+                                    <th>Model</th>
+                                    <th>Marka</th>
+                                    <th>Kasa Tipi</th>
+                                    <th>Yakıt Türü</th>
+                                    <th>Vites Türü</th>
+                                    <th>Durumu</th>
+                                    <th>Color</th>
+                                    <th></th>
 
                                 </tr>
                             </thead>
@@ -41,6 +47,7 @@
                                         <td>@item.FuelType</td>
                                         <td>@item.GearType</td>
                                         <td>@item.StatusName</td>
+                                        <td>@item.Color</td>
                                         <td>
                                             <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
                                         </td>
@@ -49,14 +56,14 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Ad</th>
-                                    <th>Soyad</th>
-                                    <th>Telefone Numarası</th>
-                                    <th>Email</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-                                    <th>Kayıt Tarihi</th>
-
+	                                <th>Model</th>
+	                                <th>Marka</th>
+	                                <th>Kasa Tipi</th>
+	                                <th>Yakıt Türü</th>
+	                                <th>Vites Türü</th>
+	                                <th>Durumu</th>
+	                                <th>Color</th>
+	                                <th></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -84,7 +91,7 @@
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,

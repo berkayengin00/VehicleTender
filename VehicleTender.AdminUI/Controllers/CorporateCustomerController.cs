@@ -28,7 +28,11 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 			int result = new CorporateCustomerDal().Add(vm);
 			ViewBag.Result = result > 0 ? "Kurumsal Müşteri Kaydedildi" : "Hata!!!";
-			return result > 0 ? View("GetAll") : View("Add");
+			if (result>0)
+			{
+				RedirectToAction("GetAll");
+			}
+			return View("Add");
 
 		}
 	}

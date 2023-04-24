@@ -3,6 +3,7 @@
     ViewBag.Title = "AddVehicle";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
+@using System.Web.UI.WebControls
 @model VehicleTender.Entity.View.VehicleAddVMForAdmin
 <div class="container">
 
@@ -13,12 +14,21 @@
             <!-- Form Name -->
             <!--<legend>Contact Us Today!</legend>-->
             <!-- Text input-->
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.LicensePlate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            @Html.TextBoxFor(x => x.LicensePlate, new { @class = "form-control", required = true ,PlaceHolder="Plaka"})
+		            </div>
+	            </div>
+            </div>
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.BrandId, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.DropDownListFor(x => x.BrandId, Model.Brands, new { @class = "form-select", required = true })
+                        @Html.DropDownListFor(x => x.BrandId, Model.Brands, new { @class = "form-select", required = true})
                     </div>
                 </div>
             </div>
@@ -85,13 +95,23 @@
             </div>
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(x => x.Version, new { @class = "col-md-4 control-label" })
-                <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.Version, new { @class = "form-control", Type = "text", placeholder = "Versiyon Bilgisi", required = "true" })
-                    </div>
-                </div>
+	            @Html.LabelFor(x => x.Version, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.Version, new { @class = "form-control", Type = "text", placeholder = "Versiyon Bilgisi", required = "true" })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.VehicleAge, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.VehicleAge, new { @class = "form-control", Type = "date", placeholder = "Kaç Model?", required = "true" })
+		            </div>
+	            </div>
             </div>
 
             <div class="form-group col-md-12">

@@ -19,16 +19,11 @@ namespace VehicleTender.DAL.Concrete
 
 		public List<SelectListItem> GetAllBrand()
 		{
-			List<SelectListItem> list = null;
-			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			return base.Select(x => new SelectListItem()
 			{
-				list = db.Brands.Select(x => new SelectListItem()
-				{
-					Value = x.Id.ToString(),
-					Text = x.BrandName
-				}).ToList();
-			}
-			return list;
+				Value = x.Id.ToString(),
+				Text = x.BrandName
+			}).ToList();
 		}
 	}
 }
