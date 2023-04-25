@@ -66,6 +66,7 @@ namespace VehicleTender.DAL.Concrete
 			modelBuilder.Entity<RetailCustomer>().ToTable("RetailCustomers");
 			modelBuilder.Entity<CorporateCustomer>().ToTable("CorporateCustomers");
 			modelBuilder.Entity<Vehicle>().Property(x => x.LicensePlate).IsRequired();
+            
         }
 
     }

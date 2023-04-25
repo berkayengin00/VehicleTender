@@ -1,6 +1,6 @@
 ﻿@using VehicleTender.Entity.View
 @{
-	var email = (HttpContext.Current.Session["Admin"] as SessionVMForAdmin)?.Email;
+    var email = (HttpContext.Current.Session["Admin"] as SessionVMForAdmin)?.Email;
 }
 
 <!DOCTYPE html>
@@ -9,14 +9,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    
-    
+
+
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/TemplateContent/plugins/fontawesome-free/css/all.min.css">
-    
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -33,8 +33,8 @@
     <link rel="stylesheet" href="~/TemplateContent/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="~/TemplateContent/plugins/summernote/summernote-bs4.min.css">
-    
-    
+
+
     <!-- DataTables -->
     <link rel="stylesheet" href="~/TemplateContent/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="~/TemplateContent/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -43,7 +43,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-    <!-- Preloader -->
+        <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="~/TemplateContent/img/logo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
@@ -176,6 +176,9 @@
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout" href="@Url.Action("LogOut","Login")">Çıkış Yap</a>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -217,72 +220,72 @@
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         @*<li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard v1</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard v2</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index3.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Dashboard v3</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                        @*<li class="nav-item">
+                                <a href="pages/widgets.html" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Widgets
+                                        <span class="right badge badge-danger">New</span>
+                                    </p>
+                                </a>
+                            </li>*@
+                        <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
+                                    Kullanıcı İşlemleri
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">3</span>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
+                                    <a href="@Url.Action("GetAll", "RetailCustomer")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>Bireysel Müşteriler</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="@Url.Action("GetAll", "CorporateCustomer")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
+                                        <p>Kurumsal Müşteriler</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="pages/layout/boxed.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
+                                        <p>Sistem Çalışanları</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li>*@
-                        @*<li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Widgets
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>*@
-                        <li class="nav-item menu-open">
-	                        <a href="#" class="nav-link active">
-		                        <i class="nav-icon fas fa-copy"></i>
-		                        <p>
-			                        Kullanıcı İşlemleri
-			                        <i class="fas fa-angle-left right"></i>
-			                        <span class="badge badge-info right">3</span>
-		                        </p>
-	                        </a>
-	                        <ul class="nav nav-treeview">
-		                        <li class="nav-item">
-			                        <a href="@Url.Action("GetAll", "RetailCustomer")" class="nav-link">
-				                        <i class="far fa-circle nav-icon"></i>
-				                        <p>Bireysel Müşteriler</p>
-			                        </a>
-		                        </li>
-		                        <li class="nav-item">
-			                        <a href="@Url.Action("GetAll", "CorporateCustomer")" class="nav-link">
-				                        <i class="far fa-circle nav-icon"></i>
-				                        <p>Kurumsal Müşteriler</p>
-			                        </a>
-		                        </li>
-		                        <li class="nav-item">
-			                        <a href="pages/layout/boxed.html" class="nav-link">
-				                        <i class="far fa-circle nav-icon"></i>
-				                        <p>Sistem Çalışanları</p>
-			                        </a>
-		                        </li>
-	                        </ul>
                             <!--<ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="" class="nav-link"><i class="fas fa-angle-left right"></i> Kullanıcıları Listele</a>
@@ -307,7 +310,7 @@
                                         </li>
                                     </ul>
                                 </li>-->
-                                @*<li class="nav-item">
+                            @*<li class="nav-item">
                                     <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                                         <i class="fas fa-angle-left right"></i>
                                         <p>Kullanıcı Ekle</p>
@@ -333,7 +336,7 @@
                                         </li>
                                     </ul>
                                 </li>*@
-                                <!--<li class="nav-item">
+                            <!--<li class="nav-item">
                                     <a href="pages/layout/boxed.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Rol Ver</p>
@@ -358,30 +361,30 @@
                                     </a>
                                 </li>
                                 @*<li class="nav-item">
-                                    <a href="@Url.Action("Add","Vehicle")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Araç Ekle</p>
-                                    </a>
-                                </li>*@
+                                        <a href="@Url.Action("Add","Vehicle")" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Araç Ekle</p>
+                                        </a>
+                                    </li>*@
                                 <li class="nav-item">
-	                                <a href="pages/layout/boxed.html" class="nav-link">
+                                    <a href="pages/layout/boxed.html" class="nav-link">
                                         <i class="fas fa-angle-left right"></i>
-		                                <p>Araç İlanı Ekle</p>
-	                                </a>
-	                                <ul class="nav nav-treeview">
-		                                <li class="nav-item">
-			                                <a href="@Url.Action("GetAll", "Tender")" class="nav-link">
-				                                <i class="far fa-circle nav-icon"></i>
-				                                <p>İhale</p>
-			                                </a>
-		                                </li>
-		                                <li class="nav-item">
-			                                <a href="@Url.Action("Index", "Admin")" class="nav-link">
-				                                <i class="far fa-circle nav-icon"></i>
-				                                <p>Hemen Al-Satış</p>
-			                                </a>
-		                                </li>
-	                                </ul>
+                                        <p>Araç İlanı Ekle</p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("GetAll", "Tender")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>İhale</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Admin")" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Hemen Al-Satış</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -799,28 +802,28 @@
                             </ul>
                         </li>-->
                         @*<li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-search"></i>
-                                <p>
-                                    Search
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Simple Search</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/search/enhanced.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Enhanced</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>*@
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-search"></i>
+                                    <p>
+                                        Search
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="pages/search/simple.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Simple Search</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/search/enhanced.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Enhanced</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
                         <!--<li class="nav-header">MISCELLANEOUS</li>
                         <li class="nav-item">
                             <a href="iframe.html" class="nav-link">
@@ -933,8 +936,9 @@
                     <div class="row mb-2">
                         <!--<div class="col-sm-6">
                             <h1 class="m-0">Dashboard</h1>
-                        </div>--><!-- /.col -->
-<!-- /.col -->
+                        </div>-->
+                        <!-- /.col -->
+                        <!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -1006,7 +1010,7 @@
     <script src="~/TemplateContent/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/TemplateContent/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/TemplateContent/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    
+
     <!-- Page specific script -->
     <script src="~/TemplateContent/dist/js/pages/dashboard.js"></script>
     @RenderSection("jscode", false)

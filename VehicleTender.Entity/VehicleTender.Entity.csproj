@@ -106,18 +106,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BrandVM.cs" />
     <Compile Include="View\CorporateCustomerAddVM.cs" />
+    <Compile Include="View\CorporateCustomer\CorporateCustomerUpdateVM.cs" />
     <Compile Include="View\DB\DbVehicleAddVmForAdmin.cs" />
     <Compile Include="View\DB\TenderAndTenderDetailVmForAdmin.cs" />
     <Compile Include="View\LoginVM.cs" />
     <Compile Include="View\RetailCustomerAddVM.cs" />
     <Compile Include="View\RetailCustomerListVMForAdmin.cs" />
     <Compile Include="View\RetailCustomerVMForAdmin.cs" />
+    <Compile Include="View\RetailCustomer\RetailCustomerUpdateVM.cs" />
     <Compile Include="View\SessionVMForAdmin.cs" />
     <Compile Include="View\TenderAddVMForAdmin.cs" />
     <Compile Include="View\TenderDetailAddVMForAdmin.cs" />
     <Compile Include="View\TenderListVMForAdmin.cs" />
     <Compile Include="View\VehicleAddVMForAdmin.cs" />
+    <Compile Include="View\VehicleImageVM.cs" />
     <Compile Include="View\VehicleVMForAdmin.cs" />
+    <Compile Include="View\Vehicle\VehicleFeaturesForCache.cs" />
+    <Compile Include="View\Vehicle\VehicleUpdateVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -30,6 +30,8 @@
                                     <th>Telefone Numarası</th>
                                     <th>Email</th>
                                     <th>Kayıt Tarihi</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -37,14 +39,17 @@
                                 @foreach (RetailCustomer item in Model)
                                 {
                                     <tr>
-                                        @Html.HiddenFor(x => item.Id)
+                                        @*@Html.HiddenFor(x => item.Id)*@
                                         <td>@item.FirstName</td>
                                         <td>@item.LastName</td>
                                         <td>@item.PhoneNumber</td>
                                         <td>@item.Email</td>
                                         <td>@item.CreatedDate</td>
+                                        <td>@item.IsActive</td>
                                         <td>
-                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
+	                                        @Html.ActionLink("Sil", "SoftDelete", new {userId=@item.Id}, new { @class = "btn btn-outline-danger" })
+                                        </td><td>
+	                                        @Html.ActionLink("Güncelle", "Update", new {userId=@item.Id}, new { @class = "btn btn-outline-warning" })
                                         </td>
                                     </tr>
                                 }
@@ -55,7 +60,9 @@
                                     <th>Soyad</th>
                                     <th>Telefone Numarası</th>
                                     <th>Email</th>
-                                    <th>Kayıt Tarihi</th>
+	                                <th>Kayıt Tarihi</th>
+	                                <th>Aktif Mi?</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </tfoot>

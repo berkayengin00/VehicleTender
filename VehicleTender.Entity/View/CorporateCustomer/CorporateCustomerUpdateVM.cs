@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleTender.Entity.View
+namespace VehicleTender.Entity.View.CorporateCustomer
 {
-	public class CorporateCustomerAddVM
+	public class CorporateCustomerUpdateVM
 	{
-		
+		public int UserId { get; set; }
 		[DisplayName("Ad")]
 		public string FirstName { get; set; }
 		[DisplayName("Soyad")]
@@ -32,13 +32,11 @@ namespace VehicleTender.Entity.View
 		public string CompanyType { get; set; }
 		[DisplayName("Parola")]
 		public string PasswordHash { get; set; }
-		[DisplayName("Parola Tekrar")]
-		public string PasswordHashAgain { get; set; }
 		[DisplayName("Aktif Mi?")]
-		public bool IsActive { get; set; }=true;
+		public bool IsActive { get; set; } = true;
 		public int CreatedBy { get; set; }
 		public int UpdatedBy { get; set; }
-		public DateTime AddedDate { get; set; } = DateTime.Now;
+		public DateTime AddedDate { get; set; }
 		public DateTime UpdatedDate { get; set; } = DateTime.Now;
 	}
 }

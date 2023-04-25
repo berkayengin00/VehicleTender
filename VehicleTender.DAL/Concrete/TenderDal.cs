@@ -78,5 +78,15 @@ namespace VehicleTender.DAL.Concrete
 			}
 			return list;
 		}
+
+		public int SoftDelete(int tenderId)
+		{
+			Tender tender = Get(x=>x.Id==tenderId);
+			if (tender !=null)
+			{
+				tender.IsActive = false;
+			}
+			return Save();
+		}
 	}
 }

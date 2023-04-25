@@ -36,8 +36,8 @@ namespace VehicleTender.DAL.CrudRepository
 			#endregion
 
 			#region SoftDelete
-			//dbSet.GetType().GetProperty("isDeleted").SetValue(entity, 0);
-			//return Update(entity); 
+			//_db.Set<TEntity>().GetType().GetProperty("IsActive")?.SetValue(entity, 0);
+			//return Update(entity);
 			#endregion
 
 		}

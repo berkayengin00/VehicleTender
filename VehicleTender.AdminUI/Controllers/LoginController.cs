@@ -29,6 +29,10 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost]
         public ActionResult Index(LoginVM vm)
         {
+	        if (ModelState.IsValid && Session["Admin"] != null)
+	        {
+		        return RedirectToAction("GetAll", "RetailCustomer");
+	        }
 	        var result = new LoginDal().CheckAdmin(vm);
 
 	        if (result.IsSuccess && Session["Admin"]==null)
@@ -59,6 +63,12 @@ namespace VehicleTender.AdminUI.Controllers
 		        cookie.Expires = DateTime.Now.AddDays(-1);
 		        HttpContext.Response.Cookies.Add(cookie);
 	        }
+        }
+        public ActionResult LogOut()
+        {
+			FormsAuthentication.SignOut();
+			Session.Clear();
+			return RedirectToAction("Index");
         }
 	}
 }

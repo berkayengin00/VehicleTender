@@ -33,6 +33,8 @@
                                     <th>İl</th>
                                     <th>İlçe</th>
 	                                <th>Adres</th>
+	                                <th>Aktif Mi?</th>
+	                                <th></th>
 	                                <th></th>
                                 </tr>
                             </thead>
@@ -52,8 +54,11 @@
                                         <td>@item.Province</td>
                                         <td>@item.District</td>
                                         <td>@item.Neighbourhood</td>
+                                        <td>@item.IsActive</td>
                                         <th>
-                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
+                                            @Html.ActionLink("Sil","SoftDelete",new {userId=item.Id},new {@class="btn btn-outline-danger"})
+                                        </th><th>
+                                            @Html.ActionLink("Güncelle","Update",new {userId=item.Id},new {@class="btn btn-outline-warning"})
                                         </th>
                                     </tr>
                                 }
@@ -69,6 +74,8 @@
                                     <th>İl</th>
                                     <th>İlçe</th>
                                     <th>Adres</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </tfoot>

@@ -48,6 +48,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -89,10 +90,12 @@
     <Compile Include="Concrete\TenderDetailDal.cs" />
     <Compile Include="Concrete\TenderTypeDal.cs" />
     <Compile Include="Concrete\VehicleDal.cs" />
+    <Compile Include="Concrete\VehicleImageDal.cs" />
     <Compile Include="Concrete\VehicleStatuDal.cs" />
     <Compile Include="Concrete\VehicleStatusHistoryDal.cs" />
     <Compile Include="CrudRepository\CrudRepository.cs" />
     <Compile Include="CrudRepository\ICrudRepository.cs" />
+    <Compile Include="FileAdd\ImageAdd.cs" />
     <Compile Include="Migrations\202304212028296_mig1.cs" />
     <Compile Include="Migrations\202304212028296_mig1.designer.cs">
       <DependentUpon>202304212028296_mig1.cs</DependentUpon>
@@ -140,6 +143,18 @@
     <Compile Include="Migrations\202304242050563_mig11.cs" />
     <Compile Include="Migrations\202304242050563_mig11.designer.cs">
       <DependentUpon>202304242050563_mig11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304242307420_mig12.cs" />
+    <Compile Include="Migrations\202304242307420_mig12.designer.cs">
+      <DependentUpon>202304242307420_mig12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304252004003_mig13.cs" />
+    <Compile Include="Migrations\202304252004003_mig13.designer.cs">
+      <DependentUpon>202304252004003_mig13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304252031410_mig14.cs" />
+    <Compile Include="Migrations\202304252031410_mig14.designer.cs">
+      <DependentUpon>202304252031410_mig14.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,7 +209,17 @@
     <EmbeddedResource Include="Migrations\202304242050563_mig11.resx">
       <DependentUpon>202304242050563_mig11.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304242307420_mig12.resx">
+      <DependentUpon>202304242307420_mig12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304252004003_mig13.resx">
+      <DependentUpon>202304252004003_mig13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304252031410_mig14.resx">
+      <DependentUpon>202304252031410_mig14.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

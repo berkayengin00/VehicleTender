@@ -32,6 +32,7 @@
                                     <th>İhale Tipi</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +46,9 @@
                                         <td>@item.TenderStatusName</td>
                                         <td>@item.TenderTypeName</td>
                                         <td>@item.IsActive</td>
+                                        <th>
+	                                        @Html.ActionLink("Sil","SoftDelete",new {tenderId=item.TenderId},new {@class="btn btn-outline-danger"})
+                                        </th>
                                         <td>
                                             <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
                                         </td>
@@ -59,6 +63,7 @@
 	                                <th>İhale Durumu</th>
 	                                <th>İhale Tipi</th>
 	                                <th>Aktif Mi?</th>
+	                                <th></th>
 	                                <th></th>
                                 </tr>
                             </tfoot>

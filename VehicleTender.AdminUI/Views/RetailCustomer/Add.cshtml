@@ -3,6 +3,7 @@
     ViewBag.Title = "RetailCustomerAdd";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
+
 @model VehicleTender.Entity.View.RetailCustomerAddVM
 <div class="container">
 
@@ -84,8 +85,11 @@
 
         </fieldset>
 
-        <div class="form-group row text-end">
-            <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
-        </div>
+	    <div class="form-group row text-end">
+		    <div class="">
+                <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-2" id="kaydet" />
+		    </div>
+		    
+	    </div>
     }
 </div>

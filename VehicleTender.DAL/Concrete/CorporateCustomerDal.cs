@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
+using VehicleTender.Entity.View.CorporateCustomer;
+using VehicleTender.Entity.View.RetailCustomer;
 
 namespace VehicleTender.DAL.Concrete
 {
@@ -24,19 +27,18 @@ namespace VehicleTender.DAL.Concrete
 				LastName = vm.LastName,
 				CompanyType = vm.CompanyType,
 				CompanyName = vm.CompanyName,
-				CreatedBy = 1,
-				CreatedDate = DateTime.Now,
+				CreatedBy = vm.CreatedBy,
+				CreatedDate = vm.AddedDate,
 				District = vm.District,
 				Email = vm.Email,
-				IsActive = true,
-				IsVerify = true,
+				IsActive = vm.IsActive,
+				IsVerify = vm.IsVerify,
 				Neighbourhood = vm.Neighbourhood,
 				PasswordHash = vm.PasswordHash,
 				PhoneNumber = vm.PhoneNumber,
 				Province = vm.Province,
-				UpdatedBy = 1,
-				UpdatedDate = DateTime.Now,
-				UserType = 1,
+				UpdatedBy = vm.UpdatedBy,
+				UpdatedDate = vm.UpdatedDate
 
 			});
 		}
@@ -48,6 +50,80 @@ namespace VehicleTender.DAL.Concrete
 				Text = x.CompanyName,
 				Value = x.Id.ToString()
 			});
+		}
+		/// <summary>
+		/// Result ın datası CorporateCustomerUpdateVM tipinde olacak.
+		/// Geriye id bilgisene göre kullanıcı bilgilerini döndürür.
+		/// Kurumsal Müşteri Güncelleme sayfasında kullanılır.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public Result<CorporateCustomerUpdateVM> GetUserByUserId(int userId)
+		{
+			CorporateCustomerUpdateVM result = null;
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			{
+				result = (from c in db.CorporateCustomers
+					where c.Id == userId
+					select new CorporateCustomerUpdateVM()
+					{
+						UserId= c.Id,
+						FirstName = c.FirstName,
+						LastName = c.LastName,
+						CompanyType = c.CompanyType,
+						CompanyName = c.CompanyName,
+						District = c.District,
+						Email = c.Email,
+						IsActive = c.IsActive,
+						IsVerify = c.IsVerify,
+						Neighbourhood = c.Neighbourhood,
+						PhoneNumber = c.PhoneNumber,
+						Province = c.Province,
+						UpdatedBy = c.UpdatedBy,
+						UpdatedDate = c.UpdatedDate,
+						AddedDate = c.CreatedDate,
+						CreatedBy = c.CreatedBy,
+						PasswordHash = c.PasswordHash
+						
+					}).SingleOrDefault();
+			}
+			return new Result<CorporateCustomerUpdateVM>(result != null ? "Kullanıcı Mevcut" : "Boş", result, result != null);
+		}
+
+		public bool Update(CorporateCustomerUpdateVM vm)
+		{
+			var corporateCustomer = base.Get(x=>x.Id==vm.UserId);
+			if (corporateCustomer!=null)
+			{
+				corporateCustomer.Province= vm.Province;
+				corporateCustomer.Neighbourhood = vm.Neighbourhood;
+				corporateCustomer.District = vm.District;
+				corporateCustomer.PhoneNumber = vm.PhoneNumber;
+				corporateCustomer.IsActive = vm.IsActive;
+				corporateCustomer.IsVerify = vm.IsVerify;
+				corporateCustomer.UpdatedBy = vm.UpdatedBy;
+				corporateCustomer.UpdatedDate = vm.UpdatedDate;
+				corporateCustomer.PasswordHash = vm.PasswordHash;
+				corporateCustomer.CompanyType = vm.CompanyType;
+				corporateCustomer.CompanyName = vm.CompanyName;
+				corporateCustomer.LastName = vm.LastName;
+				corporateCustomer.FirstName = vm.FirstName;
+				corporateCustomer.Email = vm.Email;
+				corporateCustomer.CreatedBy = vm.CreatedBy;
+				corporateCustomer.CreatedDate = vm.AddedDate;
+			}
+			return Save()>0;
+			
+		}
+
+		public int SoftDelete(int id)
+		{
+			var corporateCustomer = base.Get(x => x.Id == id);
+			if (corporateCustomer != null)
+			{
+				corporateCustomer.IsActive = false;
+			}
+			return Save();
 		}
 	}
 }

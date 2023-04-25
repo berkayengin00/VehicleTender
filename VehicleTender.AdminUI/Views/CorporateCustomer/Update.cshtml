@@ -1,13 +1,15 @@
-﻿
+﻿@model VehicleTender.Entity.View.CorporateCustomer.CorporateCustomerUpdateVM
 @{
-    ViewBag.Title = "CorporateCustomerAdd";
+    ViewBag.Title = "Update";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
-@model VehicleTender.Entity.View.CorporateCustomerAddVM
+
 <div class="container">
 
-    @using (@Html.BeginForm("Add", "CorporateCustomer", FormMethod.Post, new { @class = "well form-horizontal" }))
+    @using (@Html.BeginForm("Update", "CorporateCustomer", FormMethod.Post, new { @class = "well form-horizontal" }))
     {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.UserId)
         <fieldset class="row">
 
             <!-- Form Name -->
@@ -55,7 +57,7 @@
                 <div class="inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength=11 })
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength = 11 })
                     </div>
                 </div>
             </div>
@@ -119,68 +121,45 @@
             </div>
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(x => x.PasswordHash, new { @class = "col-md-4 control-label" })
-                <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true" })
-                    </div>
-                </div>
+	            @Html.LabelFor(x => x.PasswordHash, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true" })
+		            </div>
+	            </div>
             </div>
+            @* todo Eklenen tarih boş geliyor bakılacak*@
+            @Html.HiddenFor(x=>x.AddedDate)
+
+            @*<div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.AddedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+			            @Html.TextBoxFor(x => x.AddedDate, new { @class = "form-control", Type = "datetime", required = "true",disabled=false,value= Model.AddedDate, placeholder= "{0:dd/MM/yyyy}" })
+		            </div>
+	            </div>
+            </div>*@
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(x => x.PasswordHashAgain, new { @class = "col-md-4 control-label" })
-                <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.PasswordHashAgain, new { @class = "form-control", Type = "password", placeholder = "Parola Tekrar", required = "true" })
-                    </div>
-                </div>
+	            @Html.LabelFor(x => x.UpdatedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+			            @Html.TextBoxFor(x => x.UpdatedDate, new { @class = "form-control", Type = "datetime", required = "true" ,disabled=false})
+		            </div>
+	            </div>
             </div>
-
-
 
         </fieldset>
 
-	    <div class="form-group row text-end">
-		    <div>
+        <div class="form-group row text-end">
+            <div>
                 <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
-		    </div>
-		    
-	    </div>
+            </div>
+
+        </div>
     }
 </div>
-
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" id="myToast">
-        <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            @{
-                ViewBag.Result?.ToString();
-            }
-        </div>
-    </div>
-</div>
-
-@section jscode
-{
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var btn = document.getElementById("kaydet");
-            var element = document.getElementById("myToast");
-
-            // Create toast instance
-            var myToast = new bootstrap.Toast(element);
-
-            btn.addEventListener("click", function () {
-                myToast.show();
-            });
-        });
-    </script>
-}
 

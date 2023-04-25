@@ -16,7 +16,7 @@ namespace VehicleTender.DAL.Concrete
 			SessionVMForAdmin admin = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				var result = (from user in db.Users
+				admin = (from user in db.Users
 					join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
 					join role in db.Roles on roleUser.RoleId equals role.Id
 					where user.Email == vm.Email && user.PasswordHash == vm.Password
@@ -26,7 +26,7 @@ namespace VehicleTender.DAL.Concrete
 						Email = g.Key.Email,
 						AdminId = g.Key.Id,
 						Roles = g.ToList()
-					}).ToList();
+					}).SingleOrDefault();
 
 
 				//admin = db.Users.Where(x => x.Email == vm.Email && x.PasswordHash == vm.Password).Select(x => new SessionVMForAdmin() { AdminId = x.Id, Email = x.Email }).SingleOrDefault();

@@ -63,6 +63,12 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new TenderDal().GetAll());
 		}
 
+		public ActionResult SoftDelete(int tenderId)
+		{
+			new TenderDal().SoftDelete(tenderId);
+			return RedirectToAction("GetAll");
+		}
+
 		[NonAction]
 		public int GetUserId()
 		{

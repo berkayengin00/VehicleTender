@@ -2229,6 +2229,9 @@
     <Content Include="Views\Tender\AddDetail.cshtml" />
     <Content Include="Views\Tender\GetAll.cshtml" />
     <Content Include="Views\Admin\Footer.cshtml" />
+    <Content Include="Views\RetailCustomer\Update.cshtml" />
+    <Content Include="Views\CorporateCustomer\Update.cshtml" />
+    <Content Include="Views\Vehicle\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

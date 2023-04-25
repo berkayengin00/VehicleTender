@@ -11,7 +11,7 @@ namespace VehicleTender.Entity.View
 	{
 		public string LicencePlate { get; set; }
 		public int VehicleId { get; set; }
-		public DateTime VehicleAge { get; set; }
+		public short VehicleYear { get; set; }
 		public string Version { get; set; }
 		public int KiloMeter { get; set; }
 		public string Description { get; set; }
@@ -24,6 +24,7 @@ namespace VehicleTender.Entity.View
 		public string StatusName { get; set; }
 		public int VehicleStatusId { get; set; }
 		public string EmailOfTheAdder { get; set; }
+		public bool IsActive { get; set; }
 		
 	}
 }

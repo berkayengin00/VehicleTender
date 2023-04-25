@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VehicleTender.Entity.View
+namespace VehicleTender.Entity.View.RetailCustomer
 {
-	public class RetailCustomerAddVM
+	public class RetailCustomerUpdateVM
 	{
+		public int UserId { get; set; }
 		[DisplayName("Ad")]
 		public string FirstName { get; set; }
 		[DisplayName("Soyad")]
@@ -25,9 +28,9 @@ namespace VehicleTender.Entity.View
 		public bool IsActive { get; set; }
 		public int CreatedBy { get; set; }
 		public int UpdatedBy { get; set; }
-		public DateTime AddedDate { get; set; }=DateTime.Now;
+		[DisplayName("Eklenme Tarihi")]
+		public DateTime AddedDate { get; set; }
+		[DisplayName("Değişiklik Tarihi")]
 		public DateTime UpdatedDate { get; set; }=DateTime.Now;
-		
-		
 	}
 }
