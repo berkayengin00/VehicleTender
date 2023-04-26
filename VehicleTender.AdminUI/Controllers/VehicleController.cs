@@ -39,15 +39,15 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(result);
 		}
 		// todo bütün postlara validateantiforgerytoken ekle
-		[HttpPost]
+		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(DbVehicleAddVmForAdmin vm,List<HttpPostedFileBase> Images)
 		{
-			new ImageAdd().AddImage(Images);
+			List<string> imagePathList= new ImageAdd().AddImage(Images);
 			
 			// todo vehicleage için view üzerinde ekleme yapılacak
 			vm.CreatedBy = vm.UpdatedBy = GetUserId();
 			vm.UserId = GetUserId();
-			var result = new VehicleDal().Add(vm);
+			var result = new VehicleDal().Add(vm,imagePathList);
 			return RedirectToAction("GetAll");
 		}
 

@@ -5,6 +5,7 @@ using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebSockets;
+using VehicleTender.AdminUI.Filters;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -12,7 +13,7 @@ using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
-	[Authorize]
+	[Authorize,CheckRole("Admin","Lale","Sumbul")]
 	public class AdminController : Controller
 	{
 		// GET: Admin
@@ -32,4 +33,5 @@ namespace VehicleTender.AdminUI.Controllers
 		}
 
 	}
+
 }

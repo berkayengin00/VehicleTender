@@ -10,17 +10,20 @@ namespace VehicleTender.DAL.FileAdd
 {
 	public class ImageAdd
 	{
-		public List<> AddImage(List<HttpPostedFileBase> images,int vehicleId)
+		public List<string> AddImage(List<HttpPostedFileBase> images)
 		{
+			// db ye kaydedilecek olan path
+			string savepath = "/TemplateContent/img/DbAddedImg/";
+
 			List<string> imagePaths = new List<string>();
 			foreach (var item in images)
 			{
 				if (item.ContentLength > 0)
 				{
 					var image = Path.GetFileName(item.FileName);
-					var path = Path.Combine(HttpContext.Current.Server.MapPath("~/TemplateContent/img/"), image);
+					var path = Path.Combine(HttpContext.Current.Server.MapPath("~/TemplateContent/img/DbAddedImg"), image);
 					item.SaveAs(path);
-					imagePaths.Add(path);
+					imagePaths.Add(savepath+image);
 				}
 			}
 			return imagePaths;

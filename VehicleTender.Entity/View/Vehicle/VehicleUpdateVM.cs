@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using VehicleTender.Entity.Concrete;
 
 namespace VehicleTender.Entity.View.Vehicle
 {
@@ -42,5 +43,6 @@ namespace VehicleTender.Entity.View.Vehicle
 		public VehicleFeaturesForCache VehicleFeaturesForCache { get; set; }
 		public int VehicleStatusId { get; set; }
 		public List<SelectListItem> VehicleStatusList { get; set; }
+		public List<VehicleImageVM> vehicleImages { get; set; }
 	}
 }

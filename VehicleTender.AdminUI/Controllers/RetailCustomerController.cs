@@ -18,7 +18,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new RetailCustomerAddVM());
 		}
 
-		[HttpPost]
+		[HttpPost,ValidateAntiForgeryToken]
 		public ActionResult Add(RetailCustomerAddVM vm)
 		{
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();
@@ -42,7 +42,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("GetAll");
 		}
 
-		[HttpPost]
+		[HttpPost,ValidateAntiForgeryToken]
 		public ActionResult Update(RetailCustomerUpdateVM vm)
 		{
 			vm.UpdatedBy = GetUserId();

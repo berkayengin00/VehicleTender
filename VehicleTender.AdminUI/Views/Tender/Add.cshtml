@@ -10,6 +10,7 @@
 
     @using (@Html.BeginForm("Add", "Tender", FormMethod.Post, new { @class = "well form-horizontal" }))
     {
+        @Html.AntiForgeryToken()
         <fieldset class="row">
 
             <!-- Form Name -->

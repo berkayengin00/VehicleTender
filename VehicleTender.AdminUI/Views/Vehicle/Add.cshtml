@@ -9,13 +9,10 @@
 
     @using (@Html.BeginForm("Add", "Vehicle", FormMethod.Post, new { @class = "well form-horizontal", enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
         <fieldset class="row">
 
-            <!-- Form Name -->
-            <!--<legend>Contact Us Today!</legend>-->
-            <!-- Text input-->
-
-            <div class="form-group col-md-6">
+	        <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.LicensePlate, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
@@ -130,7 +127,7 @@
             
             
 
-            @*<div class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <div class="card card-default">
                     <div class="card-header">
                         <h3 class="card-title">Araç Görsellerini Ekle<small><em>(Zorunlu Değil)</em></small></h3>
@@ -202,7 +199,7 @@
                     </div>
                 </div>
 
-            </div>*@
+            </div>
 
             <div class="form-group col-md-12">
                 <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />

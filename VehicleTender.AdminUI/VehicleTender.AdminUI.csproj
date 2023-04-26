@@ -2051,6 +2051,8 @@
     <Compile Include="Controllers\RetailCustomerController.cs" />
     <Compile Include="Controllers\TenderController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Filters\CheckRole.cs" />
+    <Compile Include="Filters\CheckUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2242,6 +2244,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="TemplateContent\img\DbAddedImg\" />
     <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>

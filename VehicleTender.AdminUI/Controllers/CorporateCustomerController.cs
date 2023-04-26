@@ -24,7 +24,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new CorporateCustomerAddVM());
 		}
 
-		[HttpPost]
+		[HttpPost,ValidateAntiForgeryToken]
 		public ActionResult Add(CorporateCustomerAddVM vm)
 		{
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();

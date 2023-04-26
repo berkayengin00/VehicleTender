@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VehicleTender.AdminUI.Filters;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 
@@ -14,6 +15,11 @@ namespace VehicleTender.AdminUI.Controllers
 		// GET: Login
 		public ActionResult Index()
 		{
+			
+			if (ModelState.IsValid && Session["Admin"]!=null)
+			{
+				return RedirectToAction("Index", "Admin");
+			}
 			var test = Request.Cookies["loginInfo"];
 			LoginVM vm = new LoginVM();
 			if (test != null)
@@ -26,26 +32,17 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(vm);
 		}
 
-		[HttpPost]
-        public ActionResult Index(LoginVM vm)
+		[HttpPost,CheckUser,ValidateAntiForgeryToken]
+        public ActionResult Index(LoginVM loginVm)
         {
-	        if (ModelState.IsValid && Session["Admin"] != null)
+	        if (!ModelState.IsValid)
 	        {
-		        return RedirectToAction("GetAll", "RetailCustomer");
+		        return RedirectToAction("Index");
+		      
 	        }
-	        var result = new LoginDal().CheckAdmin(vm);
-
-	        if (result.IsSuccess && Session["Admin"]==null)
-	        {
-				RememberMe(vm.RememberMe,vm.Email);
-				Session.Add("Admin",result.Data);
-				FormsAuthentication.SetAuthCookie(result.Data.Email,true);
-				return RedirectToAction("Index", "Admin");
-			}
-
-	        return View("Index");
+	        return RedirectToAction("Index","Admin");
         }
-
+		[NonAction]
         public void RememberMe(bool rememberMe,string email)
         {
 	        // beni hatırla seçili ise ve daha önce beni hatırla yapılmamışsa girer

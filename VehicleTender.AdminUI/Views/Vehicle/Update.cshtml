@@ -6,13 +6,20 @@
 
 @model VehicleTender.Entity.View.Vehicle.VehicleUpdateVM
 
+@section head{
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="../plugins/ekko-lightbox/ekko-lightbox.css">
+}
+
 <div class="container">
 
     @using (@Html.BeginForm("Update", "Vehicle", FormMethod.Post, new { @class = "well form-horizontal" }))
     {
         <fieldset class="row">
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(x=>x.VehicleId)
+            @Html.HiddenFor(x => x.VehicleId)
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.LicensePlate, new { @class = "col-md-4 control-label" })
@@ -82,15 +89,15 @@
                     </div>
                 </div>
             </div>
-            
+
             @*Durum Bilgisi*@
             <div class="form-group col-md-6">
-	            @Html.LabelFor(x => x.VehicleStatusId, new { @class = "col-md-4 control-label" })
-	            <div class="inputGroupContainer">
-		            <div class="input-group">
-			            @Html.DropDownListFor(x => x.VehicleStatusId, Model.VehicleStatusList, new { @class = "form-select", required = true})
-		            </div>
-	            </div>
+                @Html.LabelFor(x => x.VehicleStatusId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.VehicleStatusId, Model.VehicleStatusList, new { @class = "form-select", required = true })
+                    </div>
+                </div>
             </div>
 
             <div class="form-group col-md-6">
@@ -118,7 +125,7 @@
                 <div class="inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.VehicleYear, new { @class = "form-control", Type = "number", placeholder = "Kaç Model?", required = "true",value=Model.VehicleYear })
+                        @Html.TextBoxFor(x => x.VehicleYear, new { @class = "form-control", Type = "number", placeholder = "Kaç Model?", required = "true", value = Model.VehicleYear })
                     </div>
                 </div>
             </div>
@@ -133,6 +140,27 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title">Araç Fotoğrafları</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var item in Model.vehicleImages)
+                            {
+                                <div class="col-sm-2">
+                                    <a href="" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+                                        <img src="@item.ImagePath" class="img-fluid mb-2" alt="white sample" />
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group col-md-12">
                 <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
             </div>
@@ -142,3 +170,24 @@
     }
 </div>
 
+@section jscode
+{
+    <!-- Ekko Lightbox -->
+    <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <script>
+        $(function () {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.filter-container').filterizr({ gutterPixels: 3 });
+            $('.btn[data-filter]').on('click', function () {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
+}

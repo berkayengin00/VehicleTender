@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Web.UI.WebControls;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
@@ -23,7 +24,7 @@ namespace VehicleTender.DAL.Concrete
 
 		}
 
-		public int Add(DbVehicleAddVmForAdmin vm)
+		public int Add(DbVehicleAddVmForAdmin vm, List<string> imageList)
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
@@ -62,7 +63,7 @@ namespace VehicleTender.DAL.Concrete
 						CreatedDate = DateTime.Now,
 						PreliminaryValuationPrice = 10000,
 						UpdatedBy = vm.UserId,
-						
+
 					});
 					new VehicleStatusHistoryDal().Insert(new VehicleStatusHistory()
 					{
@@ -71,6 +72,11 @@ namespace VehicleTender.DAL.Concrete
 						StatusChangeDate = DateTime.Now,
 						VehicleId = vehicleId
 					});
+
+					if (imageList != null)
+					{
+						new VehicleImageDal().ImagesAdd(vehicle.Id, imageList);
+					}
 
 					Save();
 					tran.Complete();
@@ -146,6 +152,7 @@ namespace VehicleTender.DAL.Concrete
 							  LicensePlate = vehicle.LicensePlate,
 							  VehicleId = vehicle.Id,
 							  VehicleYear = vehicle.VehicleYear,
+							  vehicleImages = db.VehicleImages.Where(x => x.VehicleId == vehicleId).Select(x => new VehicleImageVM() { VehicleId = x.VehicleId, ImagePath = x.ImagePath }).ToList(),
 							  VehicleStatusId = (from vsh in db.VehicleStatusHistories
 												 where vsh.VehicleId == vehicle.Id
 												 join vehicleStatus in db.VehicleStatus on vsh.VehicleStatusId equals vehicleStatus.Id
