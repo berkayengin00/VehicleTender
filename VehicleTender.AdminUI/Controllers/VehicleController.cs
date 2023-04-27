@@ -38,7 +38,7 @@ namespace VehicleTender.AdminUI.Controllers
 			}
 			return View(result);
 		}
-		// todo bütün postlara validateantiforgerytoken ekle
+		// todo bütün postlara validateantiforgerytoken ekle - yapıldı
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(DbVehicleAddVmForAdmin vm,List<HttpPostedFileBase> Images)
 		{

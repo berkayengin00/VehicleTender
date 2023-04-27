@@ -118,6 +118,8 @@
     <Compile Include="View\TenderAddVMForAdmin.cs" />
     <Compile Include="View\TenderDetailAddVMForAdmin.cs" />
     <Compile Include="View\TenderListVMForAdmin.cs" />
+    <Compile Include="View\Tender\TenderDetailVM.cs" />
+    <Compile Include="View\Tender\TenderUpdateVMForAdmin.cs" />
     <Compile Include="View\VehicleAddVMForAdmin.cs" />
     <Compile Include="View\VehicleImageVM.cs" />
     <Compile Include="View\VehicleVMForAdmin.cs" />

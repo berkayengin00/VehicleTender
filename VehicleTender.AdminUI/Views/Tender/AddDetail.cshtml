@@ -12,7 +12,7 @@
 
     @using (@Html.BeginForm("AddDetail", "Tender", FormMethod.Post, new { @class = "well form-horizontal" }))
     {
-        @Html.AntiForgeryToken()
+        @*@Html.AntiForgeryToken()*@
         <fieldset class="row">
 
             <!-- Form Name -->
@@ -145,7 +145,7 @@
                 success: function (result) {    
                     debugger;
                     localStorage.removeItem("tenderDetails");
-                    window.location.reload();
+                    /*window.location.reload();*/
                     alert("İhale oluşturuldu")
                 },
                 error: function () {

@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.DB;
+using VehicleTender.Entity.View.Tender;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -37,7 +41,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new TenderDetailAddVMForAdmin());
 		}
 
-		[HttpPost, ValidateAntiForgeryToken]
+		[HttpPost]
 		public ActionResult AddDetail(string jsonData)
 		{
 			if (Session["Tender"] != null)
@@ -67,6 +71,44 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 			new TenderDal().SoftDelete(tenderId);
 			return RedirectToAction("GetAll");
+		}
+
+		public ActionResult Update(int tenderId)
+		{
+			Session.Clear();
+			TenderUpdateVMForAdmin vm = new TenderDal().GetTenderById(tenderId);
+			if (Session["delete"] == null)
+			{
+				Session.Add("delete", vm.TenderDetailList);
+			}
+			else
+			{
+				vm.TenderDetailList = Session["delete"] as List<TenderDetailVM>;
+			}
+
+			return View(vm);
+		}
+
+		[HttpPost]
+		public ActionResult Update(TenderUpdateVMForAdmin vm)
+		{
+			return View();
+		}
+
+		public ActionResult DeleteDetail(int id)
+		{
+			if (Session["deleteDetail"]!=null)
+			{
+				string deletedDetails = Session["deleteDetail"].ToString();
+				deletedDetails += id;
+				Session.Add("deleteDetail", id);
+			}
+			else
+			{
+				Session.Add("deleteDetail", id);
+			}
+
+			return RedirectToAction("Update");
 		}
 
 		[NonAction]

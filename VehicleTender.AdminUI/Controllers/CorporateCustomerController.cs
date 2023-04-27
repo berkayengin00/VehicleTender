@@ -10,6 +10,7 @@ using VehicleTender.Entity.View.CorporateCustomer;
 
 namespace VehicleTender.AdminUI.Controllers
 {
+	[Authorize]
     public class CorporateCustomerController : Controller
     {
 		// GET: CorporateCustomer

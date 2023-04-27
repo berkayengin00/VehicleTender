@@ -13,7 +13,7 @@ using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
-	[Authorize,CheckRole("Admin","Lale","Sumbul")]
+	[Authorize]
 	public class AdminController : Controller
 	{
 		// GET: Admin

@@ -2234,6 +2234,8 @@
     <Content Include="Views\RetailCustomer\Update.cshtml" />
     <Content Include="Views\CorporateCustomer\Update.cshtml" />
     <Content Include="Views\Vehicle\Update.cshtml" />
+    <Content Include="Views\Tender\Update.cshtml" />
+    <Content Include="Views\_ViewImports.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

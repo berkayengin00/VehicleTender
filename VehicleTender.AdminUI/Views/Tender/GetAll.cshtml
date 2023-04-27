@@ -48,10 +48,10 @@
                                         <td>@item.IsActive</td>
                                         <th>
 	                                        @Html.ActionLink("Sil","SoftDelete",new {tenderId=item.TenderId},new {@class="btn btn-outline-danger"})
+                                        </th><th>
+	                                        @Html.ActionLink("Update","Update",new {tenderId=item.TenderId},new {@class="btn btn-warning"})
                                         </th>
-                                        <td>
-                                            <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning" />
-                                        </td>
+                                        
                                     </tr>
                                 }
                             </tbody>
