@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using VehicleTender.DAL.EFConfiguraitons;
 using VehicleTender.Entity.Concrete;
 
 namespace VehicleTender.DAL.Concrete
@@ -46,27 +47,43 @@ namespace VehicleTender.DAL.Concrete
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-			modelBuilder.Entity<RoleUser>()
-				.HasKey(x => new { x.RoleId, x.UserId });
 
-			modelBuilder.Entity<VehicleTramer>()
-				.HasKey(x => new { x.VehicleId, x.TramerId });
+	        modelBuilder.Configurations.Add( new ModelConfiguration());
+            modelBuilder.Configurations.Add( new UserConfiguration());
+            modelBuilder.Configurations.Add( new BodyTypeConfiguration());
+            modelBuilder.Configurations.Add( new BrandConfiguration());
+            modelBuilder.Configurations.Add( new BuyNowConfiguration());
+            modelBuilder.Configurations.Add( new ChatBotConfiguration());
+            modelBuilder.Configurations.Add( new ChatBotUserConfiguration());
+            modelBuilder.Configurations.Add( new CorporatePackageConfiguration());
+            modelBuilder.Configurations.Add( new ColorConfiguration());
+            modelBuilder.Configurations.Add( new RetailVehiclePurchaseStatusConfiguration());
+            modelBuilder.Configurations.Add( new CommissionFeeConfiguration());
+            modelBuilder.Configurations.Add( new CorporateCustomerConfiguration());
+	        modelBuilder.Configurations.Add( new ExpertiseConfiguration());
+	        modelBuilder.Configurations.Add( new FuelTypeConfiguration());
+            modelBuilder.Configurations.Add( new GearTypeConfiguration());
+            modelBuilder.Configurations.Add( new MessageConfiguration());
+            modelBuilder.Configurations.Add( new NotaryConfiguration());
+            modelBuilder.Configurations.Add( new RetailCustomerConfiguration());
+            modelBuilder.Configurations.Add( new RetailVehiclePurchaseConfiguration());
+            modelBuilder.Configurations.Add( new RoleConfiguration());
+            modelBuilder.Configurations.Add( new RoleUserConfiguration());
+            modelBuilder.Configurations.Add( new StockConfiguration());
+            modelBuilder.Configurations.Add( new TenderConfiguration());
+            modelBuilder.Configurations.Add( new TenderHistoryConfiguration());
+            modelBuilder.Configurations.Add( new TenderTypeConfiguration());
+            modelBuilder.Configurations.Add( new TenderDetailConfiguration());
+            modelBuilder.Configurations.Add( new TramerConfiguration());
+            modelBuilder.Configurations.Add( new VehicleConfiguration());
+            modelBuilder.Configurations.Add( new VehicleBoughtAndSoldConfiguration());
+            modelBuilder.Configurations.Add( new VehicleImageConfiguration());
+            modelBuilder.Configurations.Add( new VehicleStatusConfiguration());
+            modelBuilder.Configurations.Add( new VehicleStatusHistoryConfiguration());
+            modelBuilder.Configurations.Add( new VehicleTramerConfiguration());
+            modelBuilder.Configurations.Add( new LogTypeConfiguration());
+            modelBuilder.Configurations.Add( new LogDetailConfiguration());
 
-			modelBuilder.Entity<TenderHistory>()
-				.HasRequired(x => x.User)
-				.WithMany()
-				.HasForeignKey(x => x.UserId)
-				.WillCascadeOnDelete();
-			modelBuilder.Entity<TenderHistory>()
-				.HasRequired(x => x.Tender)
-				.WithMany()
-				.HasForeignKey(x => x.TenderId)
-				.WillCascadeOnDelete();
-
-			modelBuilder.Entity<RetailCustomer>().ToTable("RetailCustomers");
-			modelBuilder.Entity<CorporateCustomer>().ToTable("CorporateCustomers");
-			modelBuilder.Entity<Vehicle>().Property(x => x.LicensePlate).IsRequired();
-            
         }
 
     }

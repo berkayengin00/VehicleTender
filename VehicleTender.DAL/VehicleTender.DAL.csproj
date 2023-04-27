@@ -95,6 +95,7 @@
     <Compile Include="Concrete\VehicleStatusHistoryDal.cs" />
     <Compile Include="CrudRepository\CrudRepository.cs" />
     <Compile Include="CrudRepository\ICrudRepository.cs" />
+    <Compile Include="EFConfiguraitons\ModelConfiguraiton.cs" />
     <Compile Include="FileAdd\ImageAdd.cs" />
     <Compile Include="Migrations\202304212028296_mig1.cs" />
     <Compile Include="Migrations\202304212028296_mig1.designer.cs">
