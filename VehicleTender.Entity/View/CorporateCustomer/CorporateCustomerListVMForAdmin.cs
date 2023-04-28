@@ -9,6 +9,7 @@ namespace VehicleTender.Entity.View.CorporateCustomer
 {
 	public class CorporateCustomerListVMForAdmin
 	{
+		public int Id { get; set; }
 		[DisplayName("Ad")]
 		public string FirstName { get; set; }
 		[DisplayName("Soyad")]
@@ -17,12 +18,19 @@ namespace VehicleTender.Entity.View.CorporateCustomer
 		public string PhoneNumber { get; set; }
 		[DisplayName("Email")]
 		public string Email { get; set; }
-		[DisplayName("Email Doğrulaması")]
+		[DisplayName("Email Doğrulanı Mı?")]
 		public bool IsVerify { get; set; }
 		[DisplayName("Şirket Adı")]
 		public string CompanyName { get; set; }
 		[DisplayName("İl")]
 		public string Province { get; set; }
-
+		[DisplayName("Şirket Türü")]
+		public string CompanyType { get; set; }
+		[DisplayName("Aktif Mi?")]
+		public bool IsActive { get; set; }
+		[DisplayName("Eklenme Tarihi")]
+		public DateTime AddedDate { get; set; }
+		public string PackageName { get; set; }
+		public int PackageId { get; set; }
 	}
 }

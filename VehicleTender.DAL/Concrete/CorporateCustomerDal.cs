@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
@@ -13,7 +14,7 @@ using VehicleTender.Entity.View.RetailCustomer;
 
 namespace VehicleTender.DAL.Concrete
 {
-	public class CorporateCustomerDal:CrudRepository<CorporateCustomer>
+	public class CorporateCustomerDal : CrudRepository<CorporateCustomer>
 	{
 		public CorporateCustomerDal() : base(new EfVehicleTenderContext())
 		{
@@ -38,14 +39,42 @@ namespace VehicleTender.DAL.Concrete
 				PhoneNumber = vm.PhoneNumber,
 				Province = vm.Province,
 				UpdatedBy = vm.UpdatedBy,
-				UpdatedDate = vm.UpdatedDate
+				UpdatedDate = vm.UpdatedDate,
+				CorporatePackageId = vm.CorporatePackageId
 
 			});
 		}
 
+		public List<CorporateCustomerListVMForAdmin> GetAllForAdmin()
+		{
+			List<CorporateCustomerListVMForAdmin> result = null;
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			{
+				result = (from user in db.CorporateCustomers
+							  join package in db.CorporatePackages on user.CorporatePackageId equals package.Id
+							  select new CorporateCustomerListVMForAdmin()
+							  {
+								  CompanyName = user.CompanyName,
+								  CompanyType = user.CompanyType,
+								  Email = user.Email,
+								  FirstName = user.FirstName,
+								  LastName = user.LastName,
+								  PhoneNumber = user.PhoneNumber,
+								  IsActive = user.IsActive,
+								  IsVerify = user.IsVerify,
+								  Id = user.Id,
+								  AddedDate = user.CreatedDate,
+								  Province = user.Province,
+								  PackageName = package.PackageName,
+								  PackageId = package.Id
+							  }).ToList();
+			}
+			return result;
+		}
+
 		public List<SelectListItem> GetAllCompanyName()
 		{
-			return base.Select(x=> new SelectListItem()
+			return base.Select(x => new SelectListItem()
 			{
 				Text = x.CompanyName,
 				Value = x.Id.ToString()
@@ -64,38 +93,38 @@ namespace VehicleTender.DAL.Concrete
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
 				result = (from c in db.CorporateCustomers
-					where c.Id == userId
-					select new CorporateCustomerUpdateVM()
-					{
-						UserId= c.Id,
-						FirstName = c.FirstName,
-						LastName = c.LastName,
-						CompanyType = c.CompanyType,
-						CompanyName = c.CompanyName,
-						District = c.District,
-						Email = c.Email,
-						IsActive = c.IsActive,
-						IsVerify = c.IsVerify,
-						Neighbourhood = c.Neighbourhood,
-						PhoneNumber = c.PhoneNumber,
-						Province = c.Province,
-						UpdatedBy = c.UpdatedBy,
-						UpdatedDate = c.UpdatedDate,
-						AddedDate = c.CreatedDate,
-						CreatedBy = c.CreatedBy,
-						PasswordHash = c.PasswordHash
-						
-					}).SingleOrDefault();
+						  where c.Id == userId
+						  select new CorporateCustomerUpdateVM()
+						  {
+							  UserId = c.Id,
+							  FirstName = c.FirstName,
+							  LastName = c.LastName,
+							  CompanyType = c.CompanyType,
+							  CompanyName = c.CompanyName,
+							  District = c.District,
+							  Email = c.Email,
+							  IsActive = c.IsActive,
+							  IsVerify = c.IsVerify,
+							  Neighbourhood = c.Neighbourhood,
+							  PhoneNumber = c.PhoneNumber,
+							  Province = c.Province,
+							  UpdatedBy = c.UpdatedBy,
+							  UpdatedDate = c.UpdatedDate,
+							  AddedDate = c.CreatedDate,
+							  CreatedBy = c.CreatedBy,
+							  PasswordHash = c.PasswordHash
+
+						  }).SingleOrDefault();
 			}
 			return new Result<CorporateCustomerUpdateVM>(result != null ? "Kullanıcı Mevcut" : "Boş", result, result != null);
 		}
 
 		public bool Update(CorporateCustomerUpdateVM vm)
 		{
-			var corporateCustomer = base.Get(x=>x.Id==vm.UserId);
-			if (corporateCustomer!=null)
+			var corporateCustomer = base.Get(x => x.Id == vm.UserId);
+			if (corporateCustomer != null)
 			{
-				corporateCustomer.Province= vm.Province;
+				corporateCustomer.Province = vm.Province;
 				corporateCustomer.Neighbourhood = vm.Neighbourhood;
 				corporateCustomer.District = vm.District;
 				corporateCustomer.PhoneNumber = vm.PhoneNumber;
@@ -112,8 +141,8 @@ namespace VehicleTender.DAL.Concrete
 				corporateCustomer.CreatedBy = vm.CreatedBy;
 				corporateCustomer.CreatedDate = vm.AddedDate;
 			}
-			return Save()>0;
-			
+			return Save() > 0;
+
 		}
 
 		public int SoftDelete(int id)
@@ -124,6 +153,13 @@ namespace VehicleTender.DAL.Concrete
 				corporateCustomer.IsActive = false;
 			}
 			return Save();
+		}
+
+		public void UpdateIsVerify(int id)
+		{
+			var corporateCustomer = base.Get(x => x.Id == id);
+			corporateCustomer.IsVerify = true;
+			Save();
 		}
 	}
 }

@@ -1,23 +1,30 @@
 ﻿@using VehicleTender.Entity.Concrete
+@using VehicleTender.Entity.Enum
+@using VehicleTender.Entity.View.CorporateCustomer
 
 @{
     ViewBag.Title = "CorporateCustomersGetAll";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
 }
-@model List<VehicleTender.Entity.Concrete.CorporateCustomer>
+@model List<VehicleTender.Entity.View.CorporateCustomer.CorporateCustomerListVMForAdmin>
 
+@section head
+{
+	<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-	                    <h3 class="card-title">Kurumsal Müşteriler</h3>
-	                    <div class="row text-end">
-		                    <div class="col-md3">
-			                    @Html.ActionLink("Kurumsal Müşteri Ekle", "Add", "CorporateCustomer", "Add", new { @class = "btn btn-outline-success" })
-		                    </div>
-	                    </div>
+                        <h3 class="card-title">Kurumsal Müşteriler</h3>
+                        <div class="row text-end">
+                            <div class="col-md3">
+                                @Html.ActionLink("Kurumsal Müşteri Ekle", "Add", "CorporateCustomer", "Add", new { @class = "btn btn-outline-success" })
+                            </div>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -29,18 +36,18 @@
                                     <th>Soyad</th>
                                     <th>Telefon Numarası</th>
                                     <th>Email</th>
+                                    <th>Onaylandı Mı?</th>
+                                    <th>Paket</th>
                                     <th>Kayıt Tarihi</th>
                                     <th>İl</th>
-                                    <th>İlçe</th>
-	                                <th>Adres</th>
-	                                <th>Aktif Mi?</th>
-	                                <th></th>
-	                                <th></th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach (CorporateCustomer item in Model)
+                                @foreach (CorporateCustomerListVMForAdmin item in Model)
                                 {
                                     <tr>
                                         @Html.HiddenFor(x => item.Id)
@@ -50,15 +57,41 @@
                                         <td>@item.LastName</td>
                                         <td>@item.PhoneNumber</td>
                                         <td>@item.Email</td>
-                                        <td>@item.CreatedDate</td>
+                                        <td>
+                                            @if (item.IsVerify)
+                                            {
+                                                <span class="badge bg-success">Onaylı</span>
+
+                                            }
+                                            else
+                                            {
+
+                                                @Html.ActionLink("Onaylayın", "UpdateIsVerify", "CorporateCustomer", new { @id = item.Id }, new { @class = "badge bg-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.PackageId == Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı))
+                                                {
+                                                    @Html.ActionLink("Paket Ekleyin", "UpdateIsVerify", "CorporateCustomer", new { @id = item.Id }, new { @class = "badge bg-danger" })
+                                                }
+
+                                                else
+                                                {
+                                                    <span class="badge bg-success">@item.PackageName</span>
+
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>@item.AddedDate</td>
                                         <td>@item.Province</td>
-                                        <td>@item.District</td>
-                                        <td>@item.Neighbourhood</td>
                                         <td>@item.IsActive</td>
                                         <th>
-                                            @Html.ActionLink("Sil","SoftDelete",new {userId=item.Id},new {@class="btn btn-outline-danger"})
-                                        </th><th>
-                                            @Html.ActionLink("Güncelle","Update",new {userId=item.Id},new {@class="btn btn-outline-warning"})
+                                            @Html.ActionLink("Sil", "SoftDelete", new { userId = item.Id }, new { @class = "btn btn-outline-danger" })
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Güncelle", "Update", new { userId = item.Id }, new { @class = "btn btn-outline-warning" })
                                         </th>
                                     </tr>
                                 }
@@ -70,10 +103,10 @@
                                     <th>Soyad</th>
                                     <th>Telefon Numarası</th>
                                     <th>Email</th>
+                                    <th>Onaylandı Mı?</th>
+                                    <th>Paket</th>
                                     <th>Kayıt Tarihi</th>
                                     <th>İl</th>
-                                    <th>İlçe</th>
-                                    <th>Adres</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
                                     <th></th>
@@ -94,6 +127,30 @@
 </section>
 
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section jscode
 {
 	<script>
@@ -110,8 +167,10 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "pageLength":7,
+                "pageLength": 7,
             });
-        });</script>
+        });
+        
+    </script>
 }
 

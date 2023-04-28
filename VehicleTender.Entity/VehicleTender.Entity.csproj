@@ -100,6 +100,7 @@
     <Compile Include="Concrete\VehicleStatus.cs" />
     <Compile Include="Concrete\VehicleStatusHistory.cs" />
     <Compile Include="Concrete\VehicleTramer.cs" />
+    <Compile Include="Enum\CorporateCustomerPackageType.cs" />
     <Compile Include="Enum\TenderStatuType.cs" />
     <Compile Include="Enum\TenderOwnerType.cs" />
     <Compile Include="Enum\VehicleStatusType.cs" />

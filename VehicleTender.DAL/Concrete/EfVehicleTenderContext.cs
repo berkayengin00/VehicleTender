@@ -19,6 +19,7 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<Color> Colors { get; set; }
         public DbSet<CommissionFee> CommissionFees { get; set; }
         public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
+        public DbSet<CorporatePackage> CorporatePackages { get; set; }
         public DbSet<Expertise> Expertises { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<GearType> GearTypes { get; set; }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleTender.Entity.Enum;
 
 namespace VehicleTender.Entity.View
 {
@@ -40,5 +41,6 @@ namespace VehicleTender.Entity.View
 		public int UpdatedBy { get; set; }
 		public DateTime AddedDate { get; set; } = DateTime.Now;
 		public DateTime UpdatedDate { get; set; } = DateTime.Now;
+		public int CorporatePackageId { get; set; } = Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı);
 	}
 }

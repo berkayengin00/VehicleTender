@@ -161,6 +161,14 @@
     <Compile Include="Migrations\202304272221139_firstage.designer.cs">
       <DependentUpon>202304272221139_firstage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304281349413_migv1.cs" />
+    <Compile Include="Migrations\202304281349413_migv1.designer.cs">
+      <DependentUpon>202304281349413_migv1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304281408453_migv2.cs" />
+    <Compile Include="Migrations\202304281408453_migv2.designer.cs">
+      <DependentUpon>202304281408453_migv2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\ErrorResult.cs" />
@@ -225,6 +233,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304272221139_firstage.resx">
       <DependentUpon>202304272221139_firstage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304281349413_migv1.resx">
+      <DependentUpon>202304281349413_migv1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304281408453_migv2.resx">
+      <DependentUpon>202304281408453_migv2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

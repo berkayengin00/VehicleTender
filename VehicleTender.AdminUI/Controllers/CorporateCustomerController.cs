@@ -16,8 +16,7 @@ namespace VehicleTender.AdminUI.Controllers
 		// GET: CorporateCustomer
 		public ActionResult GetAll()
 		{
-			List<CorporateCustomer> list = new CorporateCustomerDal().GetAll();
-			return View(list);
+			return View(new CorporateCustomerDal().GetAllForAdmin());
 		}
 
 		public ActionResult Add()
@@ -59,6 +58,12 @@ namespace VehicleTender.AdminUI.Controllers
 				return RedirectToAction("GetAll");
 			}
 			return View("Update");
+		}
+
+		public ActionResult UpdateIsVerify(int id)
+		{
+			new CorporateCustomerDal().UpdateIsVerify(id);
+			return RedirectToAction("GetAll");
 		}
 
 		public ActionResult SoftDelete(int userId)
