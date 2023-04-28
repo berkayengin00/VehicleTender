@@ -64,7 +64,7 @@ namespace VehicleTender.DAL.Concrete
 	        modelBuilder.Configurations.Add( new FuelTypeConfiguration());
             modelBuilder.Configurations.Add( new GearTypeConfiguration());
             modelBuilder.Configurations.Add( new MessageConfiguration());
-            modelBuilder.Configurations.Add( new NotaryConfiguration());
+            modelBuilder.Configurations.Add( new NotaryFeeConfiguration());
             modelBuilder.Configurations.Add( new RetailCustomerConfiguration());
             modelBuilder.Configurations.Add( new RetailVehiclePurchaseConfiguration());
             modelBuilder.Configurations.Add( new RoleConfiguration());

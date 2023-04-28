@@ -157,6 +157,10 @@
     <Compile Include="Migrations\202304252031410_mig14.designer.cs">
       <DependentUpon>202304252031410_mig14.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304272221139_firstage.cs" />
+    <Compile Include="Migrations\202304272221139_firstage.designer.cs">
+      <DependentUpon>202304272221139_firstage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\ErrorResult.cs" />
@@ -218,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304252031410_mig14.resx">
       <DependentUpon>202304252031410_mig14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304272221139_firstage.resx">
+      <DependentUpon>202304272221139_firstage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

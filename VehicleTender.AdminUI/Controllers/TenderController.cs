@@ -75,17 +75,8 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult Update(int tenderId)
 		{
-			Session.Clear();
-			TenderUpdateVMForAdmin vm = new TenderDal().GetTenderById(tenderId);
-			if (Session["delete"] == null)
-			{
-				Session.Add("delete", vm.TenderDetailList);
-			}
-			else
-			{
-				vm.TenderDetailList = Session["delete"] as List<TenderDetailVM>;
-			}
 
+			TenderUpdateVMForAdmin vm = new TenderDal().GetTenderById(tenderId);
 			return View(vm);
 		}
 
@@ -97,7 +88,7 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult DeleteDetail(int id)
 		{
-			if (Session["deleteDetail"]!=null)
+			if (Session["deleteDetail"] != null)
 			{
 				string deletedDetails = Session["deleteDetail"].ToString();
 				deletedDetails += id;

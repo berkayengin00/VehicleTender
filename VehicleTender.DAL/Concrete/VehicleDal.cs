@@ -37,9 +37,9 @@ namespace VehicleTender.DAL.Concrete
 						ColorId = vm.ColorId,
 						FuelTypeId = vm.FuelTypeId,
 						GearTypeId = vm.GearTypeId,
-						CreatedBy = 1,
+						CreatedBy = vm.CreatedBy,
 						CreatedDate = vm.CreatedDate,
-						UpdatedBy = 1,
+						UpdatedBy = vm.UpdatedBy,
 						UpdatedDate = vm.UpdatedDate,
 						IsActive = vm.IsActive,
 						ModelId = vm.ModelId,
@@ -102,7 +102,7 @@ namespace VehicleTender.DAL.Concrete
 						join brand in db.Brands on model.BrandId equals brand.Id
 						join gearType in db.GearTypes on vehicle.GearTypeId equals gearType.Id
 						join fuelType in db.FuelTypes on vehicle.FuelTypeId equals fuelType.Id
-						join bodyType in db.FuelTypes on vehicle.BodyTypeId equals bodyType.Id
+						join bodyType in db.BodyTypes on vehicle.BodyTypeId equals bodyType.Id
 						join color in db.Colors on vehicle.ColorId equals color.Id
 						join user in db.Users on vehicle.CreatedBy equals user.Id
 						select new VehicleVMForAdmin()

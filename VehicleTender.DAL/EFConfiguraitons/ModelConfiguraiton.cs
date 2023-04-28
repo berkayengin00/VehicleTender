@@ -125,10 +125,8 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.FirstName).HasMaxLength(100).IsRequired();
 			Property(x => x.LastName).HasMaxLength(100).IsRequired();
 			Property(x => x.Neighbourhood).HasMaxLength(250).IsRequired();
-			Property(x => x.PasswordHash).HasMaxLength(250).IsRequired();
 			// phonenumber min 11 ve max 11 olmalı
 			Property(x => x.PhoneNumber).HasMaxLength(11).IsFixedLength().IsRequired();
-			Property(x => x.Email).HasMaxLength(256).IsRequired();
 			Property(x => x.IsActive).IsRequired();
 
 		}
@@ -209,9 +207,9 @@ namespace VehicleTender.DAL.EFConfiguraitons
 		}
 	}
 
-	public class NotaryConfiguration : EntityTypeConfiguration<NotaryFee>
+	public class NotaryFeeConfiguration : EntityTypeConfiguration<NotaryFee>
 	{
-		public NotaryConfiguration()
+		public NotaryFeeConfiguration()
 		{
 			ToTable("NotaryFee");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
@@ -230,8 +228,6 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.LastName).HasMaxLength(100).IsRequired();
 			// phonenumber min 11 ve max 11 olmalı
 			Property(x => x.PhoneNumber).HasMaxLength(11).IsFixedLength().IsRequired();
-			Property(x => x.Email).HasMaxLength(256).IsRequired();
-			Property(x => x.PasswordHash).HasMaxLength(256).IsRequired();
 			Property(x => x.IsActive).IsRequired();
 		}
 	}
@@ -241,7 +237,7 @@ namespace VehicleTender.DAL.EFConfiguraitons
 	{
 		public RetailVehiclePurchaseConfiguration()
 		{
-			ToTable("NotaryFee");
+			ToTable("RetailVehiclePurchase");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.PreliminaryValuationPrice).HasPrecision(18, 2).IsRequired();
 			Property(x => x.QuotedPrice).HasPrecision(18, 2).IsRequired();
@@ -371,8 +367,8 @@ namespace VehicleTender.DAL.EFConfiguraitons
 		{
 			ToTable("User");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-			Property(x => x.Email).HasMaxLength(100).IsRequired();
-			Property(x => x.PasswordHash).HasMaxLength(100).IsRequired();
+			Property(x => x.Email).HasMaxLength(256).IsRequired();
+			Property(x => x.PasswordHash).HasMaxLength(300).IsRequired();
 			Property(x => x.IsActive).IsRequired();
 		}
 	}
