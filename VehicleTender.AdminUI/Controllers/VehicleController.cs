@@ -11,6 +11,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Web.Caching;
 using VehicleTender.DAL.FileAdd;
 using VehicleTender.Entity.Concrete;
+using VehicleTender.Entity.Enum;
 using VehicleTender.Entity.View.Vehicle;
 
 namespace VehicleTender.AdminUI.Controllers
@@ -22,9 +23,10 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult Add()
 		{
 			VehicleAddVMForAdmin result = null;
-			if (HttpContext.Cache["vehicleFeatures"] ==null)
+			ViewBag.UserTypeList = new TenderTypeDal().GetAllTenderTypes();
+			if (HttpContext.Cache["vehicleFeatures"] == null)
 			{
-				result  = new VehicleAddVMForAdmin()
+				result = new VehicleAddVMForAdmin()
 				{
 					VehicleFeaturesForCache = GetFeaturesFromCache()
 				};
@@ -40,14 +42,14 @@ namespace VehicleTender.AdminUI.Controllers
 		}
 		// todo bütün postlara validateantiforgerytoken ekle - yapıldı
 		[HttpPost, ValidateAntiForgeryToken]
-		public ActionResult Add(DbVehicleAddVmForAdmin vm,List<HttpPostedFileBase> Images)
+		public ActionResult Add(DbVehicleAddVmForAdmin vm, List<HttpPostedFileBase> Images)
 		{
-			List<string> imagePathList= new ImageAdd().AddImage(Images);
-			
+			List<string> imagePathList = new ImageAdd().AddImage(Images);
+
 			// todo vehicleage için view üzerinde ekleme yapılacak
 			vm.CreatedBy = vm.UpdatedBy = GetUserId();
 			vm.UserId = GetUserId();
-			var result = new VehicleDal().Add(vm,imagePathList);
+			var result = new VehicleDal().Add(vm, imagePathList);
 			return RedirectToAction("GetAll");
 		}
 
@@ -57,7 +59,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(list);
 		}
 
-		public ActionResult	Update(int vehicleId)
+		public ActionResult Update(int vehicleId)
 		{
 
 			var result = new VehicleDal().GetVehicleByVehicleId(vehicleId);
@@ -105,17 +107,41 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public VehicleFeaturesForCache GetFeaturesFromCache()
 		{
-			var result = new VehicleFeaturesForCache()
+
+			if (HttpContext.Cache["vehicleFeatures"] == null)
 			{
-				Brands = new BrandDal().GetAllBrand(),
-				BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
-				Colors = new ColorDal().GetAllColors(),
-				FuelTypes = new FuelDal().GetAllFuelTypes(),
-				GearTypes = new GearTypeDal().GetAllGearTypes(),
-				Models = new ModelDal().GetAllModels(),
-			};
-			HttpContext.Cache.Insert("vehicleFeatures", result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
-			return result;
+				var result = new VehicleFeaturesForCache()
+				{
+					Brands = new BrandDal().GetAllBrand(),
+					BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
+					Colors = new ColorDal().GetAllColors(),
+					FuelTypes = new FuelDal().GetAllFuelTypes(),
+					GearTypes = new GearTypeDal().GetAllGearTypes(),
+					Models = new ModelDal().GetAllModels(),
+				};
+				HttpContext.Cache.Insert("vehicleFeatures", result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+				return result;
+			}
+
+			return HttpContext.Cache["vehicleFeatures"] as VehicleFeaturesForCache;
+
+
+		}
+
+		public ActionResult GetUsersByUserType(int userTypeId)
+		{
+
+			return Json(userTypeId == (int)TenderOwnerType.Retired
+				? new RetailCustomerDal().GetUsersForDropdown()
+				: new CorporateCustomerDal().GetUsersForDropdown()
+				, JsonRequestBehavior.AllowGet);
+
+		}
+
+		public ActionResult GetModelByBrand(int brandId)
+		{
+			var model = GetFeaturesFromCache().Models.FindAll(x => x.Value == brandId.ToString());
+			return Json(model, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

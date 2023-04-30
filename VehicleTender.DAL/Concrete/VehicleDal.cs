@@ -48,6 +48,7 @@ namespace VehicleTender.DAL.Concrete
 						Description = vm.Description,
 						VehicleYear = vm.VehicleYear,
 						LicensePlate = vm.LicensePlate,
+						UserId = vm.UserId,
 					};
 					base.Insert(vehicle);
 					int vehicleId = vehicle.Id;
@@ -63,11 +64,14 @@ namespace VehicleTender.DAL.Concrete
 						CreatedDate = DateTime.Now,
 						PreliminaryValuationPrice = 10000,
 						UpdatedBy = vm.UserId,
+						// todo enum stok tipi eklenecek
 
 					});
+
+
 					new VehicleStatusHistoryDal().Insert(new VehicleStatusHistory()
 					{
-						VehicleStatusId = Convert.ToInt16(VehicleStatusType.Giris),
+						VehicleStatusId = (int)VehicleStatusType.Giris,
 						IsActive = true,
 						StatusChangeDate = DateTime.Now,
 						VehicleId = vehicleId

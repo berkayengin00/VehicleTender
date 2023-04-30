@@ -79,12 +79,16 @@
     <Compile Include="Concrete\BrandDal.cs" />
     <Compile Include="Concrete\ColorDal.cs" />
     <Compile Include="Concrete\CorporateCustomerDal.cs" />
+    <Compile Include="Concrete\CorporatePackageDal.cs" />
     <Compile Include="Concrete\EfVehicleTenderContext.cs" />
+    <Compile Include="Concrete\EmployeeDal.cs" />
     <Compile Include="Concrete\FuelDal.cs" />
     <Compile Include="Concrete\GearTypeDal.cs" />
     <Compile Include="Concrete\LoginDal.cs" />
     <Compile Include="Concrete\ModelDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
+    <Compile Include="Concrete\RoleDal.cs" />
+    <Compile Include="Concrete\RoleUserDal.cs" />
     <Compile Include="Concrete\StockDal.cs" />
     <Compile Include="Concrete\TenderDal.cs" />
     <Compile Include="Concrete\TenderDetailDal.cs" />
@@ -169,6 +173,42 @@
     <Compile Include="Migrations\202304281408453_migv2.designer.cs">
       <DependentUpon>202304281408453_migv2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304291235440_migv3.cs" />
+    <Compile Include="Migrations\202304291235440_migv3.designer.cs">
+      <DependentUpon>202304291235440_migv3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291335444_migv4.cs" />
+    <Compile Include="Migrations\202304291335444_migv4.designer.cs">
+      <DependentUpon>202304291335444_migv4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291552082_migv5.cs" />
+    <Compile Include="Migrations\202304291552082_migv5.designer.cs">
+      <DependentUpon>202304291552082_migv5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291555524_migv6.cs" />
+    <Compile Include="Migrations\202304291555524_migv6.designer.cs">
+      <DependentUpon>202304291555524_migv6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291601132_migv7.cs" />
+    <Compile Include="Migrations\202304291601132_migv7.designer.cs">
+      <DependentUpon>202304291601132_migv7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291612376_migv8.cs" />
+    <Compile Include="Migrations\202304291612376_migv8.designer.cs">
+      <DependentUpon>202304291612376_migv8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304291617273_migv9.cs" />
+    <Compile Include="Migrations\202304291617273_migv9.designer.cs">
+      <DependentUpon>202304291617273_migv9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304292105468_migv10.cs" />
+    <Compile Include="Migrations\202304292105468_migv10.designer.cs">
+      <DependentUpon>202304292105468_migv10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304300000553_migv12.cs" />
+    <Compile Include="Migrations\202304300000553_migv12.designer.cs">
+      <DependentUpon>202304300000553_migv12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\ErrorResult.cs" />
@@ -239,6 +279,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304281408453_migv2.resx">
       <DependentUpon>202304281408453_migv2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291235440_migv3.resx">
+      <DependentUpon>202304291235440_migv3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291335444_migv4.resx">
+      <DependentUpon>202304291335444_migv4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291552082_migv5.resx">
+      <DependentUpon>202304291552082_migv5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291555524_migv6.resx">
+      <DependentUpon>202304291555524_migv6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291601132_migv7.resx">
+      <DependentUpon>202304291601132_migv7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291612376_migv8.resx">
+      <DependentUpon>202304291612376_migv8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304291617273_migv9.resx">
+      <DependentUpon>202304291617273_migv9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304292105468_migv10.resx">
+      <DependentUpon>202304292105468_migv10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304300000553_migv12.resx">
+      <DependentUpon>202304300000553_migv12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

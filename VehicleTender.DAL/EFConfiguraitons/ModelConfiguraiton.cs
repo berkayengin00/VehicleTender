@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -370,6 +371,12 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.Email).HasMaxLength(256).IsRequired();
 			Property(x => x.PasswordHash).HasMaxLength(300).IsRequired();
 			Property(x => x.IsActive).IsRequired();
+			
+			HasMany(x=>x.Vehicles)
+				.WithRequired(x=>x.User)
+				.HasForeignKey(x=>x.UserId)
+				.WillCascadeOnDelete(false);
+			
 		}
 	}
 
@@ -438,6 +445,55 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.Description).HasMaxLength(100).IsRequired();
 			Property(x => x.LicensePlate).HasMaxLength(15).IsRequired();
 			Property(x => x.Version).HasMaxLength(15).IsRequired();
+
+
+			//HasOptional(x=>x.User)
+			//	.WithMany()
+			//	.WillCascadeOnDelete();
 		}
 	}
+
+
+	public class EmployeeConfiguration:EntityTypeConfiguration<Employee>
+	{
+		public EmployeeConfiguration()
+		{
+			ToTable("Employee");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(x => x.FirstName).HasMaxLength(100).IsRequired();
+			Property(x => x.LastName).HasMaxLength(100).IsRequired();
+			Property(x => x.UserName).HasMaxLength(100).IsRequired();
+			Property(x => x.IsActive).IsRequired();
+		}	
+	}
+
+	public class MenuRoleConfiguration : EntityTypeConfiguration<RoleMenu>
+	{
+		public MenuRoleConfiguration()
+		{
+			ToTable("RoleMenu");
+			HasKey(x => new { x.RoleId, x.MenuId });
+		}
+	}
+
+	public class MenuConfiguration : EntityTypeConfiguration<Menu>
+	{
+		public MenuConfiguration()
+		{
+			ToTable("Menu");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(x => x.Name).HasMaxLength(100).IsRequired();
+			Property(x => x.Url).HasMaxLength(200).IsRequired();
+		}
+	}
+
+	public class VehiclePriceConfiguration : EntityTypeConfiguration<VehiclePrice>
+	{
+		public VehiclePriceConfiguration()
+		{
+			ToTable("VehiclePrice");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+		}
+	}
+
 }

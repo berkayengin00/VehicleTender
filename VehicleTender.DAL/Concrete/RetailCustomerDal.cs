@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
@@ -35,6 +36,7 @@ namespace VehicleTender.DAL.Concrete
 			});
 		}
 
+		// todo bu neden kullanılmadı
 		public List<RetailCustomerVMForAdmin> GetAllCustomerForAdmin()
 		{
 			List<RetailCustomerVMForAdmin> list = null;
@@ -100,6 +102,15 @@ namespace VehicleTender.DAL.Concrete
 				
 			}
 			return Save() > 0;
+		}
+
+		public List<SelectListItem> GetUsersForDropdown()
+		{
+			return Select( x=> new SelectListItem()
+			{
+				Text = $"{x.FirstName} {x.LastName}",
+				Value = x.Id.ToString()
+			});
 		}
 
 		public int SoftDelete(int userId)

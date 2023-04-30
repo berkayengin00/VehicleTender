@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel;
+using System.Data.Entity;
 using VehicleTender.DAL.EFConfiguraitons;
 using VehicleTender.Entity.Concrete;
 
@@ -45,6 +46,11 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<VehicleTramer> VehicleTramers { get; set; }
         public DbSet<LogType> LogTypes { get; set; } 
         public DbSet<LogDetail> LogDetails { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<RoleMenu> RoleMenus { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<VehiclePrice> VehiclePrices { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -84,8 +90,10 @@ namespace VehicleTender.DAL.Concrete
             modelBuilder.Configurations.Add( new VehicleTramerConfiguration());
             modelBuilder.Configurations.Add( new LogTypeConfiguration());
             modelBuilder.Configurations.Add( new LogDetailConfiguration());
-
+            modelBuilder.Configurations.Add( new EmployeeConfiguration());
+            modelBuilder.Configurations.Add( new MenuRoleConfiguration());
+            modelBuilder.Configurations.Add( new MenuConfiguration());
+            modelBuilder.Configurations.Add( new VehiclePriceConfiguration());
         }
-
     }
 }

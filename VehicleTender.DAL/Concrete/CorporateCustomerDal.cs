@@ -41,7 +41,6 @@ namespace VehicleTender.DAL.Concrete
 				UpdatedBy = vm.UpdatedBy,
 				UpdatedDate = vm.UpdatedDate,
 				CorporatePackageId = vm.CorporatePackageId
-
 			});
 		}
 
@@ -160,6 +159,27 @@ namespace VehicleTender.DAL.Concrete
 			var corporateCustomer = base.Get(x => x.Id == id);
 			corporateCustomer.IsVerify = true;
 			Save();
+		}
+
+		/// <summary>
+		/// Kurumsal Müşterinin Paketini Günceller.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="packageId"></param>
+		public void UpdatePackage(int id,int packageId)
+		{
+			var user = base.Get(x => x.Id == id);
+			user.CorporatePackageId = packageId;
+			Save();
+		}
+
+		public List<SelectListItem> GetUsersForDropdown()
+		{
+			return Select(x => new SelectListItem
+			{
+				Text = x.CompanyName,
+				Value = x.Id.ToString()
+			});
 		}
 	}
 }

@@ -37,10 +37,7 @@ namespace VehicleTender.AdminUI.Filters
 					}
 				}
 
-				if (!isAuthorized)
-				{
-					filterContext.Result = new RedirectResult("/Login/Index");
-				}
+				filterContext.Result = new RedirectResult("/Login/Index");
 			}
 			base.OnActionExecuting(filterContext);
 		}

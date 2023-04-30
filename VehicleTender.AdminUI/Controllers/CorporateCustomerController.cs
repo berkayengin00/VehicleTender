@@ -13,6 +13,10 @@ namespace VehicleTender.AdminUI.Controllers
 	[Authorize]
     public class CorporateCustomerController : Controller
     {
+	    public CorporateCustomerController()
+	    {
+		    
+	    }
 		// GET: CorporateCustomer
 		public ActionResult GetAll()
 		{
@@ -65,6 +69,21 @@ namespace VehicleTender.AdminUI.Controllers
 			new CorporateCustomerDal().UpdateIsVerify(id);
 			return RedirectToAction("GetAll");
 		}
+
+
+		[HttpGet]
+		public ActionResult GetAllPackage(int userId)
+		{
+			ViewBag.UserId = userId;
+			return Json(new CorporatePackageDal().GetAll(),JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public ActionResult UpdatePackage(int id,int userId)
+		{
+			new CorporateCustomerDal().UpdatePackage(userId, id);
+			return RedirectToAction("GetAll");
+		}	
 
 		public ActionResult SoftDelete(int userId)
 		{

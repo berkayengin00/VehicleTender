@@ -54,9 +54,9 @@
                                         <td>@item.Color</td>
                                         <td>@item.IsActive</td>
                                         <td>
-                                            @Html.ActionLink("Sil","SoftDelete", new {vehicleId=item.VehicleId} , new {@class= "btn btn-outline-warning" })
+                                            @Html.ActionLink("Sil","SoftDelete", new {vehicleId=item.VehicleId} , new {@class= "btn btn-danger" })
                                         </td><td>
-                                            @Html.ActionLink("Güncelle","Update", new {vehicleId=item.VehicleId} , new {@class= "btn btn-outline-warning" })
+                                            @Html.ActionLink("Güncelle","Update", new {vehicleId=item.VehicleId} , new {@class= "btn btn-warning" })
                                         </td>
                                     </tr>
                                 }

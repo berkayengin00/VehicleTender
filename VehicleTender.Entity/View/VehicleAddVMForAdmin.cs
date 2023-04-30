@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -42,6 +43,12 @@ namespace VehicleTender.Entity.View
 		public int ColorId { get; set; }
 		[DisplayName("Marka")]
 		public int BrandId { get; set; }
+		[DisplayName("Bireysel/Kurumsal ?")]
+		public int UserTypeId { get; set; }
+		[DisplayName("Kullanıcı Seçiniz")]
+		public int UserId { get; set; }
+		
+		public List<SelectListItem> UserTypeList { get; set; }
 		public VehicleFeaturesForCache VehicleFeaturesForCache { get; set; }
 	}
 }

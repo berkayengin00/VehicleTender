@@ -27,6 +27,11 @@ namespace VehicleTender.AdminUI.Controllers
 
 		}
 
+		public ActionResult Dashboard()
+		{
+			return View();
+		}
+
 		public PartialViewResult Footer()
 		{
 			return PartialView();

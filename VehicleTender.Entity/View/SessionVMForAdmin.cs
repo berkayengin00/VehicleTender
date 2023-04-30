@@ -13,5 +13,7 @@ namespace VehicleTender.Entity.View
 		public int AdminId { get; set; }
 		public string Email { get; set; }
 		public List<Role> Roles { get; set; }
+		public List<Menu> Menus { get; set; }
+		
 	}
 }

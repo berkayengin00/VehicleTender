@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.EFConfiguraitons;
 using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -20,12 +21,14 @@ namespace VehicleTender.DAL.Concrete
 					join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
 					join role in db.Roles on roleUser.RoleId equals role.Id
 					where user.Email == vm.Email && user.PasswordHash == vm.Password
-					group role by user into g
 					select new SessionVMForAdmin
 					{
-						Email = g.Key.Email,
-						AdminId = g.Key.Id,
-						Roles = g.ToList()
+						Email = user.Email,
+						AdminId = user.Id,
+						Roles = db.Roles.Where(x=>x.Id==role.Id).ToList(),
+						Menus = (from menu in db.Menus
+								join menuRole in db.RoleMenus on menu.Id equals menuRole.MenuId
+								 where menuRole.RoleId == role.Id select menu).ToList()
 					}).SingleOrDefault();
 
 

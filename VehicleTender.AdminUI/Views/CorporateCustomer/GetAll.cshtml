@@ -1,4 +1,5 @@
-﻿@using VehicleTender.Entity.Concrete
+﻿@using System.Web.UI.WebControls
+@using VehicleTender.Entity.Concrete
 @using VehicleTender.Entity.Enum
 @using VehicleTender.Entity.View.CorporateCustomer
 
@@ -10,7 +11,7 @@
 
 @section head
 {
-	<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 }
 <section class="content">
@@ -52,6 +53,7 @@
                                     <tr>
                                         @Html.HiddenFor(x => item.Id)
 
+                                        @Html.HiddenFor(x => item.Id, new { @id = "userId" })
                                         <td>@item.CompanyName</td>
                                         <td>@item.FirstName</td>
                                         <td>@item.LastName</td>
@@ -73,7 +75,7 @@
                                             @{
                                                 if (item.PackageId == Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı))
                                                 {
-                                                    @Html.ActionLink("Paket Ekleyin", "UpdateIsVerify", "CorporateCustomer", new { @id = item.Id }, new { @class = "badge bg-danger" })
+                                                    <button type="button" class="btn btn-primary butonClass" data-id="@item.Id">Paket Seç</button>
                                                 }
 
                                                 else
@@ -127,33 +129,31 @@
 </section>
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <input type="hidden" name="name" value="" id="hiddenUserId" />
+
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Modal Başlığı</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                <select class="form-select" id="dropdownId"></select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="kaydetButonu">Kaydet</button>
             </div>
         </div>
     </div>
 </div>
 
+
 @section jscode
 {
-	<script>
+    <script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -170,7 +170,59 @@
                 "pageLength": 7,
             });
         });
-        
+
+        $(document).ready(function () {
+            $(".butonClass").click(function () {
+                $("#dropdownId").empty(); // dropdown içindeki eski verileri temizle
+                debugger;
+                var guserId = $(this).data("id");
+                // Ajax çağrısı yaparak, dropdown verilerini alıyoruz
+                $.ajax({
+                    url: "@Url.Action("GetAllPackage", "CorporateCustomer")",
+                    type: "GET",
+                    data:{userId : guserId },
+                    success: function (data) {
+                        debugger;
+                        // Verileri dropdown içine dolduruyoruz
+                        $.each(data, function (index, value) {
+                            $("#dropdownId").append("<option value='" + value.Id + "'>" + value.PackageName + "</option>");
+
+                        });
+                        $("#hiddenUserId").val(guserId);
+                        // Modal'ı açıyoruz
+                        $("#modalId").modal("show");
+                    },
+                    error: function () {
+                        alert("Bir hata oluştu!");
+                    }
+                });
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            $("#kaydetButonu").click(function () {
+                debugger;
+                var selectedOption = $("#dropdownId option:selected").val();
+                var guserId = $("#hiddenUserId").val();
+                $.ajax({
+                    url: "@Url.Action("UpdatePackage", "CorporateCustomer")",
+                    type: "POST",
+                    data: { id: selectedOption , userId:guserId },
+                    success: function (result) {
+                        console.log(result);
+                        $("#myModal").modal("hide");
+                    },
+                    error: function () {
+                        alert("Kaydetme işlemi sırasında bir hata oluştu!");
+                    }
+                });
+            });
+        });
+
+
+
     </script>
 }
 
