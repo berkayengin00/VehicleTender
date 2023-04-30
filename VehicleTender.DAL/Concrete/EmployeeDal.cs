@@ -142,11 +142,11 @@ namespace VehicleTender.DAL.Concrete
 			return result;
 		}
 
-		public Result<int> SoftDelete(int id)
+		public DataResult<int> SoftDelete(int id)
 		{
 			Get(x => x.Id == id).IsActive = false;
 			int result = Save();
-			return new Result<int>
+			return new DataResult<int>
 			(
 				 result > 0 ? "Silme işlemi başarılı" : "Silme işlemi başarısız",  0, result>0
 			);

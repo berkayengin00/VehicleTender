@@ -56,7 +56,7 @@ namespace VehicleTender.DAL.Concrete
 			return list;
 		}
 
-		public Result<RetailCustomerUpdateVM> GetUserByUserId(int userId)
+		public DataResult<RetailCustomerUpdateVM> GetUserByUserId(int userId)
 		{
 			RetailCustomerUpdateVM result = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
@@ -80,7 +80,7 @@ namespace VehicleTender.DAL.Concrete
 						  }).SingleOrDefault();
 			}
 
-			return new Result<RetailCustomerUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null ? true : false);
+			return new DataResult<RetailCustomerUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null ? true : false);
 		}
 
 		public bool Update(RetailCustomerUpdateVM vm)

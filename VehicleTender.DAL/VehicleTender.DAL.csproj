@@ -80,12 +80,15 @@
     <Compile Include="Concrete\ColorDal.cs" />
     <Compile Include="Concrete\CorporateCustomerDal.cs" />
     <Compile Include="Concrete\CorporatePackageDal.cs" />
+    <Compile Include="Concrete\DashboardDal.cs" />
+    <Compile Include="Concrete\DistrictDal.cs" />
     <Compile Include="Concrete\EfVehicleTenderContext.cs" />
     <Compile Include="Concrete\EmployeeDal.cs" />
     <Compile Include="Concrete\FuelDal.cs" />
     <Compile Include="Concrete\GearTypeDal.cs" />
     <Compile Include="Concrete\LoginDal.cs" />
     <Compile Include="Concrete\ModelDal.cs" />
+    <Compile Include="Concrete\ProvinceDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
     <Compile Include="Concrete\RoleDal.cs" />
     <Compile Include="Concrete\RoleUserDal.cs" />
@@ -93,10 +96,13 @@
     <Compile Include="Concrete\TenderDal.cs" />
     <Compile Include="Concrete\TenderDetailDal.cs" />
     <Compile Include="Concrete\TenderTypeDal.cs" />
+    <Compile Include="Concrete\TramerDal.cs" />
     <Compile Include="Concrete\VehicleDal.cs" />
     <Compile Include="Concrete\VehicleImageDal.cs" />
+    <Compile Include="Concrete\VehiclePartStatusDal.cs" />
     <Compile Include="Concrete\VehicleStatuDal.cs" />
     <Compile Include="Concrete\VehicleStatusHistoryDal.cs" />
+    <Compile Include="Concrete\VehicleTramerDal.cs" />
     <Compile Include="CrudRepository\CrudRepository.cs" />
     <Compile Include="CrudRepository\ICrudRepository.cs" />
     <Compile Include="EFConfiguraitons\ModelConfiguraiton.cs" />
@@ -209,6 +215,26 @@
     <Compile Include="Migrations\202304300000553_migv12.designer.cs">
       <DependentUpon>202304300000553_migv12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304301013400_migv13.cs" />
+    <Compile Include="Migrations\202304301013400_migv13.designer.cs">
+      <DependentUpon>202304301013400_migv13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304301027249_migv131.cs" />
+    <Compile Include="Migrations\202304301027249_migv131.designer.cs">
+      <DependentUpon>202304301027249_migv131.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304301030026_migv14.cs" />
+    <Compile Include="Migrations\202304301030026_migv14.designer.cs">
+      <DependentUpon>202304301030026_migv14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304301344290_migv15.cs" />
+    <Compile Include="Migrations\202304301344290_migv15.designer.cs">
+      <DependentUpon>202304301344290_migv15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304301645402_migv16.cs" />
+    <Compile Include="Migrations\202304301645402_migv16.designer.cs">
+      <DependentUpon>202304301645402_migv16.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\ErrorResult.cs" />
@@ -306,6 +332,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304300000553_migv12.resx">
       <DependentUpon>202304300000553_migv12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304301013400_migv13.resx">
+      <DependentUpon>202304301013400_migv13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304301027249_migv131.resx">
+      <DependentUpon>202304301027249_migv131.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304301030026_migv14.resx">
+      <DependentUpon>202304301030026_migv14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304301344290_migv15.resx">
+      <DependentUpon>202304301344290_migv15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304301645402_migv16.resx">
+      <DependentUpon>202304301645402_migv16.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

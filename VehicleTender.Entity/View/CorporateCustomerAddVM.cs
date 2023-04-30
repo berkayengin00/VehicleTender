@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.Enum;
 
 namespace VehicleTender.Entity.View
@@ -24,9 +26,9 @@ namespace VehicleTender.Entity.View
 		[DisplayName("Şirket Adı")]
 		public string CompanyName { get; set; }
 		[DisplayName("İl")]
-		public string Province { get; set; }
+		public int Province { get; set; }
 		[DisplayName("İlçe")]
-		public string District { get; set; }
+		public int District { get; set; }
 		[DisplayName("Adres")]
 		public string Neighbourhood { get; set; }
 		[DisplayName("Şirket Türü")]
@@ -41,6 +43,8 @@ namespace VehicleTender.Entity.View
 		public int UpdatedBy { get; set; }
 		public DateTime AddedDate { get; set; } = DateTime.Now;
 		public DateTime UpdatedDate { get; set; } = DateTime.Now;
-		public int CorporatePackageId { get; set; } = Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı);
+		public int CorporatePackageId { get; set; } = (int)CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı;
+
+		public ProvinceAndDistrictForCache CacheList { get; set; }
 	}
 }

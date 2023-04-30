@@ -42,13 +42,13 @@ namespace VehicleTender.AdminUI.Controllers
 		}
 		// todo bütün postlara validateantiforgerytoken ekle - yapıldı
 		[HttpPost, ValidateAntiForgeryToken]
-		public ActionResult Add(DbVehicleAddVmForAdmin vm, List<HttpPostedFileBase> Images)
+		public ActionResult Add(DbVehicleAddVmForAdmin vm, List<HttpPostedFileBase> images)
 		{
-			List<string> imagePathList = new ImageAdd().AddImage(Images);
+			List<string> imagePathList = new ImageAdd().AddImage(images);
 
 			// todo vehicleage için view üzerinde ekleme yapılacak
 			vm.CreatedBy = vm.UpdatedBy = GetUserId();
-			vm.UserId = GetUserId();
+			//vm.UserId = GetUserId();
 			var result = new VehicleDal().Add(vm, imagePathList);
 			return RedirectToAction("GetAll");
 		}
@@ -63,18 +63,14 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 
 			var result = new VehicleDal().GetVehicleByVehicleId(vehicleId);
+			if (!result.IsSuccess) return View("GetAll");
+
 			result.Data.VehicleStatusList = new VehicleStatuDal().GetAllVehicleStatuses();
-			if (result.IsSuccess && HttpContext.Cache["vehicleFeatures"] == null)
-			{
-				result.Data.VehicleFeaturesForCache = GetFeaturesFromCache();
-				return View(result.Data);
-			}
-			if (result.IsSuccess && HttpContext.Cache["vehicleFeatures"] != null)
-			{
-				result.Data.VehicleFeaturesForCache = HttpContext.Cache["vehicleFeatures"] as VehicleFeaturesForCache;
-				return View(result.Data);
-			}
-			return RedirectToAction("GetAll");
+			result.Data.VehicleFeaturesForCache = GetFeaturesFromCache();
+
+			return View(result.Data);
+			// todo uyarı ver
+
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]

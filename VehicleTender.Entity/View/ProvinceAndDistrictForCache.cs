@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using VehicleTender.Entity.Concrete;
+
+namespace VehicleTender.Entity.View
+{
+	public class ProvinceAndDistrictForCache
+	{
+		public List<SelectListItem> ProvinceList { get; set; }
+		public List<District> DistrictList { get; set; }
+	}
+}

@@ -82,6 +82,7 @@
     <Compile Include="Concrete\Message.cs" />
     <Compile Include="Concrete\Model.cs" />
     <Compile Include="Concrete\NotaryFee.cs" />
+    <Compile Include="Concrete\Province.cs" />
     <Compile Include="Concrete\RetailCustomer.cs" />
     <Compile Include="Concrete\RetailVehiclePurchase.cs" />
     <Compile Include="Concrete\RetailVehiclePurchaseStatus.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Concrete\VehicleBoughtAndSold.cs" />
     <Compile Include="Concrete\VehicleFeatureType.cs" />
     <Compile Include="Concrete\VehicleImage.cs" />
+    <Compile Include="Concrete\VehiclePartStatus.cs" />
     <Compile Include="Concrete\VehiclePrice.cs" />
     <Compile Include="Concrete\VehicleStatus.cs" />
     <Compile Include="Concrete\VehicleStatusHistory.cs" />
@@ -114,11 +116,13 @@
     <Compile Include="View\CorporateCustomer\CorporateCustomerListVMForAdmin.cs" />
     <Compile Include="View\CorporateCustomer\CorporateCustomerUpdateVM.cs" />
     <Compile Include="View\CorporateCustomer\CorporatePackage.cs" />
+    <Compile Include="View\DashboardVMForAdmin.cs" />
     <Compile Include="View\DB\DbVehicleAddVmForAdmin.cs" />
     <Compile Include="View\DB\TenderAndTenderDetailVmForAdmin.cs" />
     <Compile Include="View\Employee\EmployeeAddVM.cs" />
     <Compile Include="View\Employee\EmployeeListVM.cs" />
     <Compile Include="View\LoginVM.cs" />
+    <Compile Include="View\ProvinceAndDistrictForCache.cs" />
     <Compile Include="View\RetailCustomerAddVM.cs" />
     <Compile Include="View\RetailCustomerListVMForAdmin.cs" />
     <Compile Include="View\RetailCustomerVMForAdmin.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="View\TenderListVMForAdmin.cs" />
     <Compile Include="View\Tender\TenderDetailVM.cs" />
     <Compile Include="View\Tender\TenderUpdateVMForAdmin.cs" />
+    <Compile Include="View\Tramer\TramerAddVM.cs" />
     <Compile Include="View\VehicleAddVMForAdmin.cs" />
     <Compile Include="View\VehicleImageVM.cs" />
     <Compile Include="View\VehicleVMForAdmin.cs" />

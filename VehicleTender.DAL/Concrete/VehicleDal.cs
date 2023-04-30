@@ -53,6 +53,7 @@ namespace VehicleTender.DAL.Concrete
 					base.Insert(vehicle);
 					int vehicleId = vehicle.Id;
 
+					// todo: buraya dön
 					if (vm.UserTypeId != (int)TenderOwnerType.Retired)
 					{
 						new StockDal().Insert(new Stock()
@@ -66,7 +67,6 @@ namespace VehicleTender.DAL.Concrete
 							CreatedDate = DateTime.Now,
 							PreliminaryValuationPrice = 10000,
 							UpdatedBy = vm.UserId,
-							// todo enum stok tipi eklenecek
 
 						});
 					}
@@ -138,7 +138,7 @@ namespace VehicleTender.DAL.Concrete
 			return list;
 		}
 
-		public Result<VehicleUpdateVM> GetVehicleByVehicleId(int vehicleId)
+		public DataResult<VehicleUpdateVM> GetVehicleByVehicleId(int vehicleId)
 		{
 			VehicleUpdateVM result = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
@@ -168,7 +168,7 @@ namespace VehicleTender.DAL.Concrete
 						  }).SingleOrDefault();
 
 			}
-			return new Result<VehicleUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null);
+			return new DataResult<VehicleUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null);
 		}
 
 		public bool Update(VehicleUpdateVM vm)

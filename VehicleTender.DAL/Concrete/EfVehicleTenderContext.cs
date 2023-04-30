@@ -50,6 +50,9 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<RoleMenu> RoleMenus { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<VehiclePrice> VehiclePrices { get; set; }
+        public DbSet<Province> Province { get; set; }
+        public DbSet<District> District { get; set; }
+        public DbSet<VehiclePartStatus> VehiclePartStatus { get; set; }
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -94,6 +97,9 @@ namespace VehicleTender.DAL.Concrete
             modelBuilder.Configurations.Add( new MenuRoleConfiguration());
             modelBuilder.Configurations.Add( new MenuConfiguration());
             modelBuilder.Configurations.Add( new VehiclePriceConfiguration());
+            modelBuilder.Configurations.Add( new VehiclePartStatusConfiguration());
+            modelBuilder.Configurations.Add( new ProvinceConfiguration());
+            modelBuilder.Configurations.Add( new DistrictConfiguration());
         }
     }
 }

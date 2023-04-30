@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+@model VehicleTender.Entity.View.Tramer.TramerAddVM
+
+<div class="row">
+    <div class="form-group col-md-6">
+        @Html.LabelFor(x => x.TramerId, new { @class = "col-md-4 control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                @Html.DropDownListFor(x => x.TramerId, Model.TramerList, new { @class = "form-select", required = true })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(x => x.VehiclePartId, new { @class = "col-md-4 control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                @Html.DropDownListFor(x => x.VehiclePartId, Model.VehiclePartStatus, new { @class = "form-select", required = true })
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        <input type="button" name="name" value="Ekle" class="btn btn-outline-success col-md-3 mr-5" id="kaydet" onclick="TramerAdd()" />
+    </div>
+</div>
+<br /><br /><br />
+<h2>İhaleye Eklenen Araçlar</h2>
+<table class="table">
+	<thead>
+	<th>Araç Id</th>
+	<th>Minimum Fiyat</th>
+	<th>Başlangıç Fiyat</th>
+	</thead>
+	<tbody id="TenderDetailTable">
+	</tbody>
+</table>
+
+@section jscode
+{
+	<script>
+
+        function TramerAdd() {
+            vehicle = document.getElementById("TramerId");
+            part = document.getElementById("VehiclePartId");
+            var tramer = {
+                vehicleId: vehicle.value,
+                partId: part.value,
+                vehicleName: vehicle.options[vehicle.selectedIndex].text,
+                partName: part.options[part.selectedIndex].text,
+            };
+            console.log(tramer.vehicleId);
+            var tramerDetails = sessionStorage.getItem("tramerDetails");
+            if (tramerDetails == null) {
+                //boş
+                var tramerDetailList = [];
+                tramerDetailList.push(tramer);
+                sessionStorage.setItem("tramerDetails", JSON.stringify(tramerDetailList));
+            } else {
+                //dolu
+                var verilerim = JSON.parse(tramerDetails);
+                var varMi = 0;
+                for (var i = 0; i < verilerim.length; i++) {
+                    debugger;
+                    if (verilerim[i].vehicleId == tramer.vehicleId ) {
+                        alert("Zaten Var Emmoğlu");
+                        varMi = 1;
+                        debugger;
+                        return;
+                    }
+                }
+                if (varMi == 0) {
+                    verilerim.push(tramer);
+                    sessionStorage.setItem("tramerDetails", JSON.stringify(verilerim));
+                }
+            }
+
+            GetAllTenderDetails();
+
+
+            console.log(tramer);
+        };
+
+        function GetAllTenderDetails() {
+            debugger;
+            var veriler = sessionStorage.getItem("tramerDetails");
+            veriler = JSON.parse(veriler);
+            var vehicleId = ""
+            var partId = ""
+            var vehicleName = "";
+            var tablo = "";
+            for (var i = 0; i < veriler.length; i++) {
+                vehicleId = veriler[i].vehicleId
+                partId = veriler[i].partId
+                vehicleName = veriler[i].vehicleName
+                tablo += "<tr><td>" + vehicleId + "</td><td>" + partId + "</td><td>" + vehicleName + "</td></tr>\n";
+            }
+            document.getElementById("TenderDetailTable").innerHTML = tablo
+        }
+
+        function TenderDetailClear() {
+            sessionStorage.clear();
+            alert("Tramer Temizlendi");
+
+
+        }
+        // ihaleye eklenen araçlar post ediliyor
+        //function TenderDetailsSave() {
+        //    debugger;
+        //    var list = JSON.parse(localStorage.getItem("tenderDetails"));
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Tender/AddDetail",
+        //        data: { jsonData: JSON.stringify(list) },
+        //        success: function (result) {
+        //            debugger;
+        //            localStorage.removeItem("tenderDetails");
+        //            /*window.location.reload();*/
+        //            alert("İhale oluşturuldu")
+        //        },
+        //        error: function () {
+        //            alert("Hata")
+        //        }
+        //    });
+        //}
+
+
+
+
+                        //var tenderDetails = localStorage.getItem("tenderDetails");
+                        //if (tenderDetails == null) {
+                        //    //boş
+                        //    var tenderDetailList = [];
+                        //    tenderDetailList.push(tenderDetail);
+                        //    localStorage.setItem("tenderDetails", JSON.stringify(tenderDetailList));
+                        //} else {
+                        //    //dolu
+                        //    var verilerim = JSON.parse(tenderDetails);
+                        //    verilerim.push(tenderDetail);
+                        //    localStorage.setItem("tenderDetails", JSON.stringify(verilerim));
+                        //}
+
+                    //    GetAllTenderDetails();
+                    //    function test() {
+                    //        debugger
+                    //        console.log(x);
+
+                    //    }
+
+                    //}
+
+                    //function GetAllTenderDetails() {
+                    //    debugger;
+                    //    var veriler = localStorage.getItem("tenderDetails");
+                    //    veriler = JSON.parse(veriler);
+                    //    var vehicleId = ""
+                    //    var minPrice = ""
+                    //    var startPrice = "";
+                    //    var tablo = "";
+                    //    for (var i = 0; i < veriler.length; i++) {
+                    //        vehicleId = veriler[i].vehicleId
+                    //        minPrice = veriler[i].minPrice
+                    //        startPrice = veriler[i].startPrice
+                    //        tablo += "<tr><td>" + vehicleId + "</td><td>" + minPrice + "</td><td>" + startPrice + "</td></tr>\n";
+                    //    }
+                    //    document.getElementById("TenderDetailTable").innerHTML = tablo
+                    //}
+
+                    //function TenderDetailClear() {
+                    //    localStorage.clear();
+                    //    alert("İhale Detayları Temizlendi");
+
+
+                    //}
+                    //// ihaleye eklenen araçlar post ediliyor
+                    //function TenderDetailsSave() {
+                    //    debugger;
+                    //    var list = JSON.parse(localStorage.getItem("tenderDetails"));
+
+                    //    $.ajax({
+                    //        type: "POST",
+                    //        url: "/Tender/AddDetail",
+                    //        data: { jsonData: JSON.stringify(list) },
+                    //        success: function (result) {
+                    //            debugger;
+                    //            localStorage.removeItem("tenderDetails");
+                    //            /*window.location.reload();*/
+                    //            alert("İhale oluşturuldu")
+                    //        },
+                    //        error: function () {
+                    //            alert("Hata")
+                    //        }
+                    //    });
+                    //}
+
+    </script>
+
+}

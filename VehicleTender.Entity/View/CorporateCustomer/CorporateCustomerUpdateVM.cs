@@ -23,9 +23,9 @@ namespace VehicleTender.Entity.View.CorporateCustomer
 		[DisplayName("Şirket Adı")]
 		public string CompanyName { get; set; }
 		[DisplayName("İl")]
-		public string Province { get; set; }
+		public int ProvinceId { get; set; }
 		[DisplayName("İlçe")]
-		public string District { get; set; }
+		public int DistrictId { get; set; }
 		[DisplayName("Adres")]
 		public string Neighbourhood { get; set; }
 		[DisplayName("Şirket Türü")]
@@ -38,5 +38,6 @@ namespace VehicleTender.Entity.View.CorporateCustomer
 		public int UpdatedBy { get; set; }
 		public DateTime AddedDate { get; set; }
 		public DateTime UpdatedDate { get; set; } = DateTime.Now;
+		public ProvinceAndDistrictForCache ListCache { get; set; }
 	}
 }

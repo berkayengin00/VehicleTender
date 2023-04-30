@@ -40,7 +40,7 @@
                                     <th>Onaylandı Mı?</th>
                                     <th>Paket</th>
                                     <th>Kayıt Tarihi</th>
-                                    <th>İl</th>
+                                    <th>İlçe</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
                                     <th></th>
@@ -75,7 +75,7 @@
                                             @{
                                                 if (item.PackageId == Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı))
                                                 {
-                                                    <button type="button" class="btn btn-primary butonClass" data-id="@item.Id">Paket Seç</button>
+                                                    <button type="button" class="badge bg-primary butonClass" data-id="@item.Id">Paket Seç</button>
                                                 }
 
                                                 else
@@ -87,13 +87,13 @@
                                             }
                                         </td>
                                         <td>@item.AddedDate</td>
-                                        <td>@item.Province</td>
+                                        <td>@item.District</td>
                                         <td>@item.IsActive</td>
                                         <th>
-                                            @Html.ActionLink("Sil", "SoftDelete", new { userId = item.Id }, new { @class = "btn btn-outline-danger" })
+                                            @Html.ActionLink("Sil", "SoftDelete", new { userId = item.Id }, new { @class = "btn btn-danger" })
                                         </th>
                                         <th>
-                                            @Html.ActionLink("Güncelle", "Update", new { userId = item.Id }, new { @class = "btn btn-outline-warning" })
+                                            @Html.ActionLink("Güncelle", "Update", new { userId = item.Id }, new { @class = "btn btn-warning" })
                                         </th>
                                     </tr>
                                 }
@@ -108,7 +108,7 @@
                                     <th>Onaylandı Mı?</th>
                                     <th>Paket</th>
                                     <th>Kayıt Tarihi</th>
-                                    <th>İl</th>
+                                    <th>İlçe</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
                                     <th></th>
@@ -153,7 +153,7 @@
 
 @section jscode
 {
-    <script>
+	<script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -213,6 +213,7 @@
                     success: function (result) {
                         console.log(result);
                         $("#myModal").modal("hide");
+                        location.reload();
                     },
                     error: function () {
                         alert("Kaydetme işlemi sırasında bir hata oluştu!");

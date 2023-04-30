@@ -68,7 +68,7 @@
                 <div class="inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
-                        @Html.TextBoxFor(x => x.Province, new { @class = "form-control", Type = "text", placeholder = "İl", required = "true" })
+                        @Html.DropDownListFor(x => x.Province,Model.CacheList.ProvinceList,"İl Seçiniz", new { @class = "form-control", Type = "text", placeholder = "İl", required = "true" })
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 <div class="inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
-                        @Html.TextBoxFor(x => x.District, new { @class = "form-control", Type = "text", placeholder = "ilçe", required = "true" })
+                        @Html.DropDownListFor(x => x.District, new SelectListItem[0],"İlçe Seçiniz",new { @class = "form-control", Type = "text", placeholder = "ilçe", required = "true" ,disabled="true"})
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@
 
 @section jscode
 {
-    <script>
+	<script>
         document.addEventListener("DOMContentLoaded", function () {
             var btn = document.getElementById("kaydet");
             var element = document.getElementById("myToast");
@@ -182,6 +182,30 @@
                 myToast.show();
             });
         });
+
+        $(function () {
+            $("#Province").change(function () {
+                var provinceId = $(this).val();
+                District.disabled = false;
+                $.ajax({
+                    url: "/CorporateCustomer/GetDistrictByProvince",
+                    type: "GET",
+                    data: { provinceId: provinceId },
+                    success: function (data) {
+                        debugger;
+                        var modelsSelect = $("#District");
+                        modelsSelect.empty();
+                        $.each(data, function (index, model) {
+                            modelsSelect.append($('<option/>', {
+                                value: model.Id,
+                                text: model.Name
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+
     </script>
 }
 

@@ -22,8 +22,8 @@ namespace VehicleTender.Entity.View.CorporateCustomer
 		public bool IsVerify { get; set; }
 		[DisplayName("Şirket Adı")]
 		public string CompanyName { get; set; }
-		[DisplayName("İl")]
-		public string Province { get; set; }
+		[DisplayName("İlçe")]
+		public string District { get; set; }
 		[DisplayName("Şirket Türü")]
 		public string CompanyType { get; set; }
 		[DisplayName("Aktif Mi?")]

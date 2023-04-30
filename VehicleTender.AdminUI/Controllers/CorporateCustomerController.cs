@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
+using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.CorporateCustomer;
@@ -11,12 +13,12 @@ using VehicleTender.Entity.View.CorporateCustomer;
 namespace VehicleTender.AdminUI.Controllers
 {
 	[Authorize]
-    public class CorporateCustomerController : Controller
-    {
-	    public CorporateCustomerController()
-	    {
-		    
-	    }
+	public class CorporateCustomerController : Controller
+	{
+		public CorporateCustomerController()
+		{
+
+		}
 		// GET: CorporateCustomer
 		public ActionResult GetAll()
 		{
@@ -25,16 +27,20 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult Add()
 		{
-			return View(new CorporateCustomerAddVM());
+			var result = new CorporateCustomerAddVM()
+			{
+				CacheList = CheckCache()
+			};
+			return View(result);
 		}
 
-		[HttpPost,ValidateAntiForgeryToken]
+		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(CorporateCustomerAddVM vm)
 		{
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();
 			int result = new CorporateCustomerDal().Add(vm);
 			ViewBag.Result = result > 0 ? "Kurumsal Müşteri Kaydedildi" : "Hata!!!";
-			if (result>0)
+			if (result > 0)
 			{
 				return RedirectToAction("GetAll");
 			}
@@ -48,12 +54,13 @@ namespace VehicleTender.AdminUI.Controllers
 			var result = new CorporateCustomerDal().GetUserByUserId(userId);
 			if (result.IsSuccess)
 			{
+				result.Data.ListCache = CheckCache();
 				return View(result.Data);
 			}
 			return RedirectToAction("GetAll");
 		}
 
-		[HttpPost,ValidateAntiForgeryToken]
+		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Update(CorporateCustomerUpdateVM vm)
 		{
 			vm.UpdatedBy = GetUserId(); ;
@@ -75,20 +82,43 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult GetAllPackage(int userId)
 		{
 			ViewBag.UserId = userId;
-			return Json(new CorporatePackageDal().GetAll(),JsonRequestBehavior.AllowGet);
+			return Json(new CorporatePackageDal().GetAll(), JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
-		public ActionResult UpdatePackage(int id,int userId)
+		public ActionResult UpdatePackage(int id, int userId)
 		{
 			new CorporateCustomerDal().UpdatePackage(userId, id);
 			return RedirectToAction("GetAll");
-		}	
+		}
 
 		public ActionResult SoftDelete(int userId)
 		{
 			new CorporateCustomerDal().SoftDelete(userId);
 			return RedirectToAction("GetAll");
+		}
+
+
+		public ActionResult GetDistrictByProvince(int provinceId)
+		{
+			var result = CheckCache().DistrictList.FindAll(x => x.ProvinceId == provinceId);
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+
+		public ProvinceAndDistrictForCache CheckCache()
+		{
+			if (HttpContext.Cache["provinceAndDistrict"] == null)
+			{
+				ProvinceAndDistrictForCache result = new ProvinceAndDistrictForCache()
+				{
+					ProvinceList = new ProvinceDal().GetAll(),
+					DistrictList = new DistrictDal().GetAll(),
+				};
+				HttpContext.Cache.Insert("provinceAndDistrict", result, null, Cache.NoAbsoluteExpiration,
+					TimeSpan.FromDays(1));
+			}
+			return HttpContext.Cache["provinceAndDistrict"] as ProvinceAndDistrictForCache;
+
 		}
 
 		/// <summary>

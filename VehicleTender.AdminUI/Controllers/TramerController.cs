@@ -7,12 +7,12 @@ using VehicleTender.DAL.Concrete;
 
 namespace VehicleTender.AdminUI.Controllers
 {
-    public class DashboardController : Controller
+    public class TramerController : Controller
     {
-        // GET: Dashboard
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Add()
         {
-            return View(new DashboardDal().GetCount());
+	        return View(new TramerDal().GetTramerAddVM());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace VehicleTender.DAL.Concrete
 	public class LoginDal
 	{
 
-		public Result<SessionVMForAdmin> CheckAdmin(LoginVM vm)
+		public DataResult<SessionVMForAdmin> CheckAdmin(LoginVM vm)
 		{
 			SessionVMForAdmin admin = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
@@ -35,7 +35,7 @@ namespace VehicleTender.DAL.Concrete
 				//admin = db.Users.Where(x => x.Email == vm.Email && x.PasswordHash == vm.Password).Select(x => new SessionVMForAdmin() { AdminId = x.Id, Email = x.Email }).SingleOrDefault();
 			}
 
-			return new Result<SessionVMForAdmin>(admin !=null ?"Admin Getirildi" :"Kayıtlı Admin yok", admin, admin == null ? false : true);
+			return new DataResult<SessionVMForAdmin>(admin !=null ?"Admin Getirildi" :"Kayıtlı Admin yok", admin, admin == null ? false : true);
 
 		}
 	}

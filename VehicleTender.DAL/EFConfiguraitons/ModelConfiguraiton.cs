@@ -120,13 +120,11 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			ToTable("CorporateCustomer");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.CompanyName).HasMaxLength(100).IsRequired();
-			Property(x => x.District).HasMaxLength(100).IsRequired(); // todo updateden sonra ayrı tabloya çıkacak
-			Property(x => x.Province).HasMaxLength(100).IsRequired();
+			Property(x => x.DistrictId).IsRequired();
 			Property(x => x.CompanyType).HasMaxLength(100).IsRequired();
 			Property(x => x.FirstName).HasMaxLength(100).IsRequired();
 			Property(x => x.LastName).HasMaxLength(100).IsRequired();
 			Property(x => x.Neighbourhood).HasMaxLength(250).IsRequired();
-			// phonenumber min 11 ve max 11 olmalı
 			Property(x => x.PhoneNumber).HasMaxLength(11).IsFixedLength().IsRequired();
 			Property(x => x.IsActive).IsRequired();
 
@@ -493,6 +491,37 @@ namespace VehicleTender.DAL.EFConfiguraitons
 		{
 			ToTable("VehiclePrice");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+		}
+	}
+
+
+	public class VehiclePartStatusConfiguration : EntityTypeConfiguration<VehiclePartStatus>
+	{
+		public VehiclePartStatusConfiguration()
+		{
+			ToTable("VehiclePartStatus");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(x => x.Name).HasMaxLength(150).IsRequired();
+		}
+	}
+
+	public class ProvinceConfiguration : EntityTypeConfiguration<Province>
+	{
+		public ProvinceConfiguration()
+		{
+			ToTable("Province");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(x => x.Name).HasMaxLength(100).IsRequired();
+		}
+	}
+
+	public class DistrictConfiguration : EntityTypeConfiguration<District>
+	{
+		public DistrictConfiguration()
+		{
+			ToTable("District");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			Property(x => x.Name).HasMaxLength(100).IsRequired();
 		}
 	}
 
