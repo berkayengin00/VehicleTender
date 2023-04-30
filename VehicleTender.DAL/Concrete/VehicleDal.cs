@@ -53,21 +53,23 @@ namespace VehicleTender.DAL.Concrete
 					base.Insert(vehicle);
 					int vehicleId = vehicle.Id;
 
-					new StockDal().Insert(new Stock()
+					if (vm.UserTypeId != (int)TenderOwnerType.Retired)
 					{
-						UserId = vm.UserId,
-						VehicleId = vehicleId,
-						IsActive = true,
-						UpdatedDate = DateTime.Now,
-						AddedPrice = 10000,
-						CreatedBy = vm.UserId,
-						CreatedDate = DateTime.Now,
-						PreliminaryValuationPrice = 10000,
-						UpdatedBy = vm.UserId,
-						// todo enum stok tipi eklenecek
+						new StockDal().Insert(new Stock()
+						{
+							UserId = vm.UserId,
+							VehicleId = vehicleId,
+							IsActive = true,
+							UpdatedDate = DateTime.Now,
+							AddedPrice = 10000,
+							CreatedBy = vm.UserId,
+							CreatedDate = DateTime.Now,
+							PreliminaryValuationPrice = 10000,
+							UpdatedBy = vm.UserId,
+							// todo enum stok tipi eklenecek
 
-					});
-
+						});
+					}
 
 					new VehicleStatusHistoryDal().Insert(new VehicleStatusHistory()
 					{
@@ -87,6 +89,7 @@ namespace VehicleTender.DAL.Concrete
 				}
 				catch (Exception exception)
 				{
+					// todo : loglama yapılacak
 					tran.Dispose();
 				}
 

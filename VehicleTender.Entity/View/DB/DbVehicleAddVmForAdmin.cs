@@ -41,5 +41,6 @@ namespace VehicleTender.Entity.View.DB
 		public string ImagePath { get; set; }
 		public string LicensePlate { get; set; }
 		public int UserId { get; set; }
+		public int UserTypeId { get; set; }
 	}
 }
