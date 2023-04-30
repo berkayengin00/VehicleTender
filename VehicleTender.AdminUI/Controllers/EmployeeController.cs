@@ -47,9 +47,16 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new EmployeeDal().GetAll());
 		}
 
-		public ActionResult SoftDelete()
+		
+		public ActionResult SoftDelete(int id)
 		{
-			return View();
+			if (new EmployeeDal().SoftDelete(id).IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			// todo : hata mesajı göster
+			return RedirectToAction("GetAll");
+
 		}
 
 		public int GetUserId()

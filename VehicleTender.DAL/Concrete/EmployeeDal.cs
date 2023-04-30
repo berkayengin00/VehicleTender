@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Result;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View.Employee;
 
@@ -139,6 +140,16 @@ namespace VehicleTender.DAL.Concrete
 							 }).SingleOrDefault();	
 			}
 			return result;
+		}
+
+		public Result<int> SoftDelete(int id)
+		{
+			Get(x => x.Id == id).IsActive = false;
+			int result = Save();
+			return new Result<int>
+			(
+				 result > 0 ? "Silme işlemi başarılı" : "Silme işlemi başarısız",  0, result>0
+			);
 		}
 	}
 }

@@ -2046,6 +2046,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CorporateCustomerController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MyErrorController.cs" />
@@ -2242,7 +2243,7 @@
     <Content Include="Views\Employee\Add.cshtml" />
     <Content Include="Views\Employee\AddOrUpdate.cshtml" />
     <Content Include="Views\Employee\GetAll.cshtml" />
-    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
