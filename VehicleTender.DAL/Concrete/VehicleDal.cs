@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
-using System.Web.UI.WebControls;
 using VehicleTender.DAL.CrudRepository;
-using VehicleTender.DAL.Result;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.Enum;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.DB;
-using VehicleTender.Entity.View.RetailCustomer;
 using VehicleTender.Entity.View.Vehicle;
 
 namespace VehicleTender.DAL.Concrete
@@ -28,69 +23,88 @@ namespace VehicleTender.DAL.Concrete
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
-				try
+				using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 				{
-					// todo : dateler güncellenecek
-					Vehicle vehicle = new Vehicle()
+					try
 					{
-						BodyTypeId = vm.BodyTypeId,
-						ColorId = vm.ColorId,
-						FuelTypeId = vm.FuelTypeId,
-						GearTypeId = vm.GearTypeId,
-						CreatedBy = vm.CreatedBy,
-						CreatedDate = vm.CreatedDate,
-						UpdatedBy = vm.UpdatedBy,
-						UpdatedDate = vm.UpdatedDate,
-						IsActive = vm.IsActive,
-						ModelId = vm.ModelId,
-						Version = vm.Version,
-						KiloMeter = vm.KiloMeter,
-						Description = vm.Description,
-						VehicleYear = vm.VehicleYear,
-						LicensePlate = vm.LicensePlate,
-						UserId = vm.UserId,
-					};
-					base.Insert(vehicle);
-					int vehicleId = vehicle.Id;
-
-					// todo: buraya dön
-					if (vm.UserTypeId != (int)TenderOwnerType.Retired)
-					{
-						new StockDal().Insert(new Stock()
+						// todo : dateler güncellenecek
+						Vehicle vehicle = new Vehicle()
 						{
+							BodyTypeId = vm.BodyTypeId,
+							ColorId = vm.ColorId,
+							FuelTypeId = vm.FuelTypeId,
+							GearTypeId = vm.GearTypeId,
+							CreatedBy = vm.CreatedBy,
+							CreatedDate = vm.CreatedDate,
+							UpdatedBy = vm.UpdatedBy,
+							UpdatedDate = vm.UpdatedDate,
+							IsActive = vm.IsActive,
+							ModelId = vm.ModelId,
+							Version = vm.Version,
+							KiloMeter = vm.KiloMeter,
+							Description = vm.Description,
+							VehicleYear = vm.VehicleYear,
+							LicensePlate = vm.LicensePlate,
 							UserId = vm.UserId,
-							VehicleId = vehicleId,
+						};
+						int vehicleId = db.Vehicles.Add(vehicle).Id;
+
+						// todo: buraya dön
+						if (vm.UserTypeId != (int)TenderOwnerType.Retired)
+						{
+							db.Stocks.Add(new Stock()
+							{
+								UserId = vm.UserId,
+								VehicleId = vehicleId,
+								IsActive = true,
+								UpdatedDate = DateTime.Now,
+								AddedPrice = 10000,
+								CreatedBy = vm.UserId,
+								CreatedDate = DateTime.Now,
+								PreliminaryValuationPrice = 10000,
+								UpdatedBy = vm.UserId,
+
+							});
+						}
+
+						db.VehicleStatusHistories.Add(new VehicleStatusHistory()
+						{
+							VehicleStatusId = (int)VehicleStatusType.Giris,
 							IsActive = true,
-							UpdatedDate = DateTime.Now,
-							AddedPrice = 10000,
-							CreatedBy = vm.UserId,
-							CreatedDate = DateTime.Now,
-							PreliminaryValuationPrice = 10000,
-							UpdatedBy = vm.UserId,
-
+							StatusChangeDate = DateTime.Now,
+							VehicleId = vehicleId
 						});
+
+						//new VehicleStatusHistoryDal().Insert();
+
+						if (imageList != null)
+						{
+							new VehicleImageDal().ImagesAdd(vehicle.Id, imageList);
+						}
+
+						if (vm.TramerList != null)
+						{
+							foreach (var item in vm.TramerList)
+							{
+								db.VehicleTramers.Add(new VehicleTramer()
+								{
+									TramerId = item.TramerId,
+									VehicleId = vehicleId,
+									VehiclePartStatusId = item.VehiclePartId,
+									PartPrice = item.PartPrice,
+									AddedDate = item.AddDateTime,
+								});
+							}
+						}
+
+						db.SaveChanges();
+						tran.Complete();
 					}
-
-					new VehicleStatusHistoryDal().Insert(new VehicleStatusHistory()
+					catch (Exception exception)
 					{
-						VehicleStatusId = (int)VehicleStatusType.Giris,
-						IsActive = true,
-						StatusChangeDate = DateTime.Now,
-						VehicleId = vehicleId
-					});
-
-					if (imageList != null)
-					{
-						new VehicleImageDal().ImagesAdd(vehicle.Id, imageList);
+						// todo : loglama yapılacak
+						tran.Dispose();
 					}
-
-					Save();
-					tran.Complete();
-				}
-				catch (Exception exception)
-				{
-					// todo : loglama yapılacak
-					tran.Dispose();
 				}
 
 			}

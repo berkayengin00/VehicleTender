@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
-using VehicleTender.DAL.Result;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.RetailCustomer;
@@ -18,26 +19,50 @@ namespace VehicleTender.DAL.Concrete
 		}
 
 
-		public int Add(RetailCustomerAddVM vm)
+		public Result Add(RetailCustomerAddVM vm)
 		{
-			return base.Insert(new RetailCustomer()
+			int result;
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				FirstName = vm.FirstName,
-				LastName = vm.LastName,
-				CreatedBy = vm.CreatedBy,
-				CreatedDate = vm.AddedDate,
-				Email = vm.Email,
-				IsActive = true,
-				IsVerify = true,
-				PasswordHash = vm.PasswordHash,
-				PhoneNumber = vm.PhoneNumber,
-				UpdatedBy = vm.UpdatedBy,
-				UpdatedDate = vm.UpdatedDate,
-			});
+				db.RetailCustomers.Add( new RetailCustomer()
+				{
+					FirstName = vm.FirstName,
+					LastName = vm.LastName,
+					CreatedBy = vm.CreatedBy,
+					CreatedDate = vm.AddedDate,
+					Email = vm.Email,
+					IsActive = true,
+					IsVerify = true,
+					PasswordHash = vm.PasswordHash,
+					PhoneNumber = vm.PhoneNumber,
+					UpdatedBy = vm.UpdatedBy,
+					UpdatedDate = vm.UpdatedDate,
+					
+				});
+
+				result = db.SaveChanges();
+			}
+			//base.Insert(new RetailCustomer()
+			//{
+			//	FirstName = vm.FirstName,
+			//	LastName = vm.LastName,
+			//	CreatedBy = vm.CreatedBy,
+			//	CreatedDate = vm.AddedDate,
+			//	Email = vm.Email,
+			//	IsActive = true,
+			//	IsVerify = true,
+			//	PasswordHash = vm.PasswordHash,
+			//	PhoneNumber = vm.PhoneNumber,
+			//	UpdatedBy = vm.UpdatedBy,
+			//	UpdatedDate = vm.UpdatedDate,
+				
+			//});
+			//int result = Save();
+			return new Result(result>0 ? "Bireysel Müşteri Eklendi" : "Hata",result>0);
 		}
 
 		// todo bu neden kullanılmadı
-		public List<RetailCustomerVMForAdmin> GetAllCustomerForAdmin()
+		public DataResult<List<RetailCustomerVMForAdmin>> GetAllCustomerForAdmin()
 		{
 			List<RetailCustomerVMForAdmin> list = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
@@ -51,9 +76,10 @@ namespace VehicleTender.DAL.Concrete
 					PhoneNumber = x.PhoneNumber,
 					IsActive = x.IsActive,
 					IsVerify = x.IsVerify,
+					CreatedDate = x.CreatedDate
 				}).ToList();
 			}
-			return list;
+			return new DataResult<List<RetailCustomerVMForAdmin>>(list != null ? "Data Geldi" : "Hata!", list, list != null);
 		}
 
 		public DataResult<RetailCustomerUpdateVM> GetUserByUserId(int userId)
@@ -80,10 +106,10 @@ namespace VehicleTender.DAL.Concrete
 						  }).SingleOrDefault();
 			}
 
-			return new DataResult<RetailCustomerUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null ? true : false);
+			return new DataResult<RetailCustomerUpdateVM>(result != null ? "Kullanıcı Getirildi" : "Boş", result, result != null);
 		}
 
-		public bool Update(RetailCustomerUpdateVM vm)
+		public Result Update(RetailCustomerUpdateVM vm)
 		{
 			RetailCustomer result = Get(x => x.Id == vm.UserId);
 			if (result != null)
@@ -101,26 +127,31 @@ namespace VehicleTender.DAL.Concrete
 				result.CreatedBy = vm.CreatedBy;
 				
 			}
-			return Save() > 0;
+
+			int res = Save();
+			return new Result(res > 0 ? "Bireysel Müşteri Eklendi" : "Hata", res > 0);
 		}
 
-		public List<SelectListItem> GetUsersForDropdown()
+		public DataResult<List<SelectListItem>> GetUsersForDropdown()
 		{
-			return Select( x=> new SelectListItem()
+
+			List<SelectListItem> list= Select( x=> new SelectListItem()
 			{
 				Text = $"{x.FirstName} {x.LastName}",
 				Value = x.Id.ToString()
 			});
+			return new DataResult<List<SelectListItem>>(list!=null ?"Kullanıcı Listesi Geldi":"Hata!",list,list!=null);
 		}
 
-		public int SoftDelete(int userId)
+		public Result SoftDelete(int userId)
 		{
 			RetailCustomer result = Get(x => x.Id == userId);
 			if (result != null)
 			{
 				result.IsActive = false;
 			}
-			return Save();
+			int res = Save();
+			return new Result(res>0 ? "Bireysel Müşteri Silindi" : "Hata",res>0);
 		}
 	}
 }

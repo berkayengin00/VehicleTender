@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleTender.Entity.View.Tramer;
 
 namespace VehicleTender.Entity.View.DB
 {
@@ -42,5 +43,6 @@ namespace VehicleTender.Entity.View.DB
 		public string LicensePlate { get; set; }
 		public int UserId { get; set; }
 		public int UserTypeId { get; set; }
+		public List<TramerAddVM> TramerList { get; set; }
 	}
 }

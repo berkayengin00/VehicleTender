@@ -27,5 +27,7 @@ namespace VehicleTender.Entity.View
 		public string PasswordHashAgain { get; set; }
 		[DisplayName("Aktif Mi?")]
 		public bool IsActive { get; set; }
+
+		public DateTime CreatedDate { get; set; }
 	}
 }

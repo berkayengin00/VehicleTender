@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using VehicleTender.DAL.CrudRepository;
-using VehicleTender.DAL.EFConfiguraitons;
-using VehicleTender.DAL.Result;
-using VehicleTender.Entity.Concrete;
+﻿using System.Linq;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.View;
 
 namespace VehicleTender.DAL.Concrete
@@ -30,12 +25,9 @@ namespace VehicleTender.DAL.Concrete
 								join menuRole in db.RoleMenus on menu.Id equals menuRole.MenuId
 								 where menuRole.RoleId == role.Id select menu).ToList()
 					}).SingleOrDefault();
-
-
-				//admin = db.Users.Where(x => x.Email == vm.Email && x.PasswordHash == vm.Password).Select(x => new SessionVMForAdmin() { AdminId = x.Id, Email = x.Email }).SingleOrDefault();
 			}
 
-			return new DataResult<SessionVMForAdmin>(admin !=null ?"Admin Getirildi" :"Kayıtlı Admin yok", admin, admin == null ? false : true);
+			return new DataResult<SessionVMForAdmin>(admin !=null ?"Admin Getirildi" :"Kayıtlı Admin yok", admin, admin != null);
 
 		}
 	}

@@ -6,7 +6,7 @@
 @model VehicleTender.Entity.View.Tramer.TramerAddVM
 
 <div class="row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         @Html.LabelFor(x => x.TramerId, new { @class = "col-md-4 control-label" })
         <div class="inputGroupContainer">
             <div class="input-group">
@@ -15,29 +15,50 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6">
-        @Html.LabelFor(x => x.VehiclePartId, new { @class = "col-md-4 control-label" })
-        <div class="inputGroupContainer">
-            <div class="input-group">
-                @Html.DropDownListFor(x => x.VehiclePartId, Model.VehiclePartStatus, new { @class = "form-select", required = true })
-            </div>
-        </div>
-    </div>
-    <div class="form-group col-md-12">
-        <input type="button" name="name" value="Ekle" class="btn btn-outline-success col-md-3 mr-5" id="kaydet" onclick="TramerAdd()" />
-    </div>
+	<div class="form-group col-md-4">
+		@Html.LabelFor(x => x.VehiclePartId, new { @class = "col-md-4 control-label" })
+		<div class="inputGroupContainer">
+			<div class="input-group">
+				@Html.DropDownListFor(x => x.VehiclePartId, Model.VehiclePartStatus, new { @class = "form-select", required = true })
+			</div>
+		</div>
+	</div>
+    
+	<div class="form-group col-md-4">
+		@Html.LabelFor(x => x.PartPrice, new { @class = "col-md-4 control-label" })
+		<div class="inputGroupContainer">
+			<div class="input-group">
+				<span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+				@Html.TextBoxFor(x => x.PartPrice, new { @class = "form-control", Type = "number", placeholder = "Kilometre Bilgisi", required = "true",id="partPriceId" })
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group col-md-12 text-end">
+		<div>
+            <input type="button" name="name" value="Ekle" class="btn btn-outline-success col-md-2" id="Ekle" onclick="TramerAdd()" />
+		</div>
+		
+	</div>
 </div>
 <br /><br /><br />
-<h2>İhaleye Eklenen Araçlar</h2>
+<h2>Tramer Kayıt Listesi</h2>
 <table class="table">
 	<thead>
-	<th>Araç Id</th>
-	<th>Minimum Fiyat</th>
-	<th>Başlangıç Fiyat</th>
+	<th>Araç Parçası</th>
+	<th>Parça Durumu</th>
+	<th>Parça Fiyatı</th>
 	</thead>
 	<tbody id="TenderDetailTable">
 	</tbody>
 </table>
+
+
+<div class="form-group row text-end ">
+	<div class="">
+        <input type="button" name="name" value="Kaydet Ve Devam Et" class="btn btn-outline-success col-md-2" id="Ekle" onclick="TenderDetailsSave()" />
+	</div>
+</div>
 
 @section jscode
 {
@@ -51,6 +72,7 @@
                 partId: part.value,
                 vehicleName: vehicle.options[vehicle.selectedIndex].text,
                 partName: part.options[part.selectedIndex].text,
+                partPrice : document.getElementById("partPriceId").value,
             };
             console.log(tramer.vehicleId);
             var tramerDetails = sessionStorage.getItem("tramerDetails");
@@ -88,15 +110,15 @@
             debugger;
             var veriler = sessionStorage.getItem("tramerDetails");
             veriler = JSON.parse(veriler);
-            var vehicleId = ""
-            var partId = ""
+            var partName = "";
             var vehicleName = "";
+            var partPrice = "";
             var tablo = "";
             for (var i = 0; i < veriler.length; i++) {
-                vehicleId = veriler[i].vehicleId
-                partId = veriler[i].partId
+                partName = veriler[i].partName
                 vehicleName = veriler[i].vehicleName
-                tablo += "<tr><td>" + vehicleId + "</td><td>" + partId + "</td><td>" + vehicleName + "</td></tr>\n";
+                partPrice = veriler[i].partPrice
+                tablo += "<tr><td>" + vehicleName + "</td><td>" + partName + "</td><td>" + partPrice + "</td></tr>\n";
             }
             document.getElementById("TenderDetailTable").innerHTML = tablo
         }
@@ -105,97 +127,34 @@
             sessionStorage.clear();
             alert("Tramer Temizlendi");
 
-
         }
-        // ihaleye eklenen araçlar post ediliyor
-        //function TenderDetailsSave() {
-        //    debugger;
-        //    var list = JSON.parse(localStorage.getItem("tenderDetails"));
-
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/Tender/AddDetail",
-        //        data: { jsonData: JSON.stringify(list) },
-        //        success: function (result) {
-        //            debugger;
-        //            localStorage.removeItem("tenderDetails");
-        //            /*window.location.reload();*/
-        //            alert("İhale oluşturuldu")
-        //        },
-        //        error: function () {
-        //            alert("Hata")
-        //        }
-        //    });
-        //}
 
 
 
-
-                        //var tenderDetails = localStorage.getItem("tenderDetails");
-                        //if (tenderDetails == null) {
-                        //    //boş
-                        //    var tenderDetailList = [];
-                        //    tenderDetailList.push(tenderDetail);
-                        //    localStorage.setItem("tenderDetails", JSON.stringify(tenderDetailList));
-                        //} else {
-                        //    //dolu
-                        //    var verilerim = JSON.parse(tenderDetails);
-                        //    verilerim.push(tenderDetail);
-                        //    localStorage.setItem("tenderDetails", JSON.stringify(verilerim));
-                        //}
-
-                    //    GetAllTenderDetails();
-                    //    function test() {
-                    //        debugger
-                    //        console.log(x);
-
-                    //    }
-
-                    //}
-
-                    //function GetAllTenderDetails() {
-                    //    debugger;
-                    //    var veriler = localStorage.getItem("tenderDetails");
-                    //    veriler = JSON.parse(veriler);
-                    //    var vehicleId = ""
-                    //    var minPrice = ""
-                    //    var startPrice = "";
-                    //    var tablo = "";
-                    //    for (var i = 0; i < veriler.length; i++) {
-                    //        vehicleId = veriler[i].vehicleId
-                    //        minPrice = veriler[i].minPrice
-                    //        startPrice = veriler[i].startPrice
-                    //        tablo += "<tr><td>" + vehicleId + "</td><td>" + minPrice + "</td><td>" + startPrice + "</td></tr>\n";
-                    //    }
-                    //    document.getElementById("TenderDetailTable").innerHTML = tablo
-                    //}
-
-                    //function TenderDetailClear() {
-                    //    localStorage.clear();
-                    //    alert("İhale Detayları Temizlendi");
-
-
-                    //}
-                    //// ihaleye eklenen araçlar post ediliyor
-                    //function TenderDetailsSave() {
-                    //    debugger;
-                    //    var list = JSON.parse(localStorage.getItem("tenderDetails"));
-
-                    //    $.ajax({
-                    //        type: "POST",
-                    //        url: "/Tender/AddDetail",
-                    //        data: { jsonData: JSON.stringify(list) },
-                    //        success: function (result) {
-                    //            debugger;
-                    //            localStorage.removeItem("tenderDetails");
-                    //            /*window.location.reload();*/
-                    //            alert("İhale oluşturuldu")
-                    //        },
-                    //        error: function () {
-                    //            alert("Hata")
-                    //        }
-                    //    });
-                    //}
+        // tramer bilgileri post ediliyor
+        function TenderDetailsSave() {
+            debugger;
+            var list = JSON.parse(sessionStorage.getItem("tramerDetails"));
+            var vm = [];
+            for (var i = 0; i < list.length; i++) {
+                vm.push({
+                    TramerId: list[i].vehicleId,
+                    VehiclePartId: list[i].partId,
+                    PartPrice: list[i].partPrice
+                });
+            }
+            console.log(vm);
+            $.ajax({
+                type: "POST",
+                url: "/Tramer/Add",
+                data: { jsonData: JSON.stringify(vm) },
+                success: function (data) {
+                    alert("Tramer Kayıt Edildi");
+                    sessionStorage.clear();
+                    window.location.href = "/Vehicle/Add";
+                },
+            });
+        }
 
     </script>
 

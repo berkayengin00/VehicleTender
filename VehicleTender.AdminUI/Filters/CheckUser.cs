@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,7 +39,8 @@ namespace VehicleTender.AdminUI.Filters
 					{
 						RememberMe(vm.RememberMe, vm.Email);
 						HttpContext.Current.Session.Add("Admin", userResult.Data);
-						FormsAuthentication.SetAuthCookie(userResult.Data.Email, true);
+						HttpContext.Current.Session.Timeout = 30;
+						FormsAuthentication.SetAuthCookie(userResult.Data.Email, false);
 						filterContext.Result = new RedirectResult("/Admin/Index");
 					}
 
@@ -73,6 +75,7 @@ namespace VehicleTender.AdminUI.Filters
 			//}
 			base.OnActionExecuting(filterContext);
 		}
+		
 
 		public void RememberMe(bool rememberMe, string email)
 		{

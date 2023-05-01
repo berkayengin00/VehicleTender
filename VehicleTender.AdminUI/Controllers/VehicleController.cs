@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View.DB;
 using VehicleTender.Entity.View;
-using System.Runtime.InteropServices.ComTypes;
 using System.Web.Caching;
 using VehicleTender.DAL.FileAdd;
-using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.Enum;
 using VehicleTender.Entity.View.Vehicle;
+using VehicleTender.Entity.View.Tramer;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -40,15 +37,18 @@ namespace VehicleTender.AdminUI.Controllers
 			}
 			return View(result);
 		}
-		// todo bütün postlara validateantiforgerytoken ekle - yapıldı
+
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(DbVehicleAddVmForAdmin vm, List<HttpPostedFileBase> images)
 		{
+			// todo image ekleme yapılacak
 			List<string> imagePathList = new ImageAdd().AddImage(images);
-
+			
+			// sessiondan alınacak
+			vm.TramerList = CheckSession();
 			// todo vehicleage için view üzerinde ekleme yapılacak
+
 			vm.CreatedBy = vm.UpdatedBy = GetUserId();
-			//vm.UserId = GetUserId();
 			var result = new VehicleDal().Add(vm, imagePathList);
 			return RedirectToAction("GetAll");
 		}
@@ -128,7 +128,7 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 
 			return Json(userTypeId == (int)TenderOwnerType.Retired
-				? new RetailCustomerDal().GetUsersForDropdown()
+				? new RetailCustomerDal().GetUsersForDropdown().Data
 				: new CorporateCustomerDal().GetUsersForDropdown()
 				, JsonRequestBehavior.AllowGet);
 
@@ -139,5 +139,16 @@ namespace VehicleTender.AdminUI.Controllers
 			var model = GetFeaturesFromCache().Models.FindAll(x => x.Value == brandId.ToString());
 			return Json(model, JsonRequestBehavior.AllowGet);
 		}
+
+		[NonAction]
+		public List<TramerAddVM> CheckSession()
+		{
+			if (Session["Tramer"] == null)
+			{
+				return null;
+			}
+			return Session["Tramer"] as List<TramerAddVM>;
+		}
+
 	}
 }

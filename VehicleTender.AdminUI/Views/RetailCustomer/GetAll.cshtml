@@ -5,7 +5,8 @@
 }
 
 @using VehicleTender.Entity.Concrete
-@model List<VehicleTender.Entity.Concrete.RetailCustomer>
+@using VehicleTender.Entity.View
+@model List<RetailCustomerVMForAdmin>
 
 <section class="content">
     <div class="container-fluid">
@@ -36,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (RetailCustomer item in Model)
+                                @foreach (RetailCustomerVMForAdmin item in Model)
                                 {
                                     <tr>
                                         @*@Html.HiddenFor(x => item.Id)*@
@@ -47,9 +48,9 @@
                                         <td>@item.CreatedDate</td>
                                         <td>@item.IsActive</td>
                                         <td>
-	                                        @Html.ActionLink("Sil", "SoftDelete", new {userId=@item.Id}, new { @class = "btn btn-outline-danger" })
+	                                        @Html.ActionLink("Sil", "SoftDelete", new {userId=@item.UserId}, new { @class = "btn btn-outline-danger" })
                                         </td><td>
-	                                        @Html.ActionLink("Güncelle", "Update", new {userId=@item.Id}, new { @class = "btn btn-outline-warning" })
+	                                        @Html.ActionLink("Güncelle", "Update", new {userId=@item.UserId}, new { @class = "btn btn-outline-warning" })
                                         </td>
                                     </tr>
                                 }

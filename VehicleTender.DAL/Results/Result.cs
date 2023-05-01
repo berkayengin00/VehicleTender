@@ -4,18 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleTender.DAL.Result
+namespace VehicleTender.DAL.Results
 {
-	public class DataResult<T>:Result
-	{
-		public T Data { get; set; }
-
-		public DataResult(string message, T data, bool isSuccess):base(message, isSuccess)
-		{
-			Data = data;
-		}
-	}
-
 	public class Result
 	{
 		public string Message { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using VehicleTender.DAL.CrudRepository;
-using VehicleTender.DAL.Result;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.CorporateCustomer;

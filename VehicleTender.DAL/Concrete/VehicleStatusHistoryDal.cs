@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.Entity.Concrete;
+using VehicleTender.Entity.View.VehicleStatusHistory;
 
 namespace VehicleTender.DAL.Concrete
 {
@@ -35,6 +36,26 @@ namespace VehicleTender.DAL.Concrete
 				select vsh.VehicleStatusId).SingleOrDefault();
 			}
 			return (result != statusId); // Eğer son statü değişikliği aynı ise yani başka bir işlem yapılmamışsa false döner
+		}
+
+		public List<VehicleStatusHistoryVM> GetAll(int id)
+		{
+			List<VehicleStatusHistoryVM> list = null;
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			{
+				list = (from vsh in db.VehicleStatusHistories
+					join vehicleStatus in db.VehicleStatus on vsh.VehicleStatusId equals vehicleStatus.Id
+					join vehicle in db.Vehicles on vsh.VehicleId equals vehicle.Id
+					where vsh.VehicleId == id
+					select new VehicleStatusHistoryVM()
+					{
+						LicensePlate = vehicle.LicensePlate,
+						ChangedDataTime = vsh.StatusChangeDate,
+						VehicleStatusHistory = vehicleStatus.StatusName
+					}).ToList();
+			}
+
+			return list;
 		}
 	}
 }

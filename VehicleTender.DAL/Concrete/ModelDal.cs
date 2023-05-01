@@ -14,7 +14,7 @@ namespace VehicleTender.DAL.Concrete
 
 		public List<SelectListItem> GetAllModels()
 		{
-			return base.Select<SelectListItem>(x => new SelectListItem()
+			return base.Select(x => new SelectListItem()
 			{
 				Value = x.Id.ToString(),
 				Text = x.ModelName

@@ -8,6 +8,7 @@ namespace VehicleTender.Entity.Concrete
         public int TramerId { get; set; }
         public int VehiclePartStatusId { get; set; }
         public DateTime AddedDate { get; set; }
+        public decimal PartPrice { get; set; }
 
         public Vehicle Vehicle { get; set; }
         public Tramer Tramer { get; set; }

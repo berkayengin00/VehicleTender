@@ -11,26 +11,36 @@ using VehicleTender.Entity.View.RetailCustomer;
 namespace VehicleTender.AdminUI.Controllers
 {
 	[Authorize]
-    public class RetailCustomerController : Controller
-    {
+	public class RetailCustomerController : Controller
+	{
 		// GET: RetailCustomer
 		public ActionResult Add()
 		{
 			return View(new RetailCustomerAddVM());
 		}
 
-		[HttpPost,ValidateAntiForgeryToken]
+		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(RetailCustomerAddVM vm)
 		{
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();
-			int result = new RetailCustomerDal().Add(vm);
-			return RedirectToAction("GetAll");
-		}
+			if (new RetailCustomerDal().Add(vm).IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			// todo hata mesajı gösterilecek
+			return View(vm);
 
+		}
+		
 		public ActionResult GetAll()
 		{
-			List<RetailCustomer> list = new RetailCustomerDal().GetAll();
-			return View(list);
+			var result = new RetailCustomerDal().GetAllCustomerForAdmin();
+			if (result.IsSuccess)
+			{
+				return View(result.Data);
+			}
+			// todo hata mesajı gösterilecek
+			return View("GetAll");
 		}
 		[HttpGet]
 		public ActionResult Update(int userId)
@@ -43,16 +53,27 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("GetAll");
 		}
 
-		[HttpPost,ValidateAntiForgeryToken]
+		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Update(RetailCustomerUpdateVM vm)
 		{
 			vm.UpdatedBy = GetUserId();
 			var result = new RetailCustomerDal().Update(vm);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			// todo hata mesajı gösterilecek
 			return RedirectToAction("GetAll");
 		}
 
-		public ActionResult	SoftDelete(int userId){
+		public ActionResult SoftDelete(int userId)
+		{
 			var result = new RetailCustomerDal().SoftDelete(userId);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			// todo hata mesajı gösterilecek
 			return RedirectToAction("GetAll");
 		}
 

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using VehicleTender.DAL.CrudRepository;
-using VehicleTender.DAL.Result;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View.Employee;
 

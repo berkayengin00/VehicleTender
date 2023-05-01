@@ -8,9 +8,9 @@
 
 @section head{
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/TemplateContent/plugins/fontawesome-free/css/all.min.css">
     <!-- Ekko Lightbox -->
-    <link rel="stylesheet" href="../plugins/ekko-lightbox/ekko-lightbox.css">
+    <link rel="stylesheet" href="~/TemplateContent/plugins/ekko-lightbox/ekko-lightbox.css">
 }
 
 <div class="container">
@@ -161,33 +161,74 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-12">
-                <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+            <div class="form-group col-md-12 row">
+                <div class="col-md-6">
+                    @Html.ActionLink("Araç Tarihi", "GetAll", "VehicleStatusHistory", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Tramer Bilgileri", "Get", "Tramer", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-6 row text-end">
+                    <div>
+                        <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+                    </div>
+
+                </div>
             </div>
-        </fieldset>
+ 
+    </fieldset>
 
 
-    }
-</div>
+}
+    </div>
 
-@section jscode
+    @*<div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                     Modal Header
+                    <div class="modal-header">
+                        <h4 class="modal-title">Başlık</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                     Modal body
+                    <div class="modal-body">
+                        İçerik
+                    </div>
+
+                     Modal footer
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+
+
+    @section jscode
 {
-    <!-- Ekko Lightbox -->
-    <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-    <script>
-        $(function () {
-            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
+        <!-- Ekko Lightbox -->
+        <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+        <script>
+            $(function () {
+                $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                    event.preventDefault();
+                    $(this).ekkoLightbox({
+                        alwaysShowClose: true
+                    });
+                });
+
+                $('.filter-container').filterizr({ gutterPixels: 3 });
+                $('.btn[data-filter]').on('click', function () {
+                    $('.btn[data-filter]').removeClass('active');
+                    $(this).addClass('active');
+                });
+            })
+
+            $(document).ready(function () {
+                $("#myBtn").click(function () {
+                    $("#myModal").modal();
                 });
             });
-
-            $('.filter-container').filterizr({ gutterPixels: 3 });
-            $('.btn[data-filter]').on('click', function () {
-                $('.btn[data-filter]').removeClass('active');
-                $(this).addClass('active');
-            });
-        })
-    </script>
-}
+        </script>
+    }

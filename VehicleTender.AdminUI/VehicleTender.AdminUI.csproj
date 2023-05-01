@@ -2054,6 +2054,7 @@
     <Compile Include="Controllers\TenderController.cs" />
     <Compile Include="Controllers\TramerController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Controllers\VehicleStatusHistoryController.cs" />
     <Compile Include="Filters\CheckRole.cs" />
     <Compile Include="Filters\CheckUser.cs" />
     <Compile Include="Global.asax.cs">
@@ -2246,6 +2247,9 @@
     <Content Include="Views\Employee\GetAll.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Tramer\Add.cshtml" />
+    <Content Include="Views\VehicleStatusHistory\Index.cshtml" />
+    <Content Include="Views\VehicleStatusHistory\GetAll.cshtml" />
+    <Content Include="Views\Tramer\Get.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

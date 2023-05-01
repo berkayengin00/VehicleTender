@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
-using VehicleTender.DAL.Result;
-using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.CorporateCustomer;
+using VehicleTender.Entity.View.Tramer;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -129,6 +126,16 @@ namespace VehicleTender.AdminUI.Controllers
 		public int GetUserId()
 		{
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
+		}
+
+		[NonAction]
+		public List<TramerAddVM> CheckSession()
+		{
+			if (Session["Tramer"] == null)
+			{
+				return null;
+			}
+			return Session["Tramer"] as List<TramerAddVM>;
 		}
 	}
 }

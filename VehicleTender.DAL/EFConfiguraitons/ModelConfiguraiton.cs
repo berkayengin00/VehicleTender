@@ -427,9 +427,9 @@ namespace VehicleTender.DAL.EFConfiguraitons
 	{
 		public VehicleTramerConfiguration()
 		{
-			// todo ara tablo buna geri dön
+			
 			ToTable("VehicleTramer");
-			HasKey(x => new { x.VehicleId, x.TramerId });
+			HasKey(x => new { x.VehicleId, x.TramerId, x.VehiclePartStatusId });
 		}
 	}
 
@@ -524,5 +524,6 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.Name).HasMaxLength(100).IsRequired();
 		}
 	}
+
 
 }

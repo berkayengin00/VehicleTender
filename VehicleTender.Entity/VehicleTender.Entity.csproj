@@ -134,8 +134,10 @@
     <Compile Include="View\Tender\TenderDetailVM.cs" />
     <Compile Include="View\Tender\TenderUpdateVMForAdmin.cs" />
     <Compile Include="View\Tramer\TramerAddVM.cs" />
+    <Compile Include="View\Tramer\TramerListVM.cs" />
     <Compile Include="View\VehicleAddVMForAdmin.cs" />
     <Compile Include="View\VehicleImageVM.cs" />
+    <Compile Include="View\VehicleStatusHistory\VehicleStatusHistoryVM.cs" />
     <Compile Include="View\VehicleVMForAdmin.cs" />
     <Compile Include="View\Vehicle\VehicleFeaturesForCache.cs" />
     <Compile Include="View\Vehicle\VehicleUpdateVM.cs" />

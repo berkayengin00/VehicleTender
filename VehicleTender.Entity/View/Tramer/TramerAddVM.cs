@@ -14,7 +14,12 @@ namespace VehicleTender.Entity.View.Tramer
 		public int TramerId { get; set; }
 		[DisplayName("Parça Durumu")]
 		public int VehiclePartId { get; set; }
-		
+		[DisplayName("Parça Fiyatı")]
+		public decimal PartPrice { get; set; }
+		public DateTime AddDateTime { get; set; }=DateTime.Now;
+
+
+
 		public List<SelectListItem> TramerList { get; set; }
 		public List<SelectListItem> VehiclePartStatus { get; set; }
 	}

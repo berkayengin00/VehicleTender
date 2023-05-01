@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "AddVehicle";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
+
 }
 @using System.Web.UI.WebControls
 @model VehicleTender.Entity.View.VehicleAddVMForAdmin
@@ -27,7 +28,7 @@
                 <div class="input-group">
                     @Html.DropDownListFor(x => x.UserTypeId, @ViewBag.UserTypeList as List<SelectListItem> ,"Seçim Yapınız", new { @class = "form-select", required = true })
                 </div>
-            </div>
+            </div> 
         </div>
 
 
@@ -222,7 +223,15 @@
         
         <div class="form-group col-md-12">
 	        <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3 mr-5" id="kaydet" />
-	        @Html.ActionLink("Tramer Ekle","Add","Tramer",null, new {@class= "btn btn-primary col-md-3" })
+            @if (Session["Tramer"]==null)
+            {
+	            @Html.ActionLink("Tramer Ekle","Add","Tramer",null, new {@class= "btn btn-primary col-md-3" })
+            }
+            else
+            {
+	           <input type="button" value="Tramer Kaydı Eklendi" disabled/>
+            }
+	       
         </div>
         </fieldset>
 
