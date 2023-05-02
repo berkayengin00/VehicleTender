@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
@@ -235,6 +236,26 @@ namespace VehicleTender.DAL.Concrete
 			Vehicle vehicle = Get(x => x.Id == vehicleId);
 			vehicle.IsActive = false;
 			return Save();
+		}
+
+		/// <summary>
+		/// Şirkete Ait araçlar select list item olarak döner
+		/// </summary>
+		/// <returns></returns>
+		public List<SelectListItem> GetAllVehicleByUserType()
+		{
+			List<SelectListItem> list = null;
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			{
+				list = (db.Vehicles.Select(x=>new SelectListItem()
+				{
+					Text = x.LicensePlate,
+					Value = x.Id.ToString()
+				})).ToList();
+
+			}
+
+			return list;
 		}
 	}
 }

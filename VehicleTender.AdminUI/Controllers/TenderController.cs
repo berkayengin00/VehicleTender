@@ -37,8 +37,12 @@ namespace VehicleTender.AdminUI.Controllers
 
 		public ActionResult AddDetail()
 		{
-
-			return View(new TenderDetailAddVMForAdmin());
+			TenderDetailAddVMForAdmin result = new TenderDetailAddVMForAdmin()
+			{
+				Vehicles = new VehicleDal().GetAllVehicleByUserType()
+			};
+			
+			return View(result);
 		}
 
 		[HttpPost]
@@ -48,6 +52,7 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				var serializer = new JavaScriptSerializer();
 				var data = serializer.Deserialize<List<TenderDetailAddVMForAdmin>>(jsonData);
+
 				TenderAndTenderDetailVmForAdmin detailVm = new TenderAndTenderDetailVmForAdmin()
 				{
 					tenderDetailList = data,
@@ -55,7 +60,7 @@ namespace VehicleTender.AdminUI.Controllers
 				};
 
 				new TenderDal().AddTender(detailVm);
-				Session.Clear();
+				Session.Remove("Tender");
 				return RedirectToAction("GetAll");
 			}
 			// todo hata ver ve o sayfaya yönlendir

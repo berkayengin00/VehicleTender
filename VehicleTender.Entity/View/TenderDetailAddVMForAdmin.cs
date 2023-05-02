@@ -14,6 +14,6 @@ namespace VehicleTender.Entity.View
 		public decimal MinPrice { get; set; }
 		public decimal StartPrice { get; set; }
 
-		public List<SelectListItem> Vehicles { get; set; }
+		public List<SelectListItem> Vehicles { get; set; } 
 	}
 }

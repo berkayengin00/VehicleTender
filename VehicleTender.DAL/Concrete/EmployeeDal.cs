@@ -67,24 +67,56 @@ namespace VehicleTender.DAL.Concrete
 
 		public void Update(EmployeeAddVM vm)
 		{
-			var result = Get(x => x.Id == vm.EmployeeId);
-			if (result != null)
+			using (TransactionScope tran = new TransactionScope())
 			{
-				result.Id = vm.EmployeeId;
-				result.UserName = vm.UserName;
-				result.PasswordHash = vm.PasswordHash;
-				result.FirstName = vm.FirstName;
-				result.LastName = vm.LastName;
-				result.Email = vm.Email;
-				result.PhoneNumber = vm.PhoneNumber;
-				result.IsActive = vm.IsActive;
-				result.CreatedBy = vm.CreatedBy;
-				result.CreatedDate = vm.AddedDate;
-				result.UpdatedBy = vm.UpdatedBy;
-				result.UpdatedDate = vm.UpdatedDate;
-				result.IsVerify = vm.IsVerify;
-				Save();
+				using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+				{
+					try
+					{
+						var result = Get(x => x.Id == vm.EmployeeId);
+						if (result != null)
+						{
+							result.Id = vm.EmployeeId;
+							result.UserName = vm.UserName;
+							result.PasswordHash = vm.PasswordHash;
+							result.FirstName = vm.FirstName;
+							result.LastName = vm.LastName;
+							result.Email = vm.Email;
+							result.PhoneNumber = vm.PhoneNumber;
+							result.IsActive = vm.IsActive;
+							result.CreatedBy = vm.CreatedBy;
+							result.CreatedDate = vm.AddedDate;
+							result.UpdatedBy = vm.UpdatedBy;
+							result.UpdatedDate = vm.UpdatedDate;
+							result.IsVerify = vm.IsVerify;
+						}
+
+
+						RoleUser roleuser = db.RoleUsers.SingleOrDefault(x => x.UserId == vm.EmployeeId);
+						db.Entry(roleuser).State = EntityState.Deleted;
+
+						if (roleuser != null)
+						{
+							db.RoleUsers.Remove(roleuser);
+						}
+
+
+
+						db.RoleUsers.Add(new RoleUser() { RoleId = vm.RoleId, UserId = vm.EmployeeId });
+						db.SaveChanges();
+						tran.Complete();
+					}
+					catch (Exception e)
+					{
+						tran.Dispose();	
+						throw;
+					}
+
+				}
 			}
+
+
+
 
 
 		}
@@ -117,27 +149,27 @@ namespace VehicleTender.DAL.Concrete
 			EmployeeAddVM result = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				 result = (from user in db.Employees
-					join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
-							 join role in db.Roles on roleUser.RoleId equals role.Id
-						   where user.Id == id
-							 select new EmployeeAddVM()
-							 {
-								 EmployeeId = user.Id,
-								 UserName = user.UserName,
-								 PasswordHash = user.PasswordHash,
-								 FirstName = user.FirstName,
-								 LastName = user.LastName,
-								 Email = user.Email,
-								 PhoneNumber = user.PhoneNumber,
-								 IsActive = user.IsActive,
-								 CreatedBy = user.CreatedBy,
-								 AddedDate = user.CreatedDate,
-								 UpdatedBy = user.UpdatedBy,
-								 UpdatedDate = user.UpdatedDate,
-								 IsVerify = user.IsVerify,
-								 RoleId = role.Id
-							 }).SingleOrDefault();	
+				result = (from user in db.Employees
+						  join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
+						  join role in db.Roles on roleUser.RoleId equals role.Id
+						  where user.Id == id
+						  select new EmployeeAddVM()
+						  {
+							  EmployeeId = user.Id,
+							  UserName = user.UserName,
+							  PasswordHash = user.PasswordHash,
+							  FirstName = user.FirstName,
+							  LastName = user.LastName,
+							  Email = user.Email,
+							  PhoneNumber = user.PhoneNumber,
+							  IsActive = user.IsActive,
+							  CreatedBy = user.CreatedBy,
+							  AddedDate = user.CreatedDate,
+							  UpdatedBy = user.UpdatedBy,
+							  UpdatedDate = user.UpdatedDate,
+							  IsVerify = user.IsVerify,
+							  RoleId = role.Id
+						  }).SingleOrDefault();
 			}
 			return result;
 		}
@@ -148,7 +180,7 @@ namespace VehicleTender.DAL.Concrete
 			int result = Save();
 			return new DataResult<int>
 			(
-				 result > 0 ? "Silme işlemi başarılı" : "Silme işlemi başarısız",  0, result>0
+				 result > 0 ? "Silme işlemi başarılı" : "Silme işlemi başarısız", 0, result > 0
 			);
 		}
 	}

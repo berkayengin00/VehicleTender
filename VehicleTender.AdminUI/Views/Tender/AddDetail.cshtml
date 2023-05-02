@@ -23,8 +23,9 @@
                 @Html.LabelFor(x => x.VehicleId, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.VehicleId, new { @class = "form-control", Type = "number", required = "true", id = "txtVehicleId", placeholder = "Araç Id" })
+	                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.DropDownListFor(x=>x.VehicleId,Model.Vehicles, new { @class = "form-select", required = true ,id= "VehicleId" })
+                        @*@Html.TextBoxFor(x => x.VehicleId, new { @class = "form-control", Type = "number", required = "true", id = "txtVehicleId", placeholder = "Araç Id" })*@
                     </div>
                 </div>
             </div>
@@ -81,8 +82,9 @@
 	<script>
         debugger;
         function TenderDetailAdd() {
+            var vehicle = document.getElementById("VehicleId");
             var tenderDetail = {
-                vehicleId: document.getElementById("txtVehicleId").value,
+                vehicleId: vehicle.options[vehicle.selectedIndex].value,
                 minPrice: document.getElementById("txtMinPrice").value,
                 startPrice: document.getElementById("txtStartPrice").value
             };
