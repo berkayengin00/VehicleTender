@@ -77,7 +77,7 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult Update(VehicleUpdateVM vm)
 		{
 			vm.UpdatedBy = GetUserId();
-			if (new VehicleDal().Update(vm))
+			if (new VehicleDal().Update(vm).IsSuccess)
 			{
 				return RedirectToAction("GetAll");
 			}

@@ -46,7 +46,7 @@
                                         <td>@item.PhoneNumber</td>
                                         <td>@item.Email</td>
                                         <td>@item.CreatedDate</td>
-                                        <td>@item.IsActive</td>
+                                        <td>@(item.IsActive ? "aktif" : "pasif")</td>
                                         <td>
 	                                        @Html.ActionLink("Sil", "SoftDelete", new {userId=@item.UserId}, new { @class = "btn btn-outline-danger" })
                                         </td><td>

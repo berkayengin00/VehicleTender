@@ -45,7 +45,7 @@
                                         <td>@item.EndDateTime</td>
                                         <td>@item.TenderStatusName</td>
                                         <td>@item.TenderTypeName</td>
-                                        <td>@item.IsActive</td>
+                                        <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
                                         <th>
 	                                        @Html.ActionLink("Sil","SoftDelete",new {tenderId=item.TenderId},new {@class="btn btn-outline-danger"})
                                         </th><th>

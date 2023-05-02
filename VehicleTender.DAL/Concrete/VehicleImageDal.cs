@@ -13,14 +13,7 @@ namespace VehicleTender.DAL.Concrete
 
 		public void ImagesAdd(int vehicleId,List<string> imgPaths)
 		{
-			foreach (var item in imgPaths)
-			{
-				base.Insert(new VehicleImage()
-				{
-					VehicleId = vehicleId,
-					ImagePath = item,
-				});
-			}
+			
 		}
 		
 	}

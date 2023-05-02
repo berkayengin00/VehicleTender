@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace VehicleTender.DAL.Concrete
 
 		}
 
-		public int Add(DbVehicleAddVmForAdmin vm, List<string> imageList)
+		public Result Add(DbVehicleAddVmForAdmin vm, List<string> imageList)
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
@@ -49,6 +50,14 @@ namespace VehicleTender.DAL.Concrete
 							UserId = vm.UserId,
 						};
 						int vehicleId = db.Vehicles.Add(vehicle).Id;
+
+						db.VehiclePrices.Add(new VehiclePrice()
+						{
+							AddedDate = vm.CreatedDate,
+							IsActive = vm.IsActive,
+							VehicleId = vehicleId,
+							Price = vm.VehiclePrice
+						});
 
 						// todo: buraya dön
 						if (vm.UserTypeId != (int)TenderOwnerType.Retired)
@@ -80,7 +89,16 @@ namespace VehicleTender.DAL.Concrete
 
 						if (imageList != null)
 						{
-							new VehicleImageDal().ImagesAdd(vehicle.Id, imageList);
+							foreach (var item in imageList)
+							{
+								db.VehicleImages.Add(new VehicleImage()
+								{
+									ImagePath = item,
+									IsActive = vm.IsActive,
+									VehicleId = vehicleId
+								});
+							}
+
 						}
 
 						if (vm.TramerList != null)
@@ -98,19 +116,21 @@ namespace VehicleTender.DAL.Concrete
 							}
 						}
 
-						db.SaveChanges();
+						var result = db.SaveChanges();
 						tran.Complete();
+						return new Result("Araç Eklendi", true);
+
 					}
 					catch (Exception exception)
 					{
 						// todo : loglama yapılacak
+
 						tran.Dispose();
+						return new Result("Araç Eklerken Hata Oluştu", false);
 					}
 				}
 
 			}
-
-			return 0;
 		}
 
 		public List<VehicleVMForAdmin> GetAllForAdmin()
@@ -179,56 +199,71 @@ namespace VehicleTender.DAL.Concrete
 												 where vsh.VehicleId == vehicle.Id
 												 join vehicleStatus in db.VehicleStatus on vsh.VehicleStatusId equals vehicleStatus.Id
 												 orderby vsh.StatusChangeDate descending
-												 select vehicleStatus.Id).FirstOrDefault()
+												 select vehicleStatus.Id).FirstOrDefault(),
+							  VehiclePrice = (from price in db.VehiclePrices where price.VehicleId == vehicleId orderby price.AddedDate descending select price.Price).FirstOrDefault()
 						  }).SingleOrDefault();
 
 			}
 			return new DataResult<VehicleUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null);
 		}
 
-		public bool Update(VehicleUpdateVM vm)
+		public Result Update(VehicleUpdateVM vm)
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
-				try
+				using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 				{
-					Vehicle vehicle = Get(x => x.Id == vm.VehicleId);
-					if (vehicle != null)
+					try
 					{
-						vehicle.BodyTypeId = vm.BodyTypeId;
-						vehicle.ColorId = vm.ColorId;
-						vehicle.FuelTypeId = vm.FuelTypeId;
-						vehicle.GearTypeId = vm.GearTypeId;
-						vehicle.ModelId = vm.ModelId;
-						vehicle.Version = vm.Version;
-						vehicle.KiloMeter = vm.KiloMeter;
-						vehicle.Description = vm.Description;
-						vehicle.LicensePlate = vm.LicensePlate;
-						vehicle.UpdatedDate = vm.UpdatedDate;
-						vehicle.UpdatedBy = vm.UpdatedBy;
-						vehicle.VehicleYear = vm.VehicleYear;
+						Vehicle vehicle = db.Vehicles.SingleOrDefault(x => x.Id == vm.VehicleId);
+						if (vehicle != null)
+						{
+							vehicle.BodyTypeId = vm.BodyTypeId;
+							vehicle.ColorId = vm.ColorId;
+							vehicle.FuelTypeId = vm.FuelTypeId;
+							vehicle.GearTypeId = vm.GearTypeId;
+							vehicle.ModelId = vm.ModelId;
+							vehicle.Version = vm.Version;
+							vehicle.KiloMeter = vm.KiloMeter;
+							vehicle.Description = vm.Description;
+							vehicle.LicensePlate = vm.LicensePlate;
+							vehicle.UpdatedDate = vm.UpdatedDate;
+							vehicle.UpdatedBy = vm.UpdatedBy;
+							vehicle.VehicleYear = vm.VehicleYear;
+						}
 
-					}
-					VehicleStatusHistoryDal vshDal = new VehicleStatusHistoryDal();
-					if (vshDal.CheckVehicleStatus(vm.VehicleId, vm.VehicleStatusId))
-					{
-						vshDal.Insert(new VehicleStatusHistory()
+						db.VehiclePrices.Add(new VehiclePrice()
 						{
 							VehicleId = vm.VehicleId,
-							VehicleStatusId = vm.VehicleStatusId,
-							StatusChangeDate = vm.StatusChangedDate
+							Price = vm.VehiclePrice,
+							AddedDate = vm.UpdatedDate,
 						});
+
+						VehicleStatusHistoryDal vshDal = new VehicleStatusHistoryDal();
+						if (vshDal.CheckVehicleStatus(vm.VehicleId, vm.VehicleStatusId))
+						{
+							db.VehicleStatusHistories.Add(new VehicleStatusHistory()
+							{
+								VehicleId = vm.VehicleId,
+								VehicleStatusId = vm.VehicleStatusId,
+								StatusChangeDate = vm.StatusChangedDate
+							});
+						}
+
+						int result =db.SaveChanges();
+						tran.Complete();
+						return new Result("Araç Güncellendi",true);
+
 					}
-					tran.Complete();
+					catch (Exception e )
+					{
+						tran.Dispose();
+						return new Result("Araç Güncellenemedi",false);
+			
+					}
 				}
-				catch (Exception e)
-				{
-					tran.Dispose();
-					Console.WriteLine(e);
-					throw;
-				}
+				
 			}
-			return Save() > 0;
 		}
 
 		public int SoftDelete(int vehicleId)
@@ -247,12 +282,11 @@ namespace VehicleTender.DAL.Concrete
 			List<SelectListItem> list = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				list = (db.Vehicles.Select(x=>new SelectListItem()
+				list = (db.Vehicles.Select(x => new SelectListItem()
 				{
 					Text = x.LicensePlate,
 					Value = x.Id.ToString()
 				})).ToList();
-
 			}
 
 			return list;

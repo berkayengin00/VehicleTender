@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.Version, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
@@ -121,13 +121,23 @@
             </div>
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(x => x.VehicleYear, new { @class = "col-md-4 control-label" })
-                <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.VehicleYear, new { @class = "form-control", Type = "number", placeholder = "Kaç Model?", required = "true", value = Model.VehicleYear })
-                    </div>
-                </div>
+	            @Html.LabelFor(x => x.VehicleYear, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.VehicleYear, new { @class = "form-control", Type = "number", placeholder = "Kaç Model?", required = "true", value = Model.VehicleYear })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.VehiclePrice, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.VehiclePrice, new { @class = "form-control", Type = "text", placeholder = "Fiyat", required = "true" })
+		            </div>
+	            </div>
             </div>
 
             <div class="form-group col-md-12">

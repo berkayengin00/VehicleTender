@@ -42,6 +42,7 @@ namespace VehicleTender.AdminUI.Controllers
 			// todo hata mesajı gösterilecek
 			return View("GetAll");
 		}
+
 		[HttpGet]
 		public ActionResult Update(int userId)
 		{

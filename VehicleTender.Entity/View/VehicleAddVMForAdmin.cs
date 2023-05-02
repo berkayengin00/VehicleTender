@@ -47,7 +47,10 @@ namespace VehicleTender.Entity.View
 		public int UserTypeId { get; set; }
 		[DisplayName("Kullanıcı Seçiniz")]
 		public int UserId { get; set; }
-		
+		[DisplayName("Fiyat Giriniz")] 
+		public decimal VehiclePrice { get; set; }
+
+
 		public List<SelectListItem> UserTypeList { get; set; }
 		public VehicleFeaturesForCache VehicleFeaturesForCache { get; set; }
 	}

@@ -38,11 +38,13 @@ namespace VehicleTender.Entity.View.DB
 		public int ColorId { get; set; }
 		[DisplayName("Marka")]
 		public int BrandId { get; set; }
+		public decimal VehiclePrice { get; set; }
 		public bool IsActive { get; set; }=true;
 		public string ImagePath { get; set; }
 		public string LicensePlate { get; set; }
 		public int UserId { get; set; }
 		public int UserTypeId { get; set; }
+
 		public List<TramerAddVM> TramerList { get; set; }
 	}
 }

@@ -2045,11 +2045,13 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CommissionFeeController.cs" />
     <Compile Include="Controllers\CorporateCustomerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MyErrorController.cs" />
+    <Compile Include="Controllers\NotaryFeeController.cs" />
     <Compile Include="Controllers\RetailCustomerController.cs" />
     <Compile Include="Controllers\TenderController.cs" />
     <Compile Include="Controllers\TramerController.cs" />
@@ -2250,6 +2252,7 @@
     <Content Include="Views\VehicleStatusHistory\Index.cshtml" />
     <Content Include="Views\VehicleStatusHistory\GetAll.cshtml" />
     <Content Include="Views\Tramer\Get.cshtml" />
+    <Content Include="Views\NotaryFee\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2261,6 +2264,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="TemplateContent\img\DbAddedImg\" />
+    <Folder Include="Views\CommissionFee\" />
     <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>

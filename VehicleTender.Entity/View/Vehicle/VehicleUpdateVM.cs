@@ -39,6 +39,7 @@ namespace VehicleTender.Entity.View.Vehicle
 		[DisplayName("Marka")]
 		public int BrandId { get; set; }
 
+		public decimal VehiclePrice { get; set; }
 		public DateTime StatusChangedDate { get; set; }=DateTime.Now;
 		public VehicleFeaturesForCache VehicleFeaturesForCache { get; set; }
 		public int VehicleStatusId { get; set; }
