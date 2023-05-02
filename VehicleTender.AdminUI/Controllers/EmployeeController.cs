@@ -20,7 +20,7 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				result = new EmployeeDal().Get(id);
 			}
-
+			TempData.Add("NotificationMessage", "Çalışan Eklendi");
 			result.Roles = new RoleDal().GetAllRoles();
 			return View(result);
 		}

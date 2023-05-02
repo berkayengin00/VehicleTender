@@ -85,6 +85,7 @@
             var vehicle = document.getElementById("VehicleId");
             var tenderDetail = {
                 vehicleId: vehicle.options[vehicle.selectedIndex].value,
+                licensePlate: vehicle.options[vehicle.selectedIndex].text,
                 minPrice: document.getElementById("txtMinPrice").value,
                 startPrice: document.getElementById("txtStartPrice").value
             };
@@ -96,10 +97,25 @@
                 tenderDetailList.push(tenderDetail);
                 localStorage.setItem("tenderDetails", JSON.stringify(tenderDetailList));
             } else {
+                debugger;
                 //dolu
-                var verilerim = JSON.parse(tenderDetails);
-                verilerim.push(tenderDetail);
-                localStorage.setItem("tenderDetails", JSON.stringify(verilerim));
+                var isThere = 0;
+                // araç listeye eklenmiş mi kontrol et
+                for (var i = 0; i < tenderDetails; i++) {
+                    // listede varsa ekleme yapma
+                    if (tenderDetails[i].licensePlate == tenderDetail.value) {
+                        isThere = 1;
+                        alert("Bu araç zaten ekli");
+                        return;
+                    }
+                }
+                // listede yoksa ekle
+                if (isThere==0) {
+                    var verilerim = JSON.parse(tenderDetails);
+                    verilerim.push(tenderDetail);
+                    localStorage.setItem("tenderDetails", JSON.stringify(verilerim));
+                }
+                
             }
 
             GetAllTenderDetails();
@@ -115,15 +131,15 @@
             debugger;
             var veriler = localStorage.getItem("tenderDetails");
             veriler = JSON.parse(veriler);
-            var vehicleId = ""
+            var licensePlate = ""
             var minPrice = ""
             var startPrice = "";
             var tablo = "";
             for (var i = 0; i < veriler.length; i++) {
-                vehicleId = veriler[i].vehicleId
+                licensePlate = veriler[i].licensePlate
                 minPrice = veriler[i].minPrice
                 startPrice = veriler[i].startPrice
-                tablo += "<tr><td>" + vehicleId + "</td><td>" + minPrice + "</td><td>" + startPrice + "</td></tr>\n";
+                tablo += "<tr><td>" + licensePlate + "</td><td>" + minPrice + "</td><td>" + startPrice + "</td></tr>\n";
             }
             document.getElementById("TenderDetailTable").innerHTML = tablo
         }
@@ -145,9 +161,9 @@
                 data: { jsonData: JSON.stringify(list) },
                 success: function (result) {    
                     debugger;
-                    localStorage.removeItem("tenderDetails");
-                    /*window.location.reload();*/
+                    localStorage.removeItem("tenderDetails");                    
                     alert("İhale oluşturuldu")
+                    window.location.href = "@Url.Action("GetAll","Tender")";
                 },
                 error: function () {
                     alert("Hata")

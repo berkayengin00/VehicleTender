@@ -12,10 +12,7 @@ namespace VehicleTender.AdminUI.Controllers
 	[Authorize]
 	public class CorporateCustomerController : Controller
 	{
-		public CorporateCustomerController()
-		{
 
-		}
 		// GET: CorporateCustomer
 		public ActionResult GetAll()
 		{

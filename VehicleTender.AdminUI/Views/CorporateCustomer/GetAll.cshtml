@@ -137,7 +137,7 @@
             <input type="hidden" name="name" value="" id="hiddenUserId" />
 
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal Başlığı</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Kurumsal Paket Seçimi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -213,7 +213,7 @@
                     success: function (result) {
                         console.log(result);
                         $("#myModal").modal("hide");
-                        location.reload();
+                        window.location.reload();
                     },
                     error: function () {
                         alert("Kaydetme işlemi sırasında bir hata oluştu!");
@@ -221,9 +221,7 @@
                 });
             });
         });
-
-
-
+        
     </script>
 }
 
