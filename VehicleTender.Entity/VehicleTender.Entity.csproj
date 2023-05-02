@@ -122,6 +122,7 @@
     <Compile Include="View\Employee\EmployeeAddVM.cs" />
     <Compile Include="View\Employee\EmployeeListVM.cs" />
     <Compile Include="View\LoginVM.cs" />
+    <Compile Include="View\NotaryFeeVM.cs" />
     <Compile Include="View\ProvinceAndDistrictForCache.cs" />
     <Compile Include="View\RetailCustomerAddVM.cs" />
     <Compile Include="View\RetailCustomerListVMForAdmin.cs" />

@@ -2252,7 +2252,8 @@
     <Content Include="Views\VehicleStatusHistory\Index.cshtml" />
     <Content Include="Views\VehicleStatusHistory\GetAll.cshtml" />
     <Content Include="Views\Tramer\Get.cshtml" />
-    <Content Include="Views\NotaryFee\Add.cshtml" />
+    <Content Include="Views\NotaryFee\GetAll.cshtml" />
+    <Content Include="Views\NotaryFee\AddOrUpdate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

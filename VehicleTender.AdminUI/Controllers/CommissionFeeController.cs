@@ -9,7 +9,7 @@ namespace VehicleTender.AdminUI.Controllers
     public class CommissionFeeController : Controller
     {
         // GET: CommissionFee
-        public ActionResult Index()
+        public ActionResult Add()
         {
             return View();
         }

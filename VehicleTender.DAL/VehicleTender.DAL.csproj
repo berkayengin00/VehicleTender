@@ -88,6 +88,7 @@
     <Compile Include="Concrete\GearTypeDal.cs" />
     <Compile Include="Concrete\LoginDal.cs" />
     <Compile Include="Concrete\ModelDal.cs" />
+    <Compile Include="Concrete\NotaryFeeDal.cs" />
     <Compile Include="Concrete\ProvinceDal.cs" />
     <Compile Include="Concrete\RetailCustomerDal.cs" />
     <Compile Include="Concrete\RoleDal.cs" />
