@@ -2053,6 +2053,7 @@
     <Compile Include="Controllers\MyErrorController.cs" />
     <Compile Include="Controllers\NotaryFeeController.cs" />
     <Compile Include="Controllers\RetailCustomerController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\TenderController.cs" />
     <Compile Include="Controllers\TramerController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
@@ -2254,6 +2255,9 @@
     <Content Include="Views\Tramer\Get.cshtml" />
     <Content Include="Views\NotaryFee\GetAll.cshtml" />
     <Content Include="Views\NotaryFee\AddOrUpdate.cshtml" />
+    <Content Include="Views\CommissionFee\AddOrUpdate.cshtml" />
+    <Content Include="Views\CommissionFee\GetAll.cshtml" />
+    <Content Include="Views\Stock\GetAll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2265,7 +2269,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="TemplateContent\img\DbAddedImg\" />
-    <Folder Include="Views\CommissionFee\" />
     <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>

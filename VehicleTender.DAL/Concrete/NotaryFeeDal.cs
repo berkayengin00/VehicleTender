@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -68,7 +65,7 @@ namespace VehicleTender.DAL.Concrete
 			foreach (var item in list)
 			{
 				// db deki bitiş tarihinden küçük bir girilen değer(vm) tarihi varsa false
-				if (startDate<item.EndDate)
+				if (startDate<item.EndDate && item.IsActive == true)
 				{
 					return false;
 				}

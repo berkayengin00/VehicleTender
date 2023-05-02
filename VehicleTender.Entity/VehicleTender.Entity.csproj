@@ -94,7 +94,7 @@
     <Compile Include="Concrete\TenderDetail.cs" />
     <Compile Include="Concrete\TenderHistory.cs" />
     <Compile Include="Concrete\TenderStatus.cs" />
-    <Compile Include="Concrete\TenderType.cs" />
+    <Compile Include="Concrete\UserType.cs" />
     <Compile Include="Concrete\Tramer.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\Vehicle.cs" />
@@ -108,10 +108,11 @@
     <Compile Include="Concrete\VehicleTramer.cs" />
     <Compile Include="Enum\CorporateCustomerPackageType.cs" />
     <Compile Include="Enum\TenderStatuType.cs" />
-    <Compile Include="Enum\TenderOwnerType.cs" />
+    <Compile Include="Enum\UserTypeEnum.cs" />
     <Compile Include="Enum\VehicleStatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BrandVM.cs" />
+    <Compile Include="View\CommissionFeeVM.cs" />
     <Compile Include="View\CorporateCustomerAddVM.cs" />
     <Compile Include="View\CorporateCustomer\CorporateCustomerListVMForAdmin.cs" />
     <Compile Include="View\CorporateCustomer\CorporateCustomerUpdateVM.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="View\RetailCustomerVMForAdmin.cs" />
     <Compile Include="View\RetailCustomer\RetailCustomerUpdateVM.cs" />
     <Compile Include="View\SessionVMForAdmin.cs" />
+    <Compile Include="View\Stock\StockVMForAdmin.cs" />
     <Compile Include="View\TenderAddVMForAdmin.cs" />
     <Compile Include="View\TenderDetailAddVMForAdmin.cs" />
     <Compile Include="View\TenderListVMForAdmin.cs" />

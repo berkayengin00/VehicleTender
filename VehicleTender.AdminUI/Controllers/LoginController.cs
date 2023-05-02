@@ -15,7 +15,6 @@ namespace VehicleTender.AdminUI.Controllers
 		// GET: Login
 		public ActionResult Index()
 		{
-			
 			if (ModelState.IsValid && Session["Admin"]!=null)
 			{
 				return RedirectToAction("Index", "Admin");
@@ -37,10 +36,13 @@ namespace VehicleTender.AdminUI.Controllers
         {
 	        if (!ModelState.IsValid)
 	        {
+		        TempData.Add("message","Hata");
 		        return RedirectToAction("Index");
 		      
 	        }
-	        return RedirectToAction("Index","Admin");
+			TempData.Clear();
+	        TempData.Add("message","Test");
+			return RedirectToAction("Index","Admin");
         }
 		[NonAction]
         public void RememberMe(bool rememberMe,string email)

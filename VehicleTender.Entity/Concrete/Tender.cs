@@ -15,6 +15,6 @@ namespace VehicleTender.Entity.Concrete
         public DateTime UpdatedDate { get; set; }
         
         public TenderStatus TenderStatus { get; set; }
-        public TenderType TenderType { get; set; }
+        public UserType TenderType { get; set; }
     }
 }

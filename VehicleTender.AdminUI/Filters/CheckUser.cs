@@ -41,6 +41,8 @@ namespace VehicleTender.AdminUI.Filters
 						HttpContext.Current.Session.Add("Admin", userResult.Data);
 						HttpContext.Current.Session.Timeout = 30;
 						FormsAuthentication.SetAuthCookie(userResult.Data.Email, false);
+
+						filterContext.Controller.TempData.Add("message","Giriş Başarılı");
 						filterContext.Result = new RedirectResult("/Admin/Index");
 					}
 
@@ -55,6 +57,11 @@ namespace VehicleTender.AdminUI.Filters
 
 					//HttpContext.Current.Session.Add("deger","hoppala!");
 				}
+				else
+				{
+					filterContext.Controller.TempData.Add("message", "Hata!!!");
+				}
+				
 				//else
 				//{
 				//	// log al
@@ -62,7 +69,7 @@ namespace VehicleTender.AdminUI.Filters
 				//	filterContext.Result = new RedirectResult("/Account/LogIn"); // işlem başarısız olursa bu adrese git
 				//}
 			}
-
+			
 			//if (HttpContext.Current.Session["veri"]!=null)
 			//{
 			//	// db ye gidip sessiondaki değere karşılaştırma yap

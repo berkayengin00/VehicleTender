@@ -24,37 +24,49 @@ namespace VehicleTender.DAL.Concrete
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
-				try
+				using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 				{
-					Tender tender = new Tender()
+					try
 					{
-						TenderName = vm.TenderAddVmForAdmin.TenderName,
-						StartDateTime = vm.TenderAddVmForAdmin.StartDateTime,
-						EndDateTime = vm.TenderAddVmForAdmin.EndDateTime,
-						CreatedDate = vm.TenderAddVmForAdmin.StartDateTime,
-						UpdatedDate = vm.TenderAddVmForAdmin.ModefieDateTime,
-						IsActive = vm.TenderAddVmForAdmin.IsActive,
-						TenderTypeId = vm.TenderAddVmForAdmin.TenderTypeId,
-						TenderStatusId = vm.TenderAddVmForAdmin.TenderStatusId,
-						CreatedBy = vm.TenderAddVmForAdmin.CreatedById,
-						UpdatedBy = vm.TenderAddVmForAdmin.UpdatedById,
+						Tender tender = new Tender()
+						{
+							TenderName = vm.TenderAddVmForAdmin.TenderName,
+							StartDateTime = vm.TenderAddVmForAdmin.StartDateTime,
+							EndDateTime = vm.TenderAddVmForAdmin.EndDateTime,
+							CreatedDate = vm.TenderAddVmForAdmin.StartDateTime,
+							UpdatedDate = vm.TenderAddVmForAdmin.ModefieDateTime,
+							IsActive = vm.TenderAddVmForAdmin.IsActive,
+							TenderTypeId = vm.TenderAddVmForAdmin.TenderTypeId,
+							TenderStatusId = vm.TenderAddVmForAdmin.TenderStatusId,
+							CreatedBy = vm.TenderAddVmForAdmin.CreatedById,
+							UpdatedBy = vm.TenderAddVmForAdmin.UpdatedById,
 
-					};
-					base.Insert(tender);
-					new TenderDetailDal().Insert(vm.tenderDetailList.Select(x => new TenderDetail()
+						};
+						db.Tenders.Add(tender);
+
+						db.TenderDetails.AddRange(vm.tenderDetailList.Select(x => new TenderDetail()
+						{
+							MinPrice = x.MinPrice,
+							StartPrice = x.StartPrice,
+							TenderId = tender.Id,
+							VehicleId = x.VehicleId,
+						}));
+						//new TenderDetailDal().Insert(vm.tenderDetailList.Select(x => new TenderDetail()
+						//{
+						//	MinPrice = x.MinPrice,
+						//	StartPrice = x.StartPrice,
+						//	TenderId = tender.Id,
+						//	VehicleId = x.VehicleId,
+						//}).ToList());
+						db.SaveChanges();
+						tran.Complete();
+					}// todo log yapılınca dispose edilmeden önce log alınacak
+					catch
 					{
-						MinPrice = x.MinPrice,
-						StartPrice = x.StartPrice,
-						TenderId = tender.Id,
-						VehicleId = x.VehicleId,
-					}).ToList());
-					base.Save();
-					tran.Complete();
-				}// todo log yapılınca dispose edilmeden önce log alınacak
-				catch
-				{
-					tran.Dispose();
+						tran.Dispose();
+					}
 				}
+				
 			}
 		}
 

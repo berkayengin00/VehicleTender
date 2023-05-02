@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.Employee;
@@ -20,7 +16,7 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				result = new EmployeeDal().Get(id);
 			}
-			TempData.Add("NotificationMessage", "Çalışan Eklendi");
+			
 			result.Roles = new RoleDal().GetAllRoles();
 			return View(result);
 		}
@@ -58,7 +54,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("GetAll");
 
 		}
-
+		[NonAction]
 		public int GetUserId()
 		{
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;

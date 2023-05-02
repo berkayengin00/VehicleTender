@@ -35,7 +35,7 @@ namespace VehicleTender.DAL.Concrete
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderHistory> TenderHistories { get; set; }
         public DbSet<TenderStatus> TenderStatus{ get; set; }
-        public DbSet<TenderType> TenderTypes { get; set; }
+        public DbSet<UserType> TenderTypes { get; set; }
         public DbSet<TenderDetail> TenderDetails { get; set; }
         public DbSet<Tramer> Tramers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -82,7 +82,7 @@ namespace VehicleTender.DAL.Concrete
             modelBuilder.Configurations.Add( new StockConfiguration());
             modelBuilder.Configurations.Add( new TenderConfiguration());
             modelBuilder.Configurations.Add( new TenderHistoryConfiguration());
-            modelBuilder.Configurations.Add( new TenderTypeConfiguration());
+            modelBuilder.Configurations.Add( new UserTypeConfiguration());
             modelBuilder.Configurations.Add( new TenderDetailConfiguration());
             modelBuilder.Configurations.Add( new TramerConfiguration());
             modelBuilder.Configurations.Add( new VehicleConfiguration());

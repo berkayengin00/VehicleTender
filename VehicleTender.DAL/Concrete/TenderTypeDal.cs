@@ -10,7 +10,7 @@ using VehicleTender.Entity.Concrete;
 
 namespace VehicleTender.DAL.Concrete
 {
-	public class TenderTypeDal:CrudRepository<TenderType>
+	public class TenderTypeDal:CrudRepository<UserType>
 	{
 		public TenderTypeDal() : base(new EfVehicleTenderContext())
 		{

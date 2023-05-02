@@ -127,7 +127,7 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult GetUsersByUserType(int userTypeId)
 		{
 
-			return Json(userTypeId == (int)TenderOwnerType.Retired
+			return Json(userTypeId == (int)UserTypeEnum.Retired
 				? new RetailCustomerDal().GetUsersForDropdown().Data
 				: new CorporateCustomerDal().GetUsersForDropdown()
 				, JsonRequestBehavior.AllowGet);

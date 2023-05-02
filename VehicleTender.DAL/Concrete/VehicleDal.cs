@@ -60,7 +60,7 @@ namespace VehicleTender.DAL.Concrete
 						});
 
 						// todo: buraya dön
-						if (vm.UserTypeId != (int)TenderOwnerType.Retired)
+						if (vm.UserTypeId != (int)UserTypeEnum.Retired)
 						{
 							db.Stocks.Add(new Stock()
 							{
@@ -68,11 +68,12 @@ namespace VehicleTender.DAL.Concrete
 								VehicleId = vehicleId,
 								IsActive = true,
 								UpdatedDate = DateTime.Now,
-								AddedPrice = 10000,
+								AddedPrice = vm.VehiclePrice,
 								CreatedBy = vm.UserId,
 								CreatedDate = DateTime.Now,
-								PreliminaryValuationPrice = 10000,
+								PreliminaryValuationPrice = vm.VehiclePrice,
 								UpdatedBy = vm.UserId,
+								UserTypeId = vm.UserTypeId
 
 							});
 						}

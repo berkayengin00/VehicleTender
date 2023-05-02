@@ -337,11 +337,11 @@ namespace VehicleTender.DAL.EFConfiguraitons
 		}
 	}
 
-	public class TenderTypeConfiguration : EntityTypeConfiguration<TenderType>
+	public class UserTypeConfiguration : EntityTypeConfiguration<UserType>
 	{
-		public TenderTypeConfiguration()
+		public UserTypeConfiguration()
 		{
-			ToTable("TenderType");
+			ToTable("UserType");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.Name).HasMaxLength(100).IsRequired();
 			Property(x => x.IsActive).IsRequired();
