@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -14,9 +15,10 @@ namespace VehicleTender.Entity.View
 	public class TenderAddVMForAdmin
 	{
 		[DisplayName("İhale Adı")]
+		[StringLength(50,ErrorMessage = "İhale Adı 50 karakterden fazla olamaz.")]
 		public string TenderName { get; set; }
 		[DisplayName("İhale Durumu")]
-		public int TenderStatusId { get; set; } = Convert.ToInt16(TenderStatusType.Baslamadi);
+		public int TenderStatusId { get; set; } = (int)(TenderStatusType.Baslamadi);
 		[DisplayName("İhale Başlangıç Tarihi")]
 		public DateTime StartDateTime { get; set; }
 		[DisplayName("İhale Bitiş Tarihi")]

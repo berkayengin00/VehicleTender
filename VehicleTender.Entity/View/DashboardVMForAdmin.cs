@@ -11,8 +11,10 @@ namespace VehicleTender.Entity.View
 		public int RetailCustomerCount { get; set; }
 		public int CorporateCustomerType { get; set; }
 		public int EmployeeCount { get; set; }
-		public int StockCount { get; set; }
+		public int StockCountByPlaza { get; set; }
+		public int StockCountByCorporate{ get; set; }
 		public int VehicleCount { get; set; }
-		public int TenderCount { get; set; }
+		public int TenderCountByCorporate { get; set; }
+		public int TenderCountByRetired { get; set; }
 	}
 }

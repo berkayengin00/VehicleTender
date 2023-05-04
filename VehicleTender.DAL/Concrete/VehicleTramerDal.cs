@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleTender.DAL.Results;
+using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View.Tramer;
 
 namespace VehicleTender.DAL.Concrete
@@ -29,6 +30,26 @@ namespace VehicleTender.DAL.Concrete
 			}
 
 			return new DataResult<List<TramerListVM>>(list!=null  ? "Tramer Bilgileri Getirildi":"Hata!",list,list!=null);
+		}
+
+
+		public void AddWithoutVehicle(List<TramerAddVMWithOutVehicle> list)
+		{
+			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
+			{
+				foreach (var item in list)
+				{
+					db.VehicleTramers.Add( new VehicleTramer()
+					{
+						AddedDate = item.AddDateTime,
+						PartPrice = item.PartPrice,
+						TramerId = item.TramerId,
+						VehiclePartStatusId = item.VehiclePartId,
+						VehicleId = item.VehicleId,
+					});
+				}
+				db.SaveChanges();
+			}
 		}
 	}
 }

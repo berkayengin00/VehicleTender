@@ -10,11 +10,7 @@ namespace VehicleTender.AdminUI.Controllers
     public class VehicleStatusHistoryController : Controller
     {
         // GET: VehicleStatusHistory
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+       
         public ActionResult GetAll(int id)
         {
             var result = new VehicleStatusHistoryDal().GetAll(id);

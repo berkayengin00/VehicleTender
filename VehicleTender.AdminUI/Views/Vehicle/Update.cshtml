@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Update";
     Layout = "~/Views/shared/_AdminLayout.cshtml";
+	TempData["VehicleId"] = Model.VehicleId;
 }
 
 @model VehicleTender.Entity.View.Vehicle.VehicleUpdateVM
@@ -173,7 +174,7 @@
 
             <div class="form-group col-md-12 row">
                 <div class="col-md-6">
-                    @Html.ActionLink("Araç Tarihi", "GetAll", "VehicleStatusHistory", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Araç Tarihçesi", "GetAll", "VehicleStatusHistory", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Tramer Bilgileri", "Get", "Tramer", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
                 </div>
                 <div class="col-md-6 row text-end">

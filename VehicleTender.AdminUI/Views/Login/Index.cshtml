@@ -1,10 +1,13 @@
 ﻿
 @{
     Layout = null;
-	var message = TempData["message"] != null ? TempData["message"].ToString() : "";
+	var message = TempData["message"] != null ? (TempData["message"] as Result)?.Message : "";
+	var success = (TempData["message"] as Result)?.IsSuccess ?? false;
+	var isSuccess = success.ToString().ToLower();
 
 }
 @using VehicleTender.DAL.Migrations
+@using VehicleTender.DAL.Results
 @model VehicleTender.Entity.View.LoginVM
 
 <!DOCTYPE html>
@@ -22,19 +25,26 @@
     <link rel="stylesheet" href="~/TemplateContent/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/TemplateContent/dist/css/adminlte.min.css">
-    
+
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
-    @if (message != null)
-    {
-	    <meta name="notificationMessage" content="@message" />
-    }
+    <script>
+    $(function () {
+        var message = "@message";
+        let isSuccess = @(isSuccess); // Razor syntax kullanılarak değişken atanıyor
+        if (isSuccess == false && message != "") {
+            toastr.error(message);
+        }
+        if(isSuccess==true && message!=""){
+            toastr.success("İşlem başarılı", message); // İki parametre gönderiliyor
+        }
+    });
+    </script>
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -49,14 +59,15 @@
                 </div>
                 <div class="card-body">
                     <p class="login-box-msg">Admin için giriş ekranı</p>
-
+                    @Html.ValidationMessageFor(x=>x.Email)
 
                     <div class="input-group mb-3">
                         @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Email", required = "true", Type = "email" })
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
+	                        <div class="input-group-text">
+		                        <span class="fas fa-envelope"></span>
+	                        </div>
+	                        @Html.ValidationMessageFor(x => x.Email, "", new { @class= "text-danger small" })
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -69,10 +80,10 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                                @Html.CheckBoxFor(x=>x.RememberMe,new {Type="checkbox"})
-		                        <label for="remember">
-			                        Beni Hatırla
-		                        </label>
+                            @Html.CheckBoxFor(x => x.RememberMe, new { Type = "checkbox" })
+                            <label for="remember">
+                                Beni Hatırla
+                            </label>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
@@ -114,3 +125,4 @@
     <script src="~/TemplateContent/dist/js/adminlte.min.js"></script>
 </body>
 </html>
+

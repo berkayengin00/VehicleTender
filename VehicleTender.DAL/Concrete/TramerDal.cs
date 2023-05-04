@@ -30,5 +30,7 @@ namespace VehicleTender.DAL.Concrete
 				};
 			}
 		}
+
+
 	}
 }

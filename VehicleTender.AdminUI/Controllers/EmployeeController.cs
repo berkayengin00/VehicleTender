@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Web.Caching;
 using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.Employee;
+using VehicleTender.Entity.View.Vehicle;
 
 namespace VehicleTender.AdminUI.Controllers
 {
@@ -16,8 +19,8 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				result = new EmployeeDal().Get(id);
 			}
-			
-			result.Roles = new RoleDal().GetAllRoles();
+
+			result.Roles = CheckCache();
 			return View(result);
 		}
 
@@ -25,17 +28,24 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult AddOrUpdate(EmployeeAddVM vm)
 		{
 			vm.UpdatedBy = GetUserId();
-			if (vm.EmployeeId != 0)
+
+			if (ModelState.IsValid)
 			{
-				vm.UpdatedDate = DateTime.Now;
-				new EmployeeDal().Update(vm);
+				if (vm.EmployeeId != 0)
+				{
+					vm.UpdatedDate = DateTime.Now;
+					new EmployeeDal().Update(vm);
+				}
+				else
+				{
+					vm.CreatedBy = GetUserId();
+					new EmployeeDal().Add(vm);
+				}
+				return RedirectToAction("GetAll");
 			}
-			else
-			{
-				vm.CreatedBy = GetUserId();
-				new EmployeeDal().Add(vm);
-			}
-			return RedirectToAction("GetAll");
+			vm.Roles=CheckCache();
+			return View(vm);
+
 		}
 
 		public ActionResult GetAll()
@@ -43,7 +53,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new EmployeeDal().GetAll());
 		}
 
-		
+
 		public ActionResult SoftDelete(int id)
 		{
 			if (new EmployeeDal().SoftDelete(id).IsSuccess)
@@ -58,6 +68,16 @@ namespace VehicleTender.AdminUI.Controllers
 		public int GetUserId()
 		{
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
+		}
+
+		public List<SelectListItem> CheckCache()
+		{
+			if (HttpContext.Cache["userType"] != null)
+				return HttpContext.Cache["userType"] as List<SelectListItem>;
+
+			var roles= new RoleDal().GetAllRoles();
+			HttpContext.Cache.Insert("userType", roles, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+			return roles;
 		}
 	}
 }

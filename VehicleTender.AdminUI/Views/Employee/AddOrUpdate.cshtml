@@ -14,17 +14,19 @@
             @Html.HiddenFor(x=>x.EmployeeId)
             @Html.HiddenFor(x=>x.AddedDate)
             @Html.HiddenFor(x=>x.UpdatedDate)
+            
 
-	        <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.UserName, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", Type = "text", placeholder = "Ad", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+		                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", Type = "text", placeholder = "Ad", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.UserName, "", new { @class= "text-danger small" })
                 </div>
             </div>
-
+           
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.FirstName, new { @class = "col-md-4 control-label" })
@@ -33,52 +35,58 @@
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                         @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", Type = "text", placeholder = "Ad", required = "true" })
                     </div>
+                    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger small" })
                 </div>
             </div>
-
+            
             <!-- Text input-->
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.LastName, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", Type = "text", placeholder = "Soyad", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+		                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", Type = "text", placeholder = "Soyad", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.LastName, "", new { @class= "text-danger small" })
                 </div>
             </div>
+            
 
             <!-- Text input-->
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.Email, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", Type = "mail", placeholder = "Email", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+		                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", Type = "mail", placeholder = "Email", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.Email, "", new { @class= "text-danger small" })
                 </div>
             </div>
-
 
             <!-- Text input-->
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "text", placeholder = "Telefone Numarası", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+		                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "text", placeholder = "Telefone Numarası", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class= "text-danger small" })
                 </div>
             </div>
+
 
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.PasswordHash, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+		                @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true" })
+	                </div>
+	                @*@Html.ValidationMessageFor(x => x.PasswordHash, "", new { @class= "text-danger small" })*@
                 </div>
             </div>
 
@@ -89,9 +97,9 @@
 			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
 			            @Html.TextBoxFor(x => x.PasswordHashAgain, new { @class = "form-control", Type = "password", placeholder = "Parola Tekrar", required = "true" })
 		            </div>
+		            @Html.ValidationMessageFor(x => x.PasswordHashAgain, "", new { @class= "text-danger small" })
 	            </div>
             </div>
-            
             
             <div class="form-group col-md-6">
 	            @Html.LabelFor(x => x.RoleId, new { @class = "col-md-4 control-label" })
@@ -101,7 +109,6 @@
 		            </div>
 	            </div>
             </div>
-
 
         </fieldset>
 

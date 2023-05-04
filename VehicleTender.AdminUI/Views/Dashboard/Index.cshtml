@@ -13,12 +13,12 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>@Model.StockCountByPlaza</h3>
 
-                        <p>New Orders</p>
+                        <p>Plazadaki Araç Sayısı</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion-model-s"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -28,12 +28,12 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>@Model.StockCountByCorporate</h3>
 
-                        <p>Bounce Rate</p>
+	                    <p>Kurumsalın Stoktai Araç Sayısı</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="ion-android-car"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -48,7 +48,7 @@
 			            <p>Çalışan Sayısı</p>
 		            </div>
 		            <div class="icon">
-			            <i class="ion ion-person-add"></i>
+			            <i class="ion ion-star"></i>
 		            </div>
 		            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 	            </div>
@@ -63,7 +63,7 @@
 			            <p>Bireysel Müşteri Sayısı</p>
 		            </div>
 		            <div class="icon">
-			            <i class="ion ion-person-add"></i>
+			            <i class="ion ion-person"></i>
 		            </div>
 		            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 	            </div>
@@ -83,17 +83,33 @@
 		            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 	            </div>
             </div>
+            
+            <div class="col-lg-3 col-6">
+	            <!-- small box -->
+	            <div class="small-box bg-success">
+		            <div class="inner">
+			            <h3>@Model.TenderCountByCorporate</h3>
+
+			            <p>Kurumsalın İhale Sayısı</p>
+		            </div>
+		            <div class="icon">
+			            <i class="ion-arrow-graph-up-right"></i>
+		            </div>
+		            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+	            </div>
+            </div>
+
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>@Model.TenderCountByRetired</h3>
 
-                        <p>Unique Visitors</p>
+                        <p>Bireysel İhale Sayısı</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="ion-arrow-graph-up-right"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

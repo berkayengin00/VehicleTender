@@ -2058,6 +2058,7 @@
     <Compile Include="Controllers\TramerController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VehicleStatusHistoryController.cs" />
+    <Compile Include="Filters\CheckDateForNataryFee.cs" />
     <Compile Include="Filters\CheckRole.cs" />
     <Compile Include="Filters\CheckUser.cs" />
     <Compile Include="Global.asax.cs">
@@ -2250,7 +2251,6 @@
     <Content Include="Views\Employee\GetAll.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Tramer\Add.cshtml" />
-    <Content Include="Views\VehicleStatusHistory\Index.cshtml" />
     <Content Include="Views\VehicleStatusHistory\GetAll.cshtml" />
     <Content Include="Views\Tramer\Get.cshtml" />
     <Content Include="Views\NotaryFee\GetAll.cshtml" />
@@ -2269,6 +2269,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="TemplateContent\img\DbAddedImg\" />
+    <Folder Include="Validation\" />
     <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>

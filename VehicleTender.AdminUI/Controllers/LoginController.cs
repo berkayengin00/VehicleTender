@@ -36,13 +36,10 @@ namespace VehicleTender.AdminUI.Controllers
         {
 	        if (!ModelState.IsValid)
 	        {
-		        TempData.Add("message","Hata");
 		        return RedirectToAction("Index");
-		      
 	        }
-			TempData.Clear();
-	        TempData.Add("message","Test");
-			return RedirectToAction("Index","Admin");
+			
+			return View(loginVm);
         }
 		[NonAction]
         public void RememberMe(bool rememberMe,string email)

@@ -35,7 +35,8 @@
                                     <th>Ad</th>
                                     <th>Soyad</th>
                                     <th>Email</th>
-                                    <th>Telefon No</th>
+	                                <th>Telefon No</th>
+                                    <th>Rolü</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
                                     <th></th>
@@ -51,6 +52,7 @@
                                         <td>@item.LastName</td>
                                         <td>@item.Email</td>
                                         <td>@item.PhoneNumber</td>
+                                        <td>@item.RoleName</td>
                                         <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
                                         <th>
                                             @Html.ActionLink("Sil", "SoftDelete", new { id = item.EmployeeId }, new { @class = "btn btn-outline-danger" })
@@ -68,7 +70,8 @@
                                     <th>Ad</th>
                                     <th>Soyad</th>
                                     <th>Email</th>
-                                    <th>Telefon No</th>
+	                                <th>Telefon No</th>
+	                                <th>Rolü</th>
                                     <th>Aktif Mi?</th>
                                     <th></th>
                                     <th></th>

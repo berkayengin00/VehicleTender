@@ -42,7 +42,7 @@ namespace VehicleTender.AdminUI.Filters
 						HttpContext.Current.Session.Timeout = 30;
 						FormsAuthentication.SetAuthCookie(userResult.Data.Email, false);
 
-						filterContext.Controller.TempData.Add("message","Giriş Başarılı");
+						filterContext.Controller.TempData.Add("message", userResult);
 						filterContext.Result = new RedirectResult("/Admin/Index");
 					}
 
@@ -59,7 +59,7 @@ namespace VehicleTender.AdminUI.Filters
 				}
 				else
 				{
-					filterContext.Controller.TempData.Add("message", "Hata!!!");
+					filterContext.Controller.TempData.Add("message", userResult);
 				}
 				
 				//else
