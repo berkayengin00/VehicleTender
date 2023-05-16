@@ -28,8 +28,8 @@ namespace VehicleTender.AdminUI.Controllers
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(TenderAddVMForAdmin vm)
-		{
-			vm.CreatedById = vm.CreatedById = GetUserId();
+        {
+            vm.CreatedById = vm.CorporateId;
 
 			Session.Add("Tender", vm);
 			return RedirectToAction("AddDetail");
@@ -78,6 +78,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("GetAll");
 		}
 
+		// todo update işlemi yapılacak
 		public ActionResult Update(int tenderId)
 		{
 

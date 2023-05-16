@@ -42,7 +42,7 @@
                 @Html.LabelFor(x => x.CorporateId, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.DropDownListFor(x => x.CorporateId, Model.CompanyNames, new { @class = "form-select", required = true })
+                        @Html.DropDownListFor(x => x.CorporateId, Model.CompanyNames, new { @class = "form-select", required = true  , disabled=true})
                     </div>
                 </div>
             </div>
@@ -107,12 +107,34 @@
         </fieldset>
     }
 </div>
-
+@*$('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });*@
 
 @section jscode
 {
-    <script>
-        $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+	<script>
+       
+
+        $(function () {
+            $("#TenderTypeId").change(function () {
+                var typeId = $(this).val();  
+                CorporateId.disabled = false;
+                $.ajax({
+                    url: "/Vehicle/GetUsersByUserType",
+                    type: "GET",
+                    data: { userTypeId: typeId },
+                    success: function (data) {
+                        var modelsSelect = $("#CorporateId");
+                        modelsSelect.empty();
+                        $.each(data, function (index, model) {
+                            modelsSelect.append($('<option/>', {
+                                value: model.Value,
+                                text: model.Text
+                            }));
+                        });
+                    }
+                });
+            });
+        });
     </script>
 }
 

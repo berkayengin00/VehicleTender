@@ -257,6 +257,18 @@
     <Compile Include="Migrations\202305022157318_migv19.designer.cs">
       <DependentUpon>202305022157318_migv19.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305150950330_migv22.cs" />
+    <Compile Include="Migrations\202305150950330_migv22.designer.cs">
+      <DependentUpon>202305150950330_migv22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305150952140_migv23.cs" />
+    <Compile Include="Migrations\202305150952140_migv23.designer.cs">
+      <DependentUpon>202305150952140_migv23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305150953139_migv24.cs" />
+    <Compile Include="Migrations\202305150953139_migv24.designer.cs">
+      <DependentUpon>202305150953139_migv24.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\DataResult.cs" />
@@ -383,6 +395,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305022157318_migv19.resx">
       <DependentUpon>202305022157318_migv19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305150950330_migv22.resx">
+      <DependentUpon>202305150950330_migv22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305150952140_migv23.resx">
+      <DependentUpon>202305150952140_migv23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305150953139_migv24.resx">
+      <DependentUpon>202305150953139_migv24.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

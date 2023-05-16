@@ -1,4 +1,6 @@
-﻿namespace VehicleTender.Entity.Concrete
+﻿using System.Collections.Generic;
+
+namespace VehicleTender.Entity.Concrete
 {
 	public class TenderDetail:BaseEntity
 	{
@@ -8,5 +10,7 @@
 		public decimal StartPrice { get; set; }
 		public Vehicle Vehicle { get; set; }
 		public Tender Tender { get; set; }
+
+       // public ICollection<TenderHistory> TenderHistories { get; set; }
 	}
 }

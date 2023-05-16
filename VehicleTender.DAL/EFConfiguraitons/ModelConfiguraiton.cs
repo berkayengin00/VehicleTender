@@ -312,7 +312,8 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			ToTable("TenderDetail");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.IsActive).IsRequired();
-		}
+
+        }
 	}
 
 	public class TenderHistoryConfiguration : EntityTypeConfiguration<TenderHistory>
@@ -330,10 +331,10 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			.HasForeignKey(x => x.UserId)
 			.WillCascadeOnDelete();
 
-			HasRequired(x => x.Tender)
-				.WithMany()
-				.HasForeignKey(x => x.TenderId)
-				.WillCascadeOnDelete();
+			//HasRequired(x => x.TenderDetail)
+			//    .WithMany()
+			//    .HasForeignKey(x => x.TenderDetailId)
+			//    .WillCascadeOnDelete(true);
 		}
 	}
 
