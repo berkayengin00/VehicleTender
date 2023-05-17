@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VehicleTender.Entity.View;
 
 namespace VehicleTender.AdminUI.Filters
 {
@@ -10,8 +11,9 @@ namespace VehicleTender.AdminUI.Filters
 	{
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			DateTime addedDate = Convert.ToDateTime(filterContext.ActionParameters["StartDate"]);
-			DateTime endDate = Convert.ToDateTime(filterContext.ActionParameters["EndDate"]);
+			var vm = filterContext.ActionParameters["vm"] as NotaryFeeVM;
+			DateTime addedDate = vm.StartDate;
+			DateTime endDate = vm.EndDate;
 
 
 			if (addedDate > endDate)

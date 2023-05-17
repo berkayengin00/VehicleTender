@@ -251,19 +251,19 @@ namespace VehicleTender.DAL.Concrete
 							});
 						}
 
-						int result =db.SaveChanges();
+						int result = db.SaveChanges();
 						tran.Complete();
-						return new Result("Araç Güncellendi",true);
+						return new Result("Araç Güncellendi", true);
 
 					}
-					catch (Exception e )
+					catch (Exception e)
 					{
 						tran.Dispose();
-						return new Result("Araç Güncellenemedi",false);
-			
+						return new Result("Araç Güncellenemedi", false);
+
 					}
 				}
-				
+
 			}
 		}
 
@@ -278,16 +278,23 @@ namespace VehicleTender.DAL.Concrete
 		/// Şirkete Ait araçlar select list item olarak döner
 		/// </summary>
 		/// <returns></returns>
-		public List<SelectListItem> GetAllVehicleByUserType()
+		public List<SelectListItem> GetAllVehicleByUserType(int userId)
 		{
 			List<SelectListItem> list = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				list = (db.Vehicles.Select(x => new SelectListItem()
-				{
-					Text = x.LicensePlate,
-					Value = x.Id.ToString()
-				})).ToList();
+				list = (from vehicle in db.Vehicles
+						join vsh in db.VehicleStatusHistories on vehicle.Id equals vsh.VehicleId
+						where vsh.StatusChangeDate == db.VehicleStatusHistories
+							.Where(v => v.VehicleId == vehicle.Id)
+							.Max(v => v.StatusChangeDate)
+						orderby vsh.StatusChangeDate descending
+						where vsh.VehicleStatusId != (int)VehicleStatusType.Ihalede && vehicle.UserId==userId
+						select new SelectListItem()
+						{
+							Text = vehicle.LicensePlate,
+							Value = vehicle.Id.ToString()
+						}).ToList();
 			}
 
 			return list;

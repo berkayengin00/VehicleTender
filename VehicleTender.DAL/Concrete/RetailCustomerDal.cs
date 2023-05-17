@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Hashing;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -33,7 +34,7 @@ namespace VehicleTender.DAL.Concrete
 					Email = vm.Email,
 					IsActive = true,
 					IsVerify = true,
-					PasswordHash = vm.PasswordHash,
+					PasswordHash = new MyHash().HashPassword(vm.PasswordHash),
 					PhoneNumber = vm.PhoneNumber,
 					UpdatedBy = vm.UpdatedBy,
 					UpdatedDate = vm.UpdatedDate,
@@ -82,6 +83,12 @@ namespace VehicleTender.DAL.Concrete
 			return new DataResult<List<RetailCustomerVMForAdmin>>(list != null ? "Data Geldi" : "Hata!", list, list != null);
 		}
 
+
+		/// <summary>
+		/// Kullanıcı Id sine göre kullanıcı getirir
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		public DataResult<RetailCustomerUpdateVM> GetUserByUserId(int userId)
 		{
 			RetailCustomerUpdateVM result = null;
@@ -109,6 +116,11 @@ namespace VehicleTender.DAL.Concrete
 			return new DataResult<RetailCustomerUpdateVM>(result != null ? "Kullanıcı Getirildi" : "Boş", result, result != null);
 		}
 
+		/// <summary>
+		/// Bireysel Kullanıcı günceller
+		/// </summary>
+		/// <param name="vm"></param>
+		/// <returns></returns>
 		public Result Update(RetailCustomerUpdateVM vm)
 		{
 			RetailCustomer result = Get(x => x.Id == vm.UserId);
@@ -118,7 +130,7 @@ namespace VehicleTender.DAL.Concrete
 				result.LastName = vm.LastName;
 				result.PhoneNumber = vm.PhoneNumber;
 				result.Email = vm.Email;
-				result.PasswordHash = vm.PasswordHash;
+				result.PasswordHash = result.PasswordHash;
 				result.UpdatedBy = vm.UpdatedBy;
 				result.UpdatedDate = vm.UpdatedDate;
 				result.IsActive = vm.IsActive;

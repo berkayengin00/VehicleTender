@@ -109,6 +109,7 @@
     <Compile Include="CrudRepository\ICrudRepository.cs" />
     <Compile Include="EFConfiguraitons\ModelConfiguraiton.cs" />
     <Compile Include="FileAdd\ImageAdd.cs" />
+    <Compile Include="Hashing\MyHash.cs" />
     <Compile Include="Migrations\202304212028296_mig1.cs" />
     <Compile Include="Migrations\202304212028296_mig1.designer.cs">
       <DependentUpon>202304212028296_mig1.cs</DependentUpon>

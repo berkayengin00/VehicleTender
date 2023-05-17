@@ -99,18 +99,20 @@
             } else {
                 debugger;
                 //dolu
+                var verilerim = JSON.parse(tenderDetails);
                 var isThere = 0;
                 // araç listeye eklenmiş mi kontrol et
-                for (var i = 0; i < tenderDetails; i++) {
+                debugger;
+                for (var i = 0; i < verilerim.length; i++) {
                     // listede varsa ekleme yapma
-                    if (tenderDetails[i].licensePlate == tenderDetail.value) {
+                    if (verilerim[i].licensePlate == tenderDetail.licensePlate) {
                         isThere = 1;
                         alert("Bu araç zaten ekli");
                         return;
                     }
                 }
                 // listede yoksa ekle
-                if (isThere==0) {
+                if (isThere == 0) {
                     var verilerim = JSON.parse(tenderDetails);
                     verilerim.push(tenderDetail);
                     localStorage.setItem("tenderDetails", JSON.stringify(verilerim));

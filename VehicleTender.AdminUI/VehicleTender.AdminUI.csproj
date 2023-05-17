@@ -2269,7 +2269,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="TemplateContent\img\DbAddedImg\" />
-    <Folder Include="Validation\" />
     <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>

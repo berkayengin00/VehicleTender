@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Transactions;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
 using VehicleTender.Entity.Concrete;
+using VehicleTender.Entity.Enum;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.DB;
 using VehicleTender.Entity.View.Tender;
@@ -51,13 +53,29 @@ namespace VehicleTender.DAL.Concrete
 							TenderId = tender.Id,
 							VehicleId = x.VehicleId,
 						}));
-						//new TenderDetailDal().Insert(vm.tenderDetailList.Select(x => new TenderDetail()
+						var list = vm.tenderDetailList.Select(x => new VehicleStatusHistory()
+						{
+							IsActive = true,
+							StatusChangeDate = DateTime.Now,
+							VehicleId = x.VehicleId,
+							VehicleStatusId = (int)VehicleStatusType.Ihalede
+						});
+						db.VehicleStatusHistories.AddRange(list);
+
+
+						//foreach (var item in vm.tenderDetailList)
 						//{
-						//	MinPrice = x.MinPrice,
-						//	StartPrice = x.StartPrice,
-						//	TenderId = tender.Id,
-						//	VehicleId = x.VehicleId,
-						//}).ToList());
+						//	var result = db.VehicleStatusHistories.Add(new VehicleStatusHistory()
+						//	{
+						//		IsActive = true,
+						//		StatusChangeDate = DateTime.Now,
+						//		VehicleId = item.VehicleId,
+						//		VehicleStatusId = (int)VehicleStatusType.Ihalede
+						//	});
+
+						//}
+
+
 						db.SaveChanges();
 						tran.Complete();
 					}// todo log yapılınca dispose edilmeden önce log alınacak
@@ -66,7 +84,7 @@ namespace VehicleTender.DAL.Concrete
 						tran.Dispose();
 					}
 				}
-				
+
 			}
 		}
 
@@ -120,7 +138,7 @@ namespace VehicleTender.DAL.Concrete
 						  AddedDateTime = tender.CreatedDate,
 						  ModefieDateTime = tender.UpdatedDate,
 						  UpdatedById = tender.UpdatedBy,
-						  TenderDetailList = db.TenderDetails.Where(x=>x.TenderId==tenderId).Select(x=> new TenderDetailVM(){TenderDetailId = x.Id,VehicleId = x.VehicleId,MinPrice = x.MinPrice,StartPrice = x.MinPrice}).ToList(),
+						  TenderDetailList = db.TenderDetails.Where(x => x.TenderId == tenderId).Select(x => new TenderDetailVM() { TenderDetailId = x.Id, VehicleId = x.VehicleId, MinPrice = x.MinPrice, StartPrice = x.MinPrice }).ToList(),
 						  TenderTypes = db.TenderTypes.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList(),
 						  TenderStatusList = db.TenderStatus.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList(),
 

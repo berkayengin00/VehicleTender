@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using VehicleTender.DAL.Hashing;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.View;
 
@@ -10,6 +11,7 @@ namespace VehicleTender.DAL.Concrete
 		public DataResult<SessionVMForAdmin> CheckAdmin(LoginVM vm)
 		{
 			SessionVMForAdmin admin = null;
+			vm.Password = new MyHash().HashPassword(vm.Password);
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
 				admin = (from user in db.Users

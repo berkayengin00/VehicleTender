@@ -32,14 +32,15 @@ namespace VehicleTender.AdminUI.Controllers
             vm.CreatedById = vm.CorporateId;
 
 			Session.Add("Tender", vm);
-			return RedirectToAction("AddDetail");
+			return RedirectToAction("AddDetail",new {@userId=vm.CorporateId});
 		}
 
-		public ActionResult AddDetail()
+		[HttpGet]
+		public ActionResult AddDetail(int userId)
 		{
 			TenderDetailAddVMForAdmin result = new TenderDetailAddVMForAdmin()
 			{
-				Vehicles = new VehicleDal().GetAllVehicleByUserType()
+				Vehicles = new VehicleDal().GetAllVehicleByUserType(userId)
 			};
 			
 			return View(result);
@@ -78,7 +79,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return RedirectToAction("GetAll");
 		}
 
-		// todo update işlemi yapılacak
+		// todo update işlemi yapılacak hata veriyor
 		public ActionResult Update(int tenderId)
 		{
 

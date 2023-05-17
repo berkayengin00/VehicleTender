@@ -60,6 +60,7 @@ namespace VehicleTender.AdminUI.Controllers
 		        HttpContext.Response.Cookies.Add(cookie);
 	        }
         }
+       
         public ActionResult LogOut()
         {
 			FormsAuthentication.SignOut();

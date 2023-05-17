@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Hashing;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
@@ -35,7 +36,7 @@ namespace VehicleTender.DAL.Concrete
 				IsActive = vm.IsActive,
 				IsVerify = vm.IsVerify,
 				Neighbourhood = vm.Neighbourhood,
-				PasswordHash = vm.PasswordHash,
+				PasswordHash = new MyHash().HashPassword(vm.PasswordHash),
 				PhoneNumber = vm.PhoneNumber,
 				UpdatedBy = vm.UpdatedBy,
 				UpdatedDate = vm.UpdatedDate,
@@ -131,7 +132,7 @@ namespace VehicleTender.DAL.Concrete
 				corporateCustomer.IsVerify = vm.IsVerify;
 				corporateCustomer.UpdatedBy = vm.UpdatedBy;
 				corporateCustomer.UpdatedDate = vm.UpdatedDate;
-				corporateCustomer.PasswordHash = vm.PasswordHash;
+				corporateCustomer.PasswordHash = corporateCustomer.PasswordHash;
 				corporateCustomer.CompanyType = vm.CompanyType;
 				corporateCustomer.CompanyName = vm.CompanyName;
 				corporateCustomer.LastName = vm.LastName;

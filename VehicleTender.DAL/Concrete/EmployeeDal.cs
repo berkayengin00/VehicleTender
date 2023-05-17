@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Hashing;
 using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View.Employee;
@@ -31,7 +32,7 @@ namespace VehicleTender.DAL.Concrete
 						int userId = db.Employees.Add(new Employee()
 						{
 							UserName = vm.UserName,
-							PasswordHash = vm.PasswordHash,
+							PasswordHash = new MyHash().HashPassword(vm.PasswordHash),
 							FirstName = vm.FirstName,
 							LastName = vm.LastName,
 							Email = vm.Email,

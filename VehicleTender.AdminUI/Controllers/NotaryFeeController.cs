@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VehicleTender.AdminUI.Filters;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 
@@ -20,6 +21,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new NotaryFeeDal().GetById(id).Data);
 		}
 
+		[CheckDateForNotaryFee]
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult AddOrUpdate(NotaryFeeVM vm)
 		{
@@ -28,7 +30,7 @@ namespace VehicleTender.AdminUI.Controllers
 				new NotaryFeeDal().Add(vm);
 				return RedirectToAction("AddOrUpdate");
 			}
-			return View();
+			return View(vm);
 		}
 
 		[HttpGet]
