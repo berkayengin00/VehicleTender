@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "AddDetail";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+	
+}
+
+@using VehicleTender.Entity.View
+@model VehicleTender.Entity.View.TenderDetailAddVMForAdmin
+
+<div class="container">
+
+    @using (@Html.BeginForm("AddDetail", "Tender", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        <fieldset class="row">
+
+            <!-- Form Name -->
+            <!--<legend>Contact Us Today!</legend>-->
+            <!-- Text input-->
+            @*todo araç plakaya göre düznlenecek*@
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.VehicleId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.VehicleId, new { @class = "form-control", Type = "number", required = "true", id = "txtVehicleId", placeholder = "Araç Id" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.MinPrice, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.MinPrice, new { @class = "form-control", Type = "number", placeholder = "Minimum İhale Fiyatı", required = "true", id = "txtMinPrice" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.StartPrice, new { @class = "col-md-4 control-label", id = "txtDate" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.StartPrice, new { @class = "form-control", Type = "number", placeholder = "Başlangıç Fiyatı", required = "true", id = "txtStartPrice" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-12 row">
+                <div class="text-end">
+                    <input type="button" name="name" value="Kayıt Ekle" class="btn btn-outline-success col-md-3" onclick="TenderDetailAdd()" />
+                </div>
+            </div>
+
+            <br /><br /><br />
+            <h2>İhaleye Eklenen Araçlar</h2>
+            <table class="table">
+                <thead>
+                <th>Araç Id</th>
+                <th>Minimum Fiyat</th>
+                <th>Başlangıç Fiyat</th>
+                </thead>
+                <tbody id="TenderDetailTable">
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="text-end">
+                    <input type="button"  class="btn btn-danger col-md-3" value="Tüm Araçları Kaldır" onclick="TenderDetailClear()" />
+                    <input type="button" class="btn btn-success ml-3 col-md-3" value="Kaydet" onclick="TenderDetailsSave()" />
+
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+
+@section jscode
+{
+	<script>
+        debugger;
+        function TenderDetailAdd() {
+            var tenderDetail = {
+                vehicleId: document.getElementById("txtVehicleId").value,
+                minPrice: document.getElementById("txtMinPrice").value,
+                startPrice: document.getElementById("txtStartPrice").value
+            };
+
+            var tenderDetails = localStorage.getItem("tenderDetails");
+            if (tenderDetails == null) {
+                //boş
+                var tenderDetailList = [];
+                tenderDetailList.push(tenderDetail);
+                localStorage.setItem("tenderDetails", JSON.stringify(tenderDetailList));
+            } else {
+                //dolu
+                var verilerim = JSON.parse(tenderDetails);
+                verilerim.push(tenderDetail);
+                localStorage.setItem("tenderDetails", JSON.stringify(verilerim));
+            }
+
+            GetAllTenderDetails();
+            function test() {
+                debugger
+                console.log(x);
+
+            }
+
+        }
+
+        function GetAllTenderDetails() {
+            debugger;
+            var veriler = localStorage.getItem("tenderDetails");
+            veriler = JSON.parse(veriler);
+            var vehicleId = ""
+            var minPrice = ""
+            var startPrice = "";
+            var tablo = "";
+            for (var i = 0; i < veriler.length; i++) {
+                vehicleId = veriler[i].vehicleId
+                minPrice = veriler[i].minPrice
+                startPrice = veriler[i].startPrice
+                tablo += "<tr><td>" + vehicleId + "</td><td>" + minPrice + "</td><td>" + startPrice + "</td></tr>\n";
+            }
+            document.getElementById("TenderDetailTable").innerHTML = tablo
+        }
+
+        function TenderDetailClear() {
+            localStorage.clear();
+            alert("İhale Detayları Temizlendi");
+
+
+        }
+        // ihaleye eklenen araçlar post ediliyor
+        function TenderDetailsSave() {
+            debugger;
+            var list = JSON.parse(localStorage.getItem("tenderDetails"));
+
+            $.ajax({
+                type: "POST",
+                url: "/Tender/AddDetail",
+                data: { jsonData: JSON.stringify(list) },
+                success: function (result) {
+                    alert("İhale oluşturuldu")
+                },
+                error: function () {
+                    alert("Hata")
+                }
+            });
+        }
+
+    </script>
+
+}

@@ -168,6 +168,7 @@
     <Content Include="TemplateContent\dist\js\pages\dashboard2.js" />
     <Content Include="TemplateContent\dist\js\pages\dashboard3.js" />
     <Content Include="TemplateContent\img\error-2129569__340.jpg" />
+    <Content Include="TemplateContent\img\logo.png" />
     <Content Include="TemplateContent\pages\examples\404.html" />
     <Content Include="TemplateContent\pages\examples\500.html" />
     <Content Include="TemplateContent\pages\examples\login-v2.html" />
@@ -2044,8 +2045,12 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CorporateCustomerController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MyErrorController.cs" />
+    <Compile Include="Controllers\RetailCustomerController.cs" />
+    <Compile Include="Controllers\TenderController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2204,14 +2209,7 @@
     <Content Include="TemplateContent\plugins\summernote\summernote.js.map" />
     <Content Include="TemplateContent\plugins\summernote\summernote.min.js.map" />
     <Content Include="TemplateContent\plugins\toastr\toastr.js.map" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Admin\RetailCustomersGetAll.cshtml" />
-    <Content Include="Views\Admin\RetailCustomerAdd.cshtml" />
-    <Content Include="Views\Admin\CorporateCustomersGetAll.cshtml" />
-    <Content Include="Views\Admin\CorporateCustomerAdd.cshtml" />
-    <Content Include="Views\Admin\GetAllCars.cshtml" />
-    <Content Include="Views\Admin\AddCar.cshtml" />
     <Content Include="Views\MyError\Page404.cshtml" />
     <Content Include="Views\MyError\Page500.cshtml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
@@ -2220,6 +2218,20 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Views\RetailCustomer\GetAll.cshtml" />
+    <Content Include="Views\RetailCustomer\Add.cshtml" />
+    <Content Include="Views\Vehicle\Add.cshtml" />
+    <Content Include="Views\Vehicle\GetAll.cshtml" />
+    <Content Include="Views\CorporateCustomer\Add.cshtml" />
+    <Content Include="Views\CorporateCustomer\GetAll.cshtml" />
+    <Content Include="Views\Tender\Add.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Tender\AddDetail.cshtml" />
+    <Content Include="Views\Tender\GetAll.cshtml" />
+    <Content Include="Views\Admin\Footer.cshtml" />
+    <Content Include="Views\RetailCustomer\Update.cshtml" />
+    <Content Include="Views\CorporateCustomer\Update.cshtml" />
+    <Content Include="Views\Vehicle\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2230,6 +2242,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Retail\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VehicleTender.DAL\VehicleTender.DAL.csproj">

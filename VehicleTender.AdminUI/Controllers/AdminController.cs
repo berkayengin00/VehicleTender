@@ -1,60 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebSockets;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.Concrete;
+using VehicleTender.Entity.View;
+using VehicleTender.Entity.View.DB;
 
 namespace VehicleTender.AdminUI.Controllers
 {
-    public class AdminController : Controller
-    {
+	[Authorize]
+	public class AdminController : Controller
+	{
 		// GET: Admin
 		public ActionResult Index()
 		{
-			return View();
+			if (Session["Admin"] != null)
+			{
+				return RedirectToAction("GetAll", "RetailCustomer");
+			}
+			return RedirectToAction("Index","Login");
+
 		}
 
-		public ActionResult GetAllCars()
+		public PartialViewResult Footer()
 		{
-
-			return View();
+			return PartialView();
 		}
 
-		[HttpPost]
-		public ActionResult AddCar()
-		{
-			return View();
-		}
-
-		public ActionResult RetailCustomersGetAll()
-		{
-			List<RetailCustomer> list = new RetailCustomerDal().GetAll();
-			return View(list);
-		}
-
-		public ActionResult RetailCustomerAdd()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public ActionResult RetailCustomerAdd(RetailCustomer retailCustomer)
-		{
-			return View();
-		}
-
-		public ActionResult CorporateCustomersGetAll()
-		{
-			List<CorporateCustomer> list = new CorporateCustomerDal().GetAll();
-			return View(list);
-		}
-
-		[HttpPost]
-		public ActionResult CorporateCustomerAdd(CorporateCustomer corporateCustomer)
-		{
-			return View();
-		}
 	}
 }

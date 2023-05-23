@@ -15,7 +15,7 @@ namespace VehicleTender.Entity.Concrete
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public int UserType { get; set; }
+        //public int UserType { get; set; }
         
     }
 }

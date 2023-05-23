@@ -1,0 +1,165 @@
+﻿@model VehicleTender.Entity.View.CorporateCustomer.CorporateCustomerUpdateVM
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+    @using (@Html.BeginForm("Update", "CorporateCustomer", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.UserId)
+        <fieldset class="row">
+
+            <!-- Form Name -->
+            <!--<legend>Contact Us Today!</legend>-->
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.FirstName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", Type = "text", placeholder = "Ad", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.LastName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", Type = "text", placeholder = "Soyad", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Email, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", Type = "mail", placeholder = "Email", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength = 11 })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Province, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
+                        @Html.TextBoxFor(x => x.Province, new { @class = "form-control", Type = "text", placeholder = "İl", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.District, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
+                        @Html.TextBoxFor(x => x.District, new { @class = "form-control", Type = "text", placeholder = "ilçe", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                @Html.LabelFor(x => x.Neighbourhood, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
+                        @Html.TextBoxFor(x => x.Neighbourhood, new { @class = "form-control", Type = "text", placeholder = "Adres", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.CompanyName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+                        @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control", Type = "text", placeholder = "Şirket Adı", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.CompanyType, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-building" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.CompanyType, new { @class = "form-control", Type = "text", placeholder = "Şirket Türü", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.PasswordHash, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true" })
+		            </div>
+	            </div>
+            </div>
+            @* todo Eklenen tarih boş geliyor bakılacak*@
+            @Html.HiddenFor(x=>x.AddedDate)
+
+            @*<div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.AddedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+			            @Html.TextBoxFor(x => x.AddedDate, new { @class = "form-control", Type = "datetime", required = "true",disabled=false,value= Model.AddedDate, placeholder= "{0:dd/MM/yyyy}" })
+		            </div>
+	            </div>
+            </div>*@
+
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.UpdatedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-building"></i></span>
+			            @Html.TextBoxFor(x => x.UpdatedDate, new { @class = "form-control", Type = "datetime", required = "true" ,disabled=false})
+		            </div>
+	            </div>
+            </div>
+
+        </fieldset>
+
+        <div class="form-group row text-end">
+            <div>
+                <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+            </div>
+
+        </div>
+    }
+</div>
+
