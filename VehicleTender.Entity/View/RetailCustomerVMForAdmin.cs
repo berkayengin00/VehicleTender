@@ -21,7 +21,13 @@ namespace VehicleTender.Entity.View
 		public string Email { get; set; }
 		[DisplayName("Email Doğrulaması")]
 		public bool IsVerify { get; set; }
+		[DisplayName("Parola")]
+		public string PasswordHash { get; set; }
+		[DisplayName("Parola Tekrarı")]
+		public string PasswordHashAgain { get; set; }
 		[DisplayName("Aktif Mi?")]
 		public bool IsActive { get; set; }
+
+		public DateTime CreatedDate { get; set; }
 	}
 }

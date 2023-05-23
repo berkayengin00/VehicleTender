@@ -4,7 +4,9 @@ namespace VehicleTender.Entity.Concrete
 {
     public class Vehicle : BaseEntity
     {
-        public DateTime VehicleAge { get; set; }
+	    public int UserId { get; set; }
+	    public string LicensePlate { get; set; }
+        public short VehicleYear { get; set; }
         public string Version { get; set; }
         public int KiloMeter { get; set; }
         public string Description { get; set; }
@@ -23,6 +25,6 @@ namespace VehicleTender.Entity.Concrete
         public BodyType BodyType { get; set; }
         public Model Model { get; set; }
         public Color Color { get; set; }
-
+        public User User { get; set; }
     }
 }

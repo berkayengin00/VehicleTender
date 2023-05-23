@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View.VehicleStatusHistory
+@model List<VehicleTender.Entity.View.VehicleStatusHistory.VehicleStatusHistoryVM>
+
+<div class="row col-md-12 justify-content-center">
+    <div class="col-md-3">
+        <h2>Araç Tarihçesi</h2><br />
+    </div>
+	
+	<div class="col-md-10">
+
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">Araç Durum Değişikliği</th>
+				<th scope="col">Durum Değişiklik Tarihi</th>
+			</tr>
+			</thead>
+			<tbody>
+
+			@foreach (VehicleStatusHistoryVM vsh in Model)
+			{
+				<tr>
+					<td>@vsh.VehicleStatusHistory</td>
+					<td>@vsh.ChangedDataTime</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+</div>
+

@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View
+@using VehicleTender.Entity.View.Employee
+@model List<VehicleTender.Entity.View.Employee.EmployeeListVM>
+
+@section head{
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">İhaleler</h3>
+                        <div class="row text-end">
+                            <div class="col-md3">
+                                @Html.ActionLink("Çalışan Ekle", "AddOrUpdate", "Employee", new { @id = 0 }, new { @class = "btn btn-outline-success" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Email</th>
+	                                <th>Telefon No</th>
+                                    <th>Rolü</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (EmployeeListVM item in Model)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(x => item.EmployeeId)
+                                        <td>@item.UserName</td>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.RoleName</td>
+                                        <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
+                                        <th>
+                                            @Html.ActionLink("Sil", "SoftDelete", new { id = item.EmployeeId }, new { @class = "btn btn-outline-danger" })
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Güncelle", "AddOrUpdate", new { id = item.EmployeeId }, new { @class = "btn btn-warning" })
+                                        </th>
+
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Email</th>
+	                                <th>Telefon No</th>
+	                                <th>Rolü</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section jscode
+{
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": true, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "pageLength": 6,
+            });
+		});
+
+    </script>
+}
+
+

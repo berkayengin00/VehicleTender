@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "AddOrUpdate";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@model VehicleTender.Entity.View.NotaryFeeVM
+
+<div class="container">
+
+    @using (@Html.BeginForm("AddOrUpdate", "NotaryFee", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+	    <fieldset class="row">
+
+		    <div class="form-group col-md-6">
+			    @Html.LabelFor(x => x.StartDate, new { @class = "col-md-4 control-label" })
+			    <div class="inputGroupContainer">
+				    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+					    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control", Type = "datetime-local", required = "true" })
+				    </div>
+			    </div>
+		    </div>
+
+
+		    <div class="form-group col-md-6">
+			    @Html.LabelFor(x => x.EndDate, new { @class = "col-md-4 control-label" })
+			    <div class="inputGroupContainer">
+				    <div class="input-group">
+					    <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+					    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control", Type = "datetime-local", required = "true" })
+				    </div>
+			    </div>
+		    </div>
+            
+
+		    <div class="form-group col-md-6">
+			    @Html.LabelFor(x => x.Fee, new { @class = "col-md-4 control-label" })
+			    <div class="inputGroupContainer">
+				    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+					    @Html.TextBoxFor(x => x.Fee, new { @class = "form-control", Type = "text", placeholder = "Noter Ücreti" ,required = "true" })
+				    </div>
+			    </div>
+		    </div>
+
+	    </fieldset>
+
+	    <div class="form-group row text-end">
+		    <div class="">
+			    <input type="submit" name="name" value="@((Model.Id == 0) ? "Kaydet" : "Güncelle")" class="btn btn-outline-success col-md-2" id="kaydet" />
+		    </div>
+	    </div>
+    }
+</div>
+
+

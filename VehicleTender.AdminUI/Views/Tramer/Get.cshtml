@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Get";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View.Tramer
+@model List<VehicleTender.Entity.View.Tramer.TramerListVM>
+
+<div class="row col-md-12 justify-content-center">
+    <div class="col-md-3">
+        <h2>Araç Tramer Bilgisi</h2><br />
+    </div>
+    
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Parça Adı</th>
+                <th scope="col">Parça Durumu</th>
+                <th scope="col">Parça Fiyatı</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (TramerListVM vsh in Model)
+            {
+                <tr>
+                    <td>@vsh.TramerName</td>
+                    <td>@vsh.PartName</td>
+                    <td>@vsh.PartPrice</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+

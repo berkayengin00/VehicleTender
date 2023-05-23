@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+	TempData["VehicleId"] = Model.VehicleId;
+}
+
+@model VehicleTender.Entity.View.Vehicle.VehicleUpdateVM
+
+@section head{
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/TemplateContent/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="~/TemplateContent/plugins/ekko-lightbox/ekko-lightbox.css">
+}
+
+<div class="container">
+
+    @using (@Html.BeginForm("Update", "Vehicle", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        <fieldset class="row">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.VehicleId)
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.LicensePlate, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.LicensePlate, new { @class = "form-control", required = true, PlaceHolder = "Plaka" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.BrandId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.BrandId, Model.VehicleFeaturesForCache.Brands, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.ModelId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.ModelId, Model.VehicleFeaturesForCache.Models, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.BodyTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.BodyTypeId, Model.VehicleFeaturesForCache.BodyTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.FuelTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.FuelTypeId, Model.VehicleFeaturesForCache.FuelTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.GearTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.GearTypeId, Model.VehicleFeaturesForCache.GearTypes, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.ColorId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.ColorId, Model.VehicleFeaturesForCache.Colors, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            @*Durum Bilgisi*@
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.VehicleStatusId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.VehicleStatusId, Model.VehicleStatusList, new { @class = "form-select", required = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.KiloMeter, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.KiloMeter, new { @class = "form-control", Type = "number", placeholder = "Kilometre Bilgisi", required = "true" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Version, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                        @Html.TextBoxFor(x => x.Version, new { @class = "form-control", Type = "text", placeholder = "Versiyon Bilgisi", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.VehicleYear, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.VehicleYear, new { @class = "form-control", Type = "number", placeholder = "Kaç Model?", required = "true", value = Model.VehicleYear })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.VehiclePrice, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.VehiclePrice, new { @class = "form-control", Type = "text", placeholder = "Fiyat", required = "true" })
+		            </div>
+	            </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                @Html.LabelFor(x => x.Description, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control", Type = "text-area", placeholder = "Ek Özellikler", required = "true" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title">Araç Fotoğrafları</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var item in Model.vehicleImages)
+                            {
+                                <div class="col-sm-2">
+                                    <a href="" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+                                        <img src="@item.ImagePath" class="img-fluid mb-2" alt="white sample" />
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 row">
+                <div class="col-md-6">
+                    @Html.ActionLink("Araç Tarihçesi", "GetAll", "VehicleStatusHistory", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Tramer Bilgileri", "Get", "Tramer", new { @id = Model.VehicleId }, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-6 row text-end">
+                    <div>
+                        <input type="submit" name="name" value="Kaydet" class="btn btn-outline-success col-md-3" id="kaydet" />
+                    </div>
+
+                </div>
+            </div>
+ 
+    </fieldset>
+
+
+}
+    </div>
+
+    @*<div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                     Modal Header
+                    <div class="modal-header">
+                        <h4 class="modal-title">Başlık</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                     Modal body
+                    <div class="modal-body">
+                        İçerik
+                    </div>
+
+                     Modal footer
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+
+
+    @section jscode
+{
+        <!-- Ekko Lightbox -->
+        <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+        <script>
+            $(function () {
+                $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                    event.preventDefault();
+                    $(this).ekkoLightbox({
+                        alwaysShowClose: true
+                    });
+                });
+
+                $('.filter-container').filterizr({ gutterPixels: 3 });
+                $('.btn[data-filter]').on('click', function () {
+                    $('.btn[data-filter]').removeClass('active');
+                    $(this).addClass('active');
+                });
+            })
+
+            $(document).ready(function () {
+                $("#myBtn").click(function () {
+                    $("#myModal").modal();
+                });
+            });
+        </script>
+    }

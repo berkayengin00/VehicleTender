@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "GetAllVehicle";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View
+@model List<VehicleVMForAdmin>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+	                    <h3 class="card-title">Araçlar</h3>
+	                    <div class="row text-end">
+		                    <div class="col-md3">
+			                    @Html.ActionLink("Araç Ekle", "Add", "Vehicle", "Add", new { @class = "btn btn-outline-success" })
+		                    </div>
+	                    </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Plaka</th>
+                                    <th>Model</th>
+                                    <th>Marka</th>
+                                    <th>Kasa Tipi</th>
+                                    <th>Yakıt Türü</th>
+                                    <th>Vites Türü</th>
+                                    <th>Durumu</th>
+                                    <th>Color</th>
+                                    <th>Aktif Mi</th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (VehicleVMForAdmin item in Model)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(x => item)
+                                        <td>@item.LicencePlate</td>
+                                        <td>@item.Model</td>
+                                        <td>@item.Brand</td>
+                                        <td>@item.BodyType</td>
+                                        <td>@item.FuelType</td>
+                                        <td>@item.GearType</td>
+                                        <td>@item.StatusName</td>
+                                        <td>@item.Color</td>
+                                        <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
+                                        <td>
+                                            @Html.ActionLink("Sil","SoftDelete", new {vehicleId=item.VehicleId} , new {@class= "btn btn-danger" })
+                                        </td><td>
+                                            @Html.ActionLink("Güncelle","Update", new {vehicleId=item.VehicleId} , new {@class= "btn btn-warning" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+	                                <th>Plaka</th>
+	                                <th>Model</th>
+	                                <th>Marka</th>
+	                                <th>Kasa Tipi</th>
+	                                <th>Yakıt Türü</th>
+	                                <th>Vites Türü</th>
+	                                <th>Durumu</th>
+	                                <th>Color</th>
+	                                <th>Aktif Mi?</th>
+	                                <th></th>
+	                                <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section jscode
+{
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "pageLength": 5,
+            });
+        });</script>
+}
+
+

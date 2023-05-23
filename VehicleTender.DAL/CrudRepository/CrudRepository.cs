@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Transactions;
 
 namespace VehicleTender.DAL.CrudRepository
 {
@@ -35,8 +36,8 @@ namespace VehicleTender.DAL.CrudRepository
 			#endregion
 
 			#region SoftDelete
-			//dbSet.GetType().GetProperty("isDeleted").SetValue(entity, 0);
-			//return Update(entity); 
+			//_db.Set<TEntity>().GetType().GetProperty("IsActive")?.SetValue(entity, 0);
+			//return Update(entity);
 			#endregion
 
 		}
@@ -81,6 +82,13 @@ namespace VehicleTender.DAL.CrudRepository
 			return save ? Save() : 0;
 		}
 
+		public int Insert(IEnumerable<TEntity> entities, bool save = true)
+		{
+			//_db.Entry(entities).State = EntityState.Added;
+			_db.Set<TEntity>().AddRange(entities);
+			return save ? Save() : 0;
+		}
+
 		/// <summary>
 		/// Veri tabanında veri günceller geriye etkilenen satır sayısını döner
 		/// Eğer parametre olarak save değeri verilmezse tek kaydetme olur. Transaction Uygulanmaz
@@ -112,19 +120,19 @@ namespace VehicleTender.DAL.CrudRepository
 		/// </summary>
 		public void SaveWithTransaction()
 		{
-			//using (TransactionScope transaction = new TransactionScope())
-			//{
-			//	try
-			//	{
-			//		Save();
-			//		transaction.Complete();
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		transaction.Dispose();
-			//		throw ex;
-			//	}
-			//}
+			using (TransactionScope transaction = new TransactionScope())
+			{
+				try
+				{
+					Save();
+					transaction.Complete();
+				}
+				catch (Exception ex)
+				{
+					transaction.Dispose();
+					throw ex;
+				}
+			}
 		}
 
 		/// <summary>
@@ -133,6 +141,16 @@ namespace VehicleTender.DAL.CrudRepository
 		private void Log()
 		{
 			//_db.Database.Log = Console.Write;
+		}
+		/// <summary>
+		/// Parametre Olarak VerilenTipe göre ilgili tablonun verilerini getirir.
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="express"></param>
+		/// <returns></returns>
+		public List<TResult> Select<TResult>(Func<TEntity,TResult> express)
+		{
+			return _db.Set<TEntity>().Select(express).ToList();
 		}
 	}
 }

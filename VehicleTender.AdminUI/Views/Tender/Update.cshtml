@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+	var detailList = Model.TenderDetailList;
+}
+@model VehicleTender.Entity.View.Tender.TenderUpdateVMForAdmin
+
+<div class="container">
+
+    @using (@Html.BeginForm("Update", "Tender", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        @Html.HiddenFor(x => x.TenderId)
+        <fieldset class="row">
+
+            <!-- Form Name -->
+            <!--<legend>Contact Us Today!</legend>-->
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.TenderName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.TenderName, new { @class = "form-control", Type = "text", placeholder = "İhale Adı", required = "true" ,@readonly=true})
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.TenderTypeId, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.DropDownListFor(x => x.TenderTypes, Model.TenderTypes, new { @class = "form-select", required = true, @readonly = true ,disabled=true})
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.StartDateTime, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.StartDateTime, new { @class = "form-control", Type = "datetime", required = "true", @readonly = true })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.EndDateTime, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.EndDateTime, new { @class = "form-control", Type = "datetime", required = "true", @readonly = true })
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group col-md-12 row">
+                <div class="text-end">
+                    <input type="submit" name="name" value="Kaydet ve Devam Et" class="btn btn-outline-success col-md-3" id="kaydet" />
+                </div>
+
+            </div>*@
+        </fieldset>
+    }
+    
+    <table class="table table-hover mt-5" id="dataTable1">
+	    <thead>
+	    <tr>
+		    <th scope="col">Araç Plaka</th>
+		    <th scope="col">Minimum Fiyat</th>
+		    <th scope="col">Başlangıç Fiyatı</th>
+		    <th scope="col"></th>
+	    </tr>
+	    </thead>
+	    <tbody>
+
+	    @for (int i = 0; i < detailList.Count; i++)
+	    {
+		    <tr>
+			    <td>@detailList[i].VehicleId</td>
+			    <td>@detailList[i].MinPrice</td>
+			    <td>@detailList[i].StartPrice</td>
+			    @*<td>
+				    @Html.ActionLink("Sil", "DeleteDetail", "Tender", new { @id = i }, new { @class = "delete-btn btn btn-warning" })
+			    </td>*@
+		    </tr>
+
+
+	    }
+	    </tbody>
+    </table>
+</div>
+
+
+@section jscode
+{
+    <!--<script>
+    $(document).ready(function () {
+        $("#dataTable1").on("click", ".delete-btn", function () {
+            var currentRow = $(this).closest("tr");
+            var id = currentRow.find("input[name='TenderDetailId']").val();
+            $.ajax({-->
+                @*url: '@Url.Action("DeleteDetail", "Tender")',*@
+          <!--/*      type: "POST",*/
+                data: { id: id },
+                success: function () {
+                    currentRow.remove();
+                },
+                error: function () {
+                    alert("Silme işlemi başarısız!");
+                }
+            });
+        });
+    });
+    </script>-->
+}
+

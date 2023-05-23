@@ -1,0 +1,227 @@
+﻿@using System.Web.UI.WebControls
+@using VehicleTender.Entity.Concrete
+@using VehicleTender.Entity.Enum
+@using VehicleTender.Entity.View.CorporateCustomer
+
+@{
+    ViewBag.Title = "CorporateCustomersGetAll";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+@model List<VehicleTender.Entity.View.CorporateCustomer.CorporateCustomerListVMForAdmin>
+
+@section head
+{
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Kurumsal Müşteriler</h3>
+                        <div class="row text-end">
+                            <div class="col-md3">
+                                @Html.ActionLink("Kurumsal Müşteri Ekle", "Add", "CorporateCustomer", "Add", new { @class = "btn btn-outline-success" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Şirket Adı</th>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Telefon Numarası</th>
+                                    <th>Email</th>
+                                    <th>Onaylandı Mı?</th>
+                                    <th>Paket</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>İlçe</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (CorporateCustomerListVMForAdmin item in Model)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(x => item.Id)
+
+                                        @Html.HiddenFor(x => item.Id, new { @id = "userId" })
+                                        <td>@item.CompanyName</td>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Email</td>
+                                        <td>
+                                            @if (item.IsVerify)
+                                            {
+                                                <span class="badge bg-success">Onaylı</span>
+
+                                            }
+                                            else
+                                            {
+
+                                                @Html.ActionLink("Onaylayın", "UpdateIsVerify", "CorporateCustomer", new { @id = item.Id }, new { @class = "badge bg-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.PackageId == Convert.ToInt16(CorporateCustomerPackageType.PaketTanımlanmasıYapılmadı))
+                                                {
+                                                    <button type="button" class="badge bg-primary butonClass" data-id="@item.Id">Paket Seç</button>
+                                                }
+
+                                                else
+                                                {
+                                                    <span class="badge bg-success">@item.PackageName</span>
+
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>@item.AddedDate</td>
+                                        <td>@item.District</td>
+                                        <td>@item.IsActive</td>
+                                        <th>
+                                            @Html.ActionLink("Sil", "SoftDelete", new { userId = item.Id }, new { @class = "btn btn-danger" })
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Güncelle", "Update", new { userId = item.Id }, new { @class = "btn btn-warning" })
+                                        </th>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Şirket Adı</th>
+                                    <th>Ad</th>
+                                    <th>Soyad</th>
+                                    <th>Telefon Numarası</th>
+                                    <th>Email</th>
+                                    <th>Onaylandı Mı?</th>
+                                    <th>Paket</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>İlçe</th>
+                                    <th>Aktif Mi?</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+
+
+<div class="modal fade" id="modalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden" name="name" value="" id="hiddenUserId" />
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kurumsal Paket Seçimi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select class="form-select" id="dropdownId"></select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="kaydetButonu">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section jscode
+{
+	<script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "pageLength": 7,
+            });
+        });
+
+        $(document).ready(function () {
+            $(".butonClass").click(function () {
+                $("#dropdownId").empty(); // dropdown içindeki eski verileri temizle
+                debugger;
+                var guserId = $(this).data("id");
+                // Ajax çağrısı yaparak, dropdown verilerini alıyoruz
+                $.ajax({
+                    url: "@Url.Action("GetAllPackage", "CorporateCustomer")",
+                    type: "GET",
+                    data:{userId : guserId },
+                    success: function (data) {
+                        debugger;
+                        // Verileri dropdown içine dolduruyoruz
+                        $.each(data, function (index, value) {
+                            $("#dropdownId").append("<option value='" + value.Id + "'>" + value.PackageName + "</option>");
+
+                        });
+                        $("#hiddenUserId").val(guserId);
+                        // Modal'ı açıyoruz
+                        $("#modalId").modal("show");
+                    },
+                    error: function () {
+                        alert("Bir hata oluştu!");
+                    }
+                });
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            $("#kaydetButonu").click(function () {
+                debugger;
+                var selectedOption = $("#dropdownId option:selected").val();
+                var guserId = $("#hiddenUserId").val();
+                $.ajax({
+                    url: "@Url.Action("UpdatePackage", "CorporateCustomer")",
+                    type: "POST",
+                    data: { id: selectedOption , userId:guserId },
+                    success: function (result) {
+                        console.log(result);
+                        $("#myModal").modal("hide");
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert("Kaydetme işlemi sırasında bir hata oluştu!");
+                    }
+                });
+            });
+        });
+        
+    </script>
+}
+

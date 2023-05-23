@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+@using VehicleTender.Entity.View
+@model List<VehicleTender.Entity.View.CommissionFeeVM>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">İhaleler</h3>
+                        <div class="row text-end">
+                            <div class="col-md3">
+	                            @Html.ActionLink("Komisyon Ekle", "AddOrUpdate", "CommissionFee", new { @id = 0 }, new { @class = "btn btn-outline-success" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Aracın Min Fiyatı</th>
+                                    <th>Aracın Max Fiyatı</th>
+                                    <th>Başlangıç Tarihi</th>
+                                    <th>Bitiş Tarihi</th>
+                                    <th>Komisyon Ücreti</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (CommissionFeeVM item in Model)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(x => item)
+                                        <td>@item.VehicleMinPrice</td>
+                                        <td>@item.VehicleMaxPrice</td>
+                                        <td>@item.StartDate</td>
+                                        <td>@item.EndDate</td>
+                                        <td>@item.Fee</td>
+                                        <th>
+                                            @Html.ActionLink("Sil", "SoftDelete", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Güncelle", "AddOrUpdate", new { id = item.Id }, new { @class = "btn btn-warning" })
+                                        </th>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+	                                <th>Aracın Min Fiyatı</th>
+	                                <th>Aracın Max Fiyatı</th>
+	                                <th>Başlangıç Tarihi</th>
+	                                <th>Bitiş Tarihi</th>
+	                                <th>Komisyon Ücreti</th>
+	                                <th></th>
+	                                <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section jscode
+{
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": true, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "pageLength": 6,
+            });
+		});
+
+    </script>
+}
+
+

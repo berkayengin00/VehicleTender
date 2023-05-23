@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+}
+
+
+@model VehicleTender.Entity.View.RetailCustomer.RetailCustomerUpdateVM
+<div class="container">
+
+    @using (@Html.BeginForm("Update", "RetailCustomer", FormMethod.Post, new { @class = "well form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset class="row">
+
+            <!-- Form Name -->
+            <!--<legend>Contact Us Today!</legend>-->
+            <!-- Text input-->
+            @Html.HiddenFor(x => x.UserId)
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.FirstName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", Type = "text", placeholder = "Ad", required = "true",value=Model.FirstName })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.LastName, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", Type = "text", placeholder = "Soyad", required = "true" ,value=Model.LastName})
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Email, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", Type = "mail", placeholder = "Email", required = "true",Model.Email })
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-md-4 control-label" })
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "text", placeholder = "Telefone Numarası", required = "true",value=Model.PhoneNumber })
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.PasswordHash, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+			            @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control", Type = "password", placeholder = "Parola", required = "true",Model.PasswordHash })
+		            </div>
+	            </div>
+            </div>*@
+            
+            @Html.HiddenFor(x=>x.AddedDate)
+
+
+            @*<div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.AddedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+			            @Html.TextBoxFor(x => x.AddedDate, new { @class = "form-control", Type = "text", required = "true", disabled="true",value=Model.AddedDate })
+		            </div>
+	            </div>
+            </div>
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.UpdatedDate, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+			            @Html.TextBoxFor(x => x.UpdatedDate, new { @class = "form-control", Type = "text", required = "true", disabled="true",value=Model.UpdatedDate })
+		            </div>
+	            </div>
+            </div>*@
+            
+            <div class="form-group col-md-6">
+	            @Html.LabelFor(x => x.IsActive, new { @class = "col-md-4 control-label" })
+	            <div class="inputGroupContainer">
+		            <div class="input-group">
+			            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                      
+			            @Html.DropDownListFor(x=>x.IsActive, new List<SelectListItem>
+                        {
+                            new SelectListItem{Text = "Aktif",Value = "true"},
+                            new SelectListItem{Text = "Pasif",Value = "false"},
+                        }, new { @class = "form-select", required = true})
+		            </div>
+	            </div>
+            </div>
+
+        </fieldset>
+
+        <div class="form-group row text-end">
+            <div class="">
+                <input type="submit" name="name" value="Güncelle" class="btn btn-outline-warning col-md-2"/>
+            </div>
+
+        </div>
+    }
+</div>
+

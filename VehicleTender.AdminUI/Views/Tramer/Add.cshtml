@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/shared/_AdminLayout.cshtml";
+    var vehicleId = TempData["VehicleId"]?.ToString();
+}
+@model VehicleTender.Entity.View.Tramer.TramerAddVM
+
+<div class="row">
+    <div class="form-group col-md-4">
+        @Html.LabelFor(x => x.TramerId, new { @class = "col-md-4 control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                @Html.DropDownListFor(x => x.TramerId, Model.TramerList, new { @class = "form-select", required = true })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4">
+        @Html.LabelFor(x => x.VehiclePartId, new { @class = "col-md-4 control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                @Html.DropDownListFor(x => x.VehiclePartId, Model.VehiclePartStatus, new { @class = "form-select", required = true })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4">
+        @Html.LabelFor(x => x.PartPrice, new { @class = "col-md-4 control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-car" aria-hidden="true"></i></span>
+                @Html.TextBoxFor(x => x.PartPrice, new { @class = "form-control", Type = "number", placeholder = "Kilometre Bilgisi", required = "true", id = "partPriceId" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-12 text-end">
+        <div>
+            <input type="button" name="name" value="Ekle" class="btn btn-outline-success col-md-2" id="Ekle" onclick="TramerAdd()" />
+        </div>
+
+    </div>
+</div>
+<br />
+<br />
+<br />
+<h2>Tramer Kayıt Listesi</h2>
+<table class="table">
+    <thead>
+    <th>Araç Parçası</th>
+    <th>Parça Durumu</th>
+    <th>Parça Fiyatı</th>
+    </thead>
+    <tbody id="TenderDetailTable">
+    </tbody>
+</table>
+
+
+<div class="form-group row text-end ">
+    <div class="">
+        @if (@vehicleId != "0")
+        {
+            <input type="button" name="name" value="Tramer Ekle" class="btn btn-outline-success col-md-2" id="Ekle" onclick="TenderDetailAddWithVehicle()" />
+        }
+        else
+        {
+            <input type="button" name="name" value="Kaydet Ve Devam Et" class="btn btn-outline-success col-md-2" id="Ekle" onclick="TenderDetailUpdate()" />
+        }
+
+
+
+    </div>
+</div>
+
+@section jscode
+{
+    <script>
+
+        function TramerAdd() {
+            vehicle = document.getElementById("TramerId");
+            part = document.getElementById("VehiclePartId");
+            var tramer = {
+                vehicleId: vehicle.value,
+                partId: part.value,
+                vehicleName: vehicle.options[vehicle.selectedIndex].text,
+                partName: part.options[part.selectedIndex].text,
+                partPrice: document.getElementById("partPriceId").value,
+                carId:'@vehicleId',
+            };
+            console.log(tramer.vehicleId);
+            var tramerDetails = sessionStorage.getItem("tramerDetails");
+            if (tramerDetails == null) {
+                //boş
+                var tramerDetailList = [];
+                tramerDetailList.push(tramer);
+                sessionStorage.setItem("tramerDetails", JSON.stringify(tramerDetailList));
+            } else {
+                //dolu
+                var verilerim = JSON.parse(tramerDetails);
+                var varMi = 0;
+                for (var i = 0; i < verilerim.length; i++) {
+                    if (verilerim[i].vehicleId == tramer.vehicleId ) {
+                        alert("Zaten Var Emmoğlu");
+                        varMi = 1;                      
+                        return;
+                    }
+                }
+                if (varMi == 0) {
+                    verilerim.push(tramer);
+                    sessionStorage.setItem("tramerDetails", JSON.stringify(verilerim));
+                }
+            }
+
+            GetAllTenderDetails();
+
+
+            console.log(tramer);
+        };
+
+        function GetAllTenderDetails() {
+            var veriler = sessionStorage.getItem("tramerDetails");
+            veriler = JSON.parse(veriler);
+            var partName = "";
+            var vehicleName = "";
+            var partPrice = "";
+            var tablo = "";
+            for (var i = 0; i < veriler.length; i++) {
+                partName = veriler[i].partName
+                vehicleName = veriler[i].vehicleName
+                partPrice = veriler[i].partPrice
+                tablo += "<tr><td>" + vehicleName + "</td><td>" + partName + "</td><td>" + partPrice + "</td></tr>\n";
+            }
+            document.getElementById("TenderDetailTable").innerHTML = tablo
+        }
+
+        function TenderDetailClear() {
+            sessionStorage.clear();
+            alert("Tramer Temizlendi");
+
+        }
+        let vm = [];
+        function TenderDetailSave() {
+            var list = JSON.parse(sessionStorage.getItem("tramerDetails"));
+            vm = [];
+            for (var i = 0; i < list.length; i++) {
+                vm.push({
+                    TramerId: list[i].vehicleId,
+                    VehiclePartId: list[i].partId,
+                    PartPrice: list[i].partPrice,
+                    VehicleId: list[i].carId,
+                });
+            }
+        }
+
+
+        // tramer bilgileri post ediliyor
+        // tramer bilgileri post ediliyor ama araç yoksa
+        function TenderDetailAddWithVehicle() {
+            TenderDetailSave();
+            $.ajax({
+                type: "POST",
+                url: "/Tramer/Add",
+                data: { jsonData: JSON.stringify(vm) },
+                success: function (data) {
+                    alert("Tramer Kayıt Edildi");
+                    sessionStorage.clear();
+                    window.location.href = "/Vehicle/Add";
+                },
+            });
+        }
+
+        // tramer bilgileri post ediliyor
+        // tramer bilgileri post ediliyor ama araç zaten varsa
+        function TenderDetailUpdate() {
+            TenderDetailSave();
+            $.ajax({
+                type: "POST",
+                url: "/Tramer/Update",
+                data: { jsonData: JSON.stringify(vm) },
+                success: function (data) {
+                    alert("Tramer Kayıt Edildi");
+                    sessionStorage.clear();
+                    window.location.href = "/Vehicle/GetAll";
+                },
+            });
+        }
+
+    </script>
+
+}

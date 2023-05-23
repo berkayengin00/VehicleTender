@@ -12,7 +12,9 @@ namespace VehicleTender.Entity.Concrete
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-
+        public int UserTypeId { get; set; }// şirket mi plaza mı
+        
+        public UserType UserType { get; set; }
         public Vehicle Vehicle { get; set; }
         public User User { get; set; }
 
