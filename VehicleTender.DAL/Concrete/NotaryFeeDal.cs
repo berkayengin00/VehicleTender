@@ -74,6 +74,11 @@ namespace VehicleTender.DAL.Concrete
 			return true;
 		}
 
+		/// <summary>
+		/// Seçilen NoterId'ye sahip Noter bilgilerini DataResult olarak döner.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public DataResult<NotaryFeeVM> GetById(int id)
 		{
 			NotaryFeeVM result = null;

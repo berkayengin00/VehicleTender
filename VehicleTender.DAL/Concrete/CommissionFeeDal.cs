@@ -39,6 +39,11 @@ namespace VehicleTender.DAL.Concrete
 			return new DataResult<List<CommissionFeeVM>>(list != null ? "Noter Ücretleri Getirildi" : "Hata!", list, list != null);
 		}
 
+		/// <summary>
+		/// CommissionFee ekler geriye Result döner.
+		/// </summary>
+		/// <param name="vm"></param>
+		/// <returns></returns>
 		public Result Add(CommissionFeeVM vm)
 		{
 			int result = 0;

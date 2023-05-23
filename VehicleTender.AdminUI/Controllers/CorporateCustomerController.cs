@@ -19,6 +19,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return View(new CorporateCustomerDal().GetAllForAdmin());
 		}
 
+		[HttpGet]
 		public ActionResult Add()
 		{
 			var result = new CorporateCustomerAddVM()
@@ -31,18 +32,25 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(CorporateCustomerAddVM vm)
 		{
+			if (!ModelState.IsValid)
+			{
+				vm.CacheList = CheckCache();
+				return View(vm);
+			}
+
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();
-			int result = new CorporateCustomerDal().Add(vm);
-			ViewBag.Result = result > 0 ? "Kurumsal Müşteri Kaydedildi" : "Hata!!!";
-			if (result > 0)
+			var result = new CorporateCustomerDal().Add(vm);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
 			{
 				return RedirectToAction("GetAll");
 			}
-			return View("Add");
+
+			return RedirectToAction("Add");
 
 		}
 
-
+		[HttpGet]
 		public ActionResult Update(int userId)
 		{
 			var result = new CorporateCustomerDal().GetUserByUserId(userId);
@@ -57,18 +65,26 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Update(CorporateCustomerUpdateVM vm)
 		{
-			vm.UpdatedBy = GetUserId(); ;
-			if (new CorporateCustomerDal().Update(vm))
+			vm.UpdatedBy = GetUserId();
+			var result = new CorporateCustomerDal().Update(vm);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
 			{
 				return RedirectToAction("GetAll");
 			}
 			return View("Update");
 		}
 
+		[HttpGet]
 		public ActionResult UpdateIsVerify(int id)
 		{
-			new CorporateCustomerDal().UpdateIsVerify(id);
-			return RedirectToAction("GetAll");
+			var result =new CorporateCustomerDal().UpdateIsVerify(id);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			return RedirectToAction("Page404","MyError");
 		}
 
 
@@ -82,14 +98,25 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost]
 		public ActionResult UpdatePackage(int id, int userId)
 		{
-			new CorporateCustomerDal().UpdatePackage(userId, id);
-			return RedirectToAction("GetAll");
+			var result = new CorporateCustomerDal().UpdatePackage(userId, id);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			return RedirectToAction("Page404","MyError");
 		}
 
+		[HttpGet]
 		public ActionResult SoftDelete(int userId)
 		{
-			new CorporateCustomerDal().SoftDelete(userId);
-			return RedirectToAction("GetAll");
+			var result = new CorporateCustomerDal().SoftDelete(userId);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+			return RedirectToAction("Page404", "MyError");
 		}
 
 
@@ -99,6 +126,10 @@ namespace VehicleTender.AdminUI.Controllers
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 
+		/// <summary>
+		/// İlleri ve İlçeleri Cacheden Getirir Eğer Yoksa Veritabanından Çeker ve Cache'e Ekler
+		/// </summary>
+		/// <returns></returns>
 		public ProvinceAndDistrictForCache CheckCache()
 		{
 			if (HttpContext.Cache["provinceAndDistrict"] == null)
@@ -125,6 +156,10 @@ namespace VehicleTender.AdminUI.Controllers
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
 		}
 
+		/// <summary>
+		/// Sessionda kayıtlı olan tramer bilgilerini döndürür.
+		/// </summary>
+		/// <returns></returns>
 		[NonAction]
 		public List<TramerAddVM> CheckSession()
 		{

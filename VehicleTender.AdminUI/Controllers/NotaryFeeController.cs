@@ -12,6 +12,7 @@ namespace VehicleTender.AdminUI.Controllers
 	public class NotaryFeeController : Controller
 	{
 		// GET: NotaryFee
+		[HttpGet]
 		public ActionResult AddOrUpdate(int id)
 		{
 			if (id == 0)
@@ -27,7 +28,12 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 			if (vm.Id == 0)
 			{
-				new NotaryFeeDal().Add(vm);
+				var result = new NotaryFeeDal().Add(vm);
+				if (result.IsSuccess)
+				{
+					return RedirectToAction("GetAll");
+				}
+
 				return RedirectToAction("AddOrUpdate");
 			}
 			return View(vm);

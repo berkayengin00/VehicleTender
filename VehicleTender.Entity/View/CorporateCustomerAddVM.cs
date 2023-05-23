@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using VehicleTender.Entity.Concrete;
+using System.ComponentModel.DataAnnotations;
 using VehicleTender.Entity.Enum;
 
 namespace VehicleTender.Entity.View
@@ -18,6 +13,7 @@ namespace VehicleTender.Entity.View
 		[DisplayName("Soyad")]
 		public string LastName { get; set; }
 		[DisplayName("Telefone Numarası")]
+		[StringLength(11, ErrorMessage = "Sadece 11 karakter giriniz", MinimumLength = 11)]
 		public string PhoneNumber { get; set; }
 		[DisplayName("Email")]
 		public string Email { get; set; }
@@ -26,8 +22,12 @@ namespace VehicleTender.Entity.View
 		[DisplayName("Şirket Adı")]
 		public string CompanyName { get; set; }
 		[DisplayName("İl")]
+		[Required]
+		[Range(1, int.MaxValue, ErrorMessage = "Lütfen İl seçiniz")]
 		public int Province { get; set; }
 		[DisplayName("İlçe")]
+		[Required]
+		[Range(1, int.MaxValue, ErrorMessage = "Lütfen ilçe seçiniz")]
 		public int District { get; set; }
 		[DisplayName("Adres")]
 		public string Neighbourhood { get; set; }
@@ -35,6 +35,7 @@ namespace VehicleTender.Entity.View
 		public string CompanyType { get; set; }
 		[DisplayName("Parola")]
 		public string PasswordHash { get; set; }
+		[Compare("PasswordHash", ErrorMessage = "Parola uyuşmuyor!!!")]
 		[DisplayName("Parola Tekrar")]
 		public string PasswordHashAgain { get; set; }
 		[DisplayName("Aktif Mi?")]

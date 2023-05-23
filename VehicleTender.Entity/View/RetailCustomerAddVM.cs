@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Http;
 
@@ -11,6 +12,7 @@ namespace VehicleTender.Entity.View
 		public string FirstName { get; set; }
 		[DisplayName("Soyad")]
 		public string LastName { get; set; }
+		[StringLength(11, ErrorMessage = "Sadece 11 karakter giriniz", MinimumLength = 11)]
 		[DisplayName("Telefone Numarası")]
 		public string PhoneNumber { get; set; }
 		[DisplayName("Email")]
@@ -18,6 +20,7 @@ namespace VehicleTender.Entity.View
 		[DisplayName("Parola")]
 		public string PasswordHash { get; set; }
 		[DisplayName("Parola Tekrarı")]
+		[Compare("PasswordHash", ErrorMessage = "Parola uyuşmuyor!!!")]
 		public string PasswordHashAgain { get; set; }
 		[DisplayName("Email Doğrulaması")]
 		public bool IsVerify { get; set; }

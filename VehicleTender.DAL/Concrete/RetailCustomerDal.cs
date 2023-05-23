@@ -43,22 +43,6 @@ namespace VehicleTender.DAL.Concrete
 
 				result = db.SaveChanges();
 			}
-			//base.Insert(new RetailCustomer()
-			//{
-			//	FirstName = vm.FirstName,
-			//	LastName = vm.LastName,
-			//	CreatedBy = vm.CreatedBy,
-			//	CreatedDate = vm.AddedDate,
-			//	Email = vm.Email,
-			//	IsActive = true,
-			//	IsVerify = true,
-			//	PasswordHash = vm.PasswordHash,
-			//	PhoneNumber = vm.PhoneNumber,
-			//	UpdatedBy = vm.UpdatedBy,
-			//	UpdatedDate = vm.UpdatedDate,
-				
-			//});
-			//int result = Save();
 			return new Result(result>0 ? "Bireysel Müşteri Eklendi" : "Hata",result>0);
 		}
 
@@ -68,7 +52,7 @@ namespace VehicleTender.DAL.Concrete
 			List<RetailCustomerVMForAdmin> list = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
-				list = db.RetailCustomers.Select(x => new RetailCustomerVMForAdmin()
+				list = db.RetailCustomers.Where(x=>x.IsActive).Select(x => new RetailCustomerVMForAdmin()
 				{
 					UserId = x.Id,
 					FirstName = x.FirstName,

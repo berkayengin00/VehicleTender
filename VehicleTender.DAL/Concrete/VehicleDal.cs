@@ -21,6 +21,12 @@ namespace VehicleTender.DAL.Concrete
 
 		}
 
+		/// <summary>
+		/// Aracı Ekler ve gerekli tablolara kayıt atar. Geriye Result döner.
+		/// </summary>
+		/// <param name="vm"></param>
+		/// <param name="imageList"></param>
+		/// <returns></returns>
 		public Result Add(DbVehicleAddVmForAdmin vm, List<string> imageList)
 		{
 			using (TransactionScope tran = new TransactionScope())
@@ -148,6 +154,7 @@ namespace VehicleTender.DAL.Concrete
 						join bodyType in db.BodyTypes on vehicle.BodyTypeId equals bodyType.Id
 						join color in db.Colors on vehicle.ColorId equals color.Id
 						join user in db.Users on vehicle.CreatedBy equals user.Id
+						where vehicle.IsActive
 						select new VehicleVMForAdmin()
 						{
 							VehicleId = vehicle.Id,
@@ -180,7 +187,7 @@ namespace VehicleTender.DAL.Concrete
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
 			{
 				result = (from vehicle in db.Vehicles
-						  where vehicle.Id == vehicleId
+						  where vehicle.Id == vehicleId && vehicle.IsActive
 						  select new VehicleUpdateVM()
 						  {
 							  ModelId = vehicle.ModelId,
@@ -208,6 +215,11 @@ namespace VehicleTender.DAL.Concrete
 			return new DataResult<VehicleUpdateVM>(result != null ? "Data Geldi" : "Boş", result, result != null);
 		}
 
+		/// <summary>
+		/// Aracı Günceller ve geriye Result döner
+		/// </summary>
+		/// <param name="vm"></param>
+		/// <returns></returns>
 		public Result Update(VehicleUpdateVM vm)
 		{
 			using (TransactionScope tran = new TransactionScope())
@@ -267,11 +279,17 @@ namespace VehicleTender.DAL.Concrete
 			}
 		}
 
-		public int SoftDelete(int vehicleId)
+		/// <summary>
+		/// Aracın durumunu değiştirir ve Geriye Result döner
+		/// </summary>
+		/// <param name="vehicleId"></param>
+		/// <returns></returns>
+		public Result SoftDelete(int vehicleId)
 		{
-			Vehicle vehicle = Get(x => x.Id == vehicleId);
+			var vehicle = Get(x => x.Id == vehicleId);
 			vehicle.IsActive = false;
-			return Save();
+			var result= Save();
+			return new Result(result > 0 ? "Silme İşlemi Başarılı" : "Hata", result > 0);
 		}
 
 		/// <summary>
@@ -289,7 +307,7 @@ namespace VehicleTender.DAL.Concrete
 							.Where(v => v.VehicleId == vehicle.Id)
 							.Max(v => v.StatusChangeDate)
 						orderby vsh.StatusChangeDate descending
-						where vsh.VehicleStatusId != (int)VehicleStatusType.Ihalede && vehicle.UserId==userId
+						where vsh.VehicleStatusId != (int)VehicleStatusType.Ihalede && vehicle.UserId==userId && vehicle.IsActive
 						select new SelectListItem()
 						{
 							Text = vehicle.LicensePlate,

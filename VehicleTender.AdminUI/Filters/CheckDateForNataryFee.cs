@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.View;
 
 namespace VehicleTender.AdminUI.Filters
@@ -18,13 +19,13 @@ namespace VehicleTender.AdminUI.Filters
 
 			if (addedDate > endDate)
 			{
-				filterContext.Controller.TempData.Add("message", "Başlangıç tarihi bitiş tarihinden önce olamaz");
-				filterContext.Result = new RedirectResult("/NotaryFee/GetAll");
+				filterContext.Controller.TempData.Add("message", new Result("Başlangıç tarihi bitiş tarihinden önce olamaz",false));
+				filterContext.Result = new RedirectResult("/NotaryFee/AddOrUpdate/0");
 			}
 			else if (addedDate < DateTime.Now)
 			{
-				filterContext.Controller.TempData.Add("message", "Başlangıç tarihi bugünden önce olamaz");
-				filterContext.Result = new RedirectResult("/NotaryFee/GetAll");
+				filterContext.Controller.TempData.Add("message", new Result("Başlangıç tarihi bugünden önce olamaz",false));
+				filterContext.Result = new RedirectResult("/NotaryFee/AddOrUpdate/0");
 			}
 			else
 			{

@@ -18,7 +18,10 @@ namespace VehicleTender.DAL.Concrete
 		{
 		}
 
-
+		/// <summary>
+		/// Plazadaki araçlar için stok listesi
+		/// </summary>
+		/// <returns></returns>
 		public List<StockVMForAdmin> GetAllForAdmin()
 		{
 			List<StockVMForAdmin> list = null;

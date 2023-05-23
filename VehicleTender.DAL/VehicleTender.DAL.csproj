@@ -270,6 +270,10 @@
     <Compile Include="Migrations\202305150953139_migv24.designer.cs">
       <DependentUpon>202305150953139_migv24.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305201940286_migv231.cs" />
+    <Compile Include="Migrations\202305201940286_migv231.designer.cs">
+      <DependentUpon>202305201940286_migv231.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\DataResult.cs" />
@@ -405,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305150953139_migv24.resx">
       <DependentUpon>202305150953139_migv24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305201940286_migv231.resx">
+      <DependentUpon>202305201940286_migv231.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

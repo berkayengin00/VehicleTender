@@ -75,6 +75,7 @@
     <Compile Include="Concrete\CorporatePackage.cs" />
     <Compile Include="Concrete\Employee.cs" />
     <Compile Include="Concrete\Expertise.cs" />
+    <Compile Include="Concrete\FinishedTender.cs" />
     <Compile Include="Concrete\FuelType.cs" />
     <Compile Include="Concrete\GearType.cs" />
     <Compile Include="Concrete\LogDetail.cs" />

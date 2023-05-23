@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.DB;
@@ -15,10 +12,10 @@ namespace VehicleTender.AdminUI.Controllers
 	public class TenderController : Controller
 	{
 		// GET: Tender
-
+		[HttpGet]
 		public ActionResult Add()
 		{
-			TenderAddVMForAdmin vm = new TenderAddVMForAdmin()
+			var vm = new TenderAddVMForAdmin()
 			{
 				CompanyNames = new CorporateCustomerDal().GetAllCompanyName(),
 				TenderTypes = new TenderTypeDal().GetAllTenderTypes(),
@@ -28,62 +25,68 @@ namespace VehicleTender.AdminUI.Controllers
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(TenderAddVMForAdmin vm)
-        {
-            vm.CreatedById = vm.CorporateId;
+		{
+			vm.CreatedById = vm.CorporateId;
 
 			Session.Add("Tender", vm);
-			return RedirectToAction("AddDetail",new {@userId=vm.CorporateId});
+			return RedirectToAction("AddDetail", new { @userId = vm.CorporateId });
 		}
 
 		[HttpGet]
 		public ActionResult AddDetail(int userId)
 		{
-			TenderDetailAddVMForAdmin result = new TenderDetailAddVMForAdmin()
+			var result = new TenderDetailAddVMForAdmin()
 			{
 				Vehicles = new VehicleDal().GetAllVehicleByUserType(userId)
 			};
-			
+
 			return View(result);
 		}
 
 		[HttpPost]
 		public ActionResult AddDetail(string jsonData)
 		{
-			if (Session["Tender"] != null)
-			{
-				var serializer = new JavaScriptSerializer();
-				var data = serializer.Deserialize<List<TenderDetailAddVMForAdmin>>(jsonData);
+			if (Session["Tender"] == null) return RedirectToAction("Add");
+			var detailVm = CheckSessionAndSessionDetail(jsonData);
 
-				TenderAndTenderDetailVmForAdmin detailVm = new TenderAndTenderDetailVmForAdmin()
-				{
-					tenderDetailList = data,
-					TenderAddVmForAdmin = Session["Tender"] as TenderAddVMForAdmin
-				};
+			var result = new TenderDal().AddTender(detailVm);
+			if (!result.IsSuccess) return RedirectToAction("Add");
 
-				new TenderDal().AddTender(detailVm);
-				Session.Remove("Tender");
-				return RedirectToAction("GetAll");
-			}
+			Session.Remove("Tender");
+			return RedirectToAction("GetAll");
 			// todo hata ver ve o sayfaya yönlendir
-			return RedirectToAction("Add");
 		}
 
+		[HttpGet]
 		public ActionResult GetAll()
 		{
-			return View(new TenderDal().GetAll());
+			var result = new TenderDal().GetAll();
+			if (result.IsSuccess)
+			{
+				return View(result.Data);
+			}
+			return RedirectToAction("Page404", "MyError");
 		}
 
+		[HttpGet]
 		public ActionResult SoftDelete(int tenderId)
 		{
-			new TenderDal().SoftDelete(tenderId);
-			return RedirectToAction("GetAll");
+			var result = new TenderDal().SoftDelete(tenderId);
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+
+			return RedirectToAction("Page404","MyError");
+
 		}
 
 		// todo update işlemi yapılacak hata veriyor
+		[HttpGet]
 		public ActionResult Update(int tenderId)
 		{
 
-			TenderUpdateVMForAdmin vm = new TenderDal().GetTenderById(tenderId);
+			var vm = new TenderDal().GetTenderById(tenderId);
 			return View(vm);
 		}
 
@@ -114,5 +117,26 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
 		}
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="jsonData"></param>
+		/// <returns></returns>
+		[NonAction]
+		public TenderAndTenderDetailVmForAdmin CheckSessionAndSessionDetail(string jsonData)
+		{
+			var serializer = new JavaScriptSerializer();
+			var data = serializer.Deserialize<List<TenderDetailAddVMForAdmin>>(jsonData);
+
+			return  new TenderAndTenderDetailVmForAdmin()
+			{
+				tenderDetailList = data,
+				TenderAddVmForAdmin = Session["Tender"] as TenderAddVMForAdmin
+			};
+		}
+
+
 	}
 }

@@ -54,10 +54,11 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength=11 })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+		                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", Type = "number", placeholder = "Telefone Numarası", required = "true", pattern = "05[5|0-9][0-9]{7}", maxlength=11 })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class= "text-danger small" })
                 </div>
             </div>
 
@@ -66,10 +67,11 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.Province, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
-                        @Html.DropDownListFor(x => x.Province,Model.CacheList.ProvinceList,"İl Seçiniz", new { @class = "form-control", Type = "text", placeholder = "İl", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
+		                @Html.DropDownListFor(x => x.Province,Model.CacheList.ProvinceList,"İl Seçiniz", new { @class = "form-control", Type = "text", placeholder = "İl", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.Province, "", new { @class= "text-danger small" })
                 </div>
             </div>
 
@@ -78,10 +80,11 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.District, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
-                        @Html.DropDownListFor(x => x.District, new SelectListItem[0],"İlçe Seçiniz",new { @class = "form-control", Type = "text", placeholder = "ilçe", required = "true" ,disabled="true"})
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
+		                @Html.DropDownListFor(x => x.District,new List<SelectListItem>(),"İlçe Seçiniz",new { @class = "form-control", Type = "text", placeholder = "ilçe", required = "true" ,disabled="true"})
+	                </div>
+	                @Html.ValidationMessageFor(x => x.District, "", new { @class= "text-danger small" })
                 </div>
             </div>
 
@@ -132,10 +135,11 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(x => x.PasswordHashAgain, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                        @Html.TextBoxFor(x => x.PasswordHashAgain, new { @class = "form-control", Type = "password", placeholder = "Parola Tekrar", required = "true" })
-                    </div>
+	                <div class="input-group">
+		                <span class="input-group-text" id="basic-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+		                @Html.TextBoxFor(x => x.PasswordHashAgain, new { @class = "form-control", Type = "password", placeholder = "Parola Tekrar", required = "true" })
+	                </div>
+	                @Html.ValidationMessageFor(x => x.PasswordHashAgain, "", new { @class= "text-danger small" })
                 </div>
             </div>
 
@@ -152,36 +156,11 @@
     }
 </div>
 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" id="myToast">
-        <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            @{
-                ViewBag.Result?.ToString();
-            }
-        </div>
-    </div>
-</div>
 
 @section jscode
 {
 	<script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var btn = document.getElementById("kaydet");
-            var element = document.getElementById("myToast");
 
-            // Create toast instance
-            var myToast = new bootstrap.Toast(element);
-
-            btn.addEventListener("click", function () {
-                myToast.show();
-            });
-        });
 
         $(function () {
             $("#Province").change(function () {

@@ -21,9 +21,10 @@ namespace VehicleTender.DAL.Concrete
 		{
 		}
 
-		public int Add(CorporateCustomerAddVM vm)
+
+		public Result Add(CorporateCustomerAddVM vm)
 		{
-			return base.Insert(new CorporateCustomer()
+			var result= base.Insert(new CorporateCustomer()
 			{
 				FirstName = vm.FirstName,
 				LastName = vm.LastName,
@@ -43,6 +44,8 @@ namespace VehicleTender.DAL.Concrete
 				CorporatePackageId = vm.CorporatePackageId,
 				
 			});
+
+			return new Result(result > 0 ? "Kurumsal Müşteri Eklendi" : "Hata", result > 0);
 		}
 
 		public List<CorporateCustomerListVMForAdmin> GetAllForAdmin()
@@ -52,6 +55,7 @@ namespace VehicleTender.DAL.Concrete
 			{
 				result = (from user in db.CorporateCustomers
 							  join package in db.CorporatePackages on user.CorporatePackageId equals package.Id
+							  where user.IsActive
 							  select new CorporateCustomerListVMForAdmin()
 							  {
 								  CompanyName = user.CompanyName,
@@ -120,7 +124,7 @@ namespace VehicleTender.DAL.Concrete
 			return new DataResult<CorporateCustomerUpdateVM>(result != null ? "Kullanıcı Mevcut" : "Boş", result, result != null);
 		}
 
-		public bool Update(CorporateCustomerUpdateVM vm)
+		public Result Update(CorporateCustomerUpdateVM vm)
 		{
 			var corporateCustomer = base.Get(x => x.Id == vm.UserId);
 			if (corporateCustomer != null)
@@ -141,25 +145,28 @@ namespace VehicleTender.DAL.Concrete
 				corporateCustomer.CreatedBy = vm.CreatedBy;
 				corporateCustomer.CreatedDate = vm.AddedDate;
 			}
-			return Save() > 0;
+			var result= Save();
+			return new Result(result > 0 ? "Kurumsal Müşteri Güncellendi" : "Hata", result > 0);
 
 		}
 
-		public int SoftDelete(int id)
+		public Result SoftDelete(int id)
 		{
 			var corporateCustomer = base.Get(x => x.Id == id);
 			if (corporateCustomer != null)
 			{
 				corporateCustomer.IsActive = false;
 			}
-			return Save();
+			var result= Save();
+			return new Result(result > 0 ? "Kurumsal Müşteri Silindi" : "Hata", result > 0);	
 		}
 
-		public void UpdateIsVerify(int id)
+		public Result UpdateIsVerify(int id)
 		{
 			var corporateCustomer = base.Get(x => x.Id == id);
 			corporateCustomer.IsVerify = true;
-			Save();
+			var result = Save();
+			return new Result(result > 0 ? "Kurumsal Müşteri Onaylandı" : "Hata", result > 0);
 		}
 
 		/// <summary>
@@ -167,11 +174,12 @@ namespace VehicleTender.DAL.Concrete
 		/// </summary>
 		/// <param name="id"></param>
 		/// <param name="packageId"></param>
-		public void UpdatePackage(int id,int packageId)
+		public Result UpdatePackage(int id,int packageId)
 		{
 			var user = base.Get(x => x.Id == id);
 			user.CorporatePackageId = packageId;
-			Save();
+			var result = Save();
+			return new Result(result > 0 ? "Kurumsal Müşteri Paketi Güncellendi" : "Hata", result > 0);
 		}
 
 		public List<SelectListItem> GetUsersForDropdown()

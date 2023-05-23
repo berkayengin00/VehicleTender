@@ -46,11 +46,16 @@ namespace VehicleTender.AdminUI.Controllers
 			
 			// sessiondan alınacak
 			vm.TramerList = CheckSession();
-			// todo vehicleage için view üzerinde ekleme yapılacak
 
 			vm.CreatedBy = vm.UpdatedBy = GetUserId();
 			var result = new VehicleDal().Add(vm, imagePathList);
-			return RedirectToAction("GetAll");
+			if (result.IsSuccess)
+			{
+				return RedirectToAction("GetAll");
+			}
+
+			return View();
+
 		}
 
 		public ActionResult GetAll()
@@ -63,7 +68,7 @@ namespace VehicleTender.AdminUI.Controllers
 		{
 
 			var result = new VehicleDal().GetVehicleByVehicleId(vehicleId);
-			if (!result.IsSuccess) return View("GetAll");
+			if (!result.IsSuccess) return RedirectToAction("Page404","MyError");
 
 			result.Data.VehicleStatusList = new VehicleStatuDal().GetAllVehicleStatuses();
 			result.Data.VehicleFeaturesForCache = GetFeaturesFromCache();
@@ -77,17 +82,17 @@ namespace VehicleTender.AdminUI.Controllers
 		public ActionResult Update(VehicleUpdateVM vm)
 		{
 			vm.UpdatedBy = GetUserId();
-			if (new VehicleDal().Update(vm).IsSuccess)
-			{
-				return RedirectToAction("GetAll");
-			}
-			return View("Update");
+			return new VehicleDal().Update(vm).IsSuccess 
+				? RedirectToAction("GetAll") : RedirectToAction("Page404","MyError");
 		}
 
+		[HttpGet]
 		public ActionResult SoftDelete(int vehicleId)
 		{
-			int result = new VehicleDal().SoftDelete(vehicleId);
-			return RedirectToAction("GetAll");
+			var result = new VehicleDal().SoftDelete(vehicleId);
+			return !result.IsSuccess ? 
+				RedirectToAction("Page500","MyError") : 
+				RedirectToAction("GetAll");
 		}
 
 		/// <summary>
@@ -100,30 +105,26 @@ namespace VehicleTender.AdminUI.Controllers
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
 		}
 
-
+		[NonAction]
 		public VehicleFeaturesForCache GetFeaturesFromCache()
 		{
-
-			if (HttpContext.Cache["vehicleFeatures"] == null)
+			if (HttpContext.Cache["vehicleFeatures"] != null)
+				return HttpContext.Cache["vehicleFeatures"] as VehicleFeaturesForCache;
+			var result = new VehicleFeaturesForCache()
 			{
-				var result = new VehicleFeaturesForCache()
-				{
-					Brands = new BrandDal().GetAllBrand(),
-					BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
-					Colors = new ColorDal().GetAllColors(),
-					FuelTypes = new FuelDal().GetAllFuelTypes(),
-					GearTypes = new GearTypeDal().GetAllGearTypes(),
-					Models = new ModelDal().GetAllModels(),
-				};
-				HttpContext.Cache.Insert("vehicleFeatures", result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
-				return result;
-			}
-
-			return HttpContext.Cache["vehicleFeatures"] as VehicleFeaturesForCache;
+				Brands = new BrandDal().GetAllBrand(),
+				BodyTypes = new BodyTypeDal().GetAllBodyTypes(),
+				Colors = new ColorDal().GetAllColors(),
+				FuelTypes = new FuelDal().GetAllFuelTypes(),
+				GearTypes = new GearTypeDal().GetAllGearTypes(),
+				Models = new ModelDal().GetAllModels(),
+			};
+			HttpContext.Cache.Insert("vehicleFeatures", result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1));
+			return result;
 
 
 		}
-
+		[HttpGet]
 		public ActionResult GetUsersByUserType(int userTypeId)
 		{
 
@@ -134,6 +135,7 @@ namespace VehicleTender.AdminUI.Controllers
 
 		}
 
+		[HttpGet]
 		public ActionResult GetModelByBrand(int brandId)
 		{
 			var model = GetFeaturesFromCache().Models.FindAll(x => x.Value == brandId.ToString());
@@ -147,7 +149,9 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				return null;
 			}
-			return Session["Tramer"] as List<TramerAddVM>;
+			var result = Session["Tramer"] as List<TramerAddVM>;
+			Session.Remove("Tramer");
+			return result;
 		}
 
 	}

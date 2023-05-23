@@ -20,6 +20,7 @@ namespace VehicleTender.AdminUI.Controllers
 	        }
             return View(new CommissionFeeDal().GetById(id).Data);
         }
+
 		[HttpPost,ValidateAntiForgeryToken]
         public ActionResult AddOrUpdate(CommissionFeeVM vm)
         {

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
-using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.RetailCustomer;
 
@@ -22,13 +17,19 @@ namespace VehicleTender.AdminUI.Controllers
 		[HttpPost, ValidateAntiForgeryToken]
 		public ActionResult Add(RetailCustomerAddVM vm)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(vm);
+			}
 			vm.UpdatedBy = vm.CreatedBy = GetUserId();
-			if (new RetailCustomerDal().Add(vm).IsSuccess)
+			var result = new RetailCustomerDal().Add(vm);
+			TempData.Add("message", result);
+			if (result.IsSuccess)
 			{
 				return RedirectToAction("GetAll");
 			}
 			// todo hata mesajı gösterilecek
-			return View(vm);
+			return RedirectToAction("Page404","MyError");
 
 		}
 		
@@ -40,7 +41,7 @@ namespace VehicleTender.AdminUI.Controllers
 				return View(result.Data);
 			}
 			// todo hata mesajı gösterilecek
-			return View("GetAll");
+			return RedirectToAction("Page404", "MyError");
 		}
 
 		[HttpGet]
@@ -51,7 +52,7 @@ namespace VehicleTender.AdminUI.Controllers
 			{
 				return View(result.Data);
 			}
-			return RedirectToAction("GetAll");
+			return RedirectToAction("Page404", "MyError");
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]
@@ -64,9 +65,10 @@ namespace VehicleTender.AdminUI.Controllers
 				return RedirectToAction("GetAll");
 			}
 			// todo hata mesajı gösterilecek
-			return RedirectToAction("GetAll");
+			return RedirectToAction("Page404", "MyError");
 		}
 
+		[HttpGet]
 		public ActionResult SoftDelete(int userId)
 		{
 			var result = new RetailCustomerDal().SoftDelete(userId);
@@ -75,7 +77,7 @@ namespace VehicleTender.AdminUI.Controllers
 				return RedirectToAction("GetAll");
 			}
 			// todo hata mesajı gösterilecek
-			return RedirectToAction("GetAll");
+			return RedirectToAction("Page404", "MyError");
 		}
 
 		/// <summary>

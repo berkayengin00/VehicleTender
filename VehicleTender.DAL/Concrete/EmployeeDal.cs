@@ -115,13 +115,12 @@ namespace VehicleTender.DAL.Concrete
 
 				}
 			}
-
-
-
-
-
 		}
 
+		/// <summary>
+		/// Admin İçin Tüm Aktif Çalışsanları Getirir
+		/// </summary>
+		/// <returns></returns>
 		public List<EmployeeListVM> GetAll()
 		{
 			List<EmployeeListVM> result = null;
@@ -130,6 +129,7 @@ namespace VehicleTender.DAL.Concrete
 				result = (from user in db.Employees
 						  join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
 						  join role in db.Roles on roleUser.RoleId equals role.Id
+						  where user.IsActive
 						  select new EmployeeListVM()
 						  {
 							  EmployeeId = user.Id,
@@ -145,6 +145,12 @@ namespace VehicleTender.DAL.Concrete
 			return result;
 		}
 
+
+		/// <summary>
+		/// Parametre olarak verilen id'ye göre Sistem Çalışanının Bilgilerini Getirir
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public EmployeeAddVM Get(int id)
 		{
 			EmployeeAddVM result = null;
@@ -153,7 +159,7 @@ namespace VehicleTender.DAL.Concrete
 				result = (from user in db.Employees
 						  join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
 						  join role in db.Roles on roleUser.RoleId equals role.Id
-						  where user.Id == id
+						  where user.Id == id && user.IsActive
 						  select new EmployeeAddVM()
 						  {
 							  EmployeeId = user.Id,

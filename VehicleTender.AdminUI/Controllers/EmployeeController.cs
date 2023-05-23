@@ -5,13 +5,13 @@ using System.Web.Mvc;
 using VehicleTender.DAL.Concrete;
 using VehicleTender.Entity.View;
 using VehicleTender.Entity.View.Employee;
-using VehicleTender.Entity.View.Vehicle;
 
 namespace VehicleTender.AdminUI.Controllers
 {
 	public class EmployeeController : Controller
 	{
 		// GET: Employee
+		[HttpGet]
 		public ActionResult AddOrUpdate(int id)
 		{
 			EmployeeAddVM result = new EmployeeAddVM();
@@ -48,6 +48,7 @@ namespace VehicleTender.AdminUI.Controllers
 
 		}
 
+		[HttpGet]
 		public ActionResult GetAll()
 		{
 			return View(new EmployeeDal().GetAll());
@@ -70,6 +71,7 @@ namespace VehicleTender.AdminUI.Controllers
 			return Session["Admin"] != null ? (Session["Admin"] as SessionVMForAdmin).AdminId : 0;
 		}
 
+		[NonAction]
 		public List<SelectListItem> CheckCache()
 		{
 			if (HttpContext.Cache["userType"] != null)

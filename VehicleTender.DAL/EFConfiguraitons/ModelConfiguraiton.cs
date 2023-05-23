@@ -313,7 +313,7 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.IsActive).IsRequired();
 
-        }
+		}
 	}
 
 	public class TenderHistoryConfiguration : EntityTypeConfiguration<TenderHistory>
@@ -370,12 +370,12 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.Email).HasMaxLength(256).IsRequired();
 			Property(x => x.PasswordHash).HasMaxLength(300).IsRequired();
 			Property(x => x.IsActive).IsRequired();
-			
-			HasMany(x=>x.Vehicles)
-				.WithRequired(x=>x.User)
-				.HasForeignKey(x=>x.UserId)
+
+			HasMany(x => x.Vehicles)
+				.WithRequired(x => x.User)
+				.HasForeignKey(x => x.UserId)
 				.WillCascadeOnDelete(false);
-			
+
 		}
 	}
 
@@ -428,7 +428,7 @@ namespace VehicleTender.DAL.EFConfiguraitons
 	{
 		public VehicleTramerConfiguration()
 		{
-			
+
 			ToTable("VehicleTramer");
 			HasKey(x => new { x.VehicleId, x.TramerId, x.VehiclePartStatusId });
 		}
@@ -453,7 +453,7 @@ namespace VehicleTender.DAL.EFConfiguraitons
 	}
 
 
-	public class EmployeeConfiguration:EntityTypeConfiguration<Employee>
+	public class EmployeeConfiguration : EntityTypeConfiguration<Employee>
 	{
 		public EmployeeConfiguration()
 		{
@@ -463,7 +463,7 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			Property(x => x.LastName).HasMaxLength(100).IsRequired();
 			Property(x => x.UserName).HasMaxLength(100).IsRequired();
 			Property(x => x.IsActive).IsRequired();
-		}	
+		}
 	}
 
 	public class MenuRoleConfiguration : EntityTypeConfiguration<RoleMenu>
@@ -523,6 +523,15 @@ namespace VehicleTender.DAL.EFConfiguraitons
 			ToTable("District");
 			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			Property(x => x.Name).HasMaxLength(100).IsRequired();
+		}
+	}
+
+	public class FinishedTenderConfiguration : EntityTypeConfiguration<FinishedTender>
+	{
+		public FinishedTenderConfiguration()
+		{
+			ToTable("FinishedTender");
+			HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 		}
 	}
 

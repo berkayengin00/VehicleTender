@@ -21,7 +21,7 @@
                 @Html.LabelFor(x => x.TenderName, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.TextBoxFor(x => x.TenderName, new { @class = "form-control", Type = "text", placeholder = "İhale Adı", required = "true" })
+                        @Html.TextBoxFor(x => x.TenderName, new { @class = "form-control", Type = "text", placeholder = "İhale Adı", required = "true" ,@readonly=true})
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 @Html.LabelFor(x => x.TenderTypeId, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.DropDownListFor(x => x.TenderTypes, Model.TenderTypes, new { @class = "form-select", required = true })
+                        @Html.DropDownListFor(x => x.TenderTypes, Model.TenderTypes, new { @class = "form-select", required = true, @readonly = true ,disabled=true})
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 @Html.LabelFor(x => x.StartDateTime, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.TextBoxFor(x => x.StartDateTime, new { @class = "form-control", Type = "datetime", required = "true" })
+                        @Html.TextBoxFor(x => x.StartDateTime, new { @class = "form-control", Type = "datetime", required = "true", @readonly = true })
                     </div>
                 </div>
             </div>
@@ -51,17 +51,17 @@
                 @Html.LabelFor(x => x.EndDateTime, new { @class = "col-md-4 control-label" })
                 <div class="inputGroupContainer">
                     <div class="input-group">
-                        @Html.TextBoxFor(x => x.EndDateTime, new { @class = "form-control", Type = "datetime", required = "true" })
+                        @Html.TextBoxFor(x => x.EndDateTime, new { @class = "form-control", Type = "datetime", required = "true", @readonly = true })
                     </div>
                 </div>
             </div>
 
-            <div class="form-group col-md-12 row">
+            @*<div class="form-group col-md-12 row">
                 <div class="text-end">
                     <input type="submit" name="name" value="Kaydet ve Devam Et" class="btn btn-outline-success col-md-3" id="kaydet" />
                 </div>
 
-            </div>
+            </div>*@
         </fieldset>
     }
     
@@ -82,9 +82,9 @@
 			    <td>@detailList[i].VehicleId</td>
 			    <td>@detailList[i].MinPrice</td>
 			    <td>@detailList[i].StartPrice</td>
-			    <td>
+			    @*<td>
 				    @Html.ActionLink("Sil", "DeleteDetail", "Tender", new { @id = i }, new { @class = "delete-btn btn btn-warning" })
-			    </td>
+			    </td>*@
 		    </tr>
 
 

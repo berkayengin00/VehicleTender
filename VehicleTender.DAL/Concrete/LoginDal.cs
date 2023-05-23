@@ -17,7 +17,7 @@ namespace VehicleTender.DAL.Concrete
 				admin = (from user in db.Users
 					join roleUser in db.RoleUsers on user.Id equals roleUser.UserId
 					join role in db.Roles on roleUser.RoleId equals role.Id
-					where user.Email == vm.Email && user.PasswordHash == vm.Password
+					where user.Email == vm.Email && user.PasswordHash == vm.Password && user.IsActive
 					select new SessionVMForAdmin
 					{
 						Email = user.Email,

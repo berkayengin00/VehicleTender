@@ -43,6 +43,7 @@ namespace VehicleTender.Entity.View.Employee
 		[DisplayName("Role Seçiniz")]
 		public int RoleId { get; set; }
 		[DisplayName("Aktif Mi?")]
+
 		public bool IsActive { get; set; }=true;
 		public bool IsVerify { get; set; }=true;
 		public int CreatedBy { get; set; }

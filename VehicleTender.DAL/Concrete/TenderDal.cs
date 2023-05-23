@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Mvc;
 using VehicleTender.DAL.CrudRepository;
+using VehicleTender.DAL.Results;
 using VehicleTender.Entity.Concrete;
 using VehicleTender.Entity.Enum;
 using VehicleTender.Entity.View;
@@ -22,7 +23,7 @@ namespace VehicleTender.DAL.Concrete
 		{
 		}
 
-		public void AddTender(TenderAndTenderDetailVmForAdmin vm)
+		public Result AddTender(TenderAndTenderDetailVmForAdmin vm)
 		{
 			using (TransactionScope tran = new TransactionScope())
 			{
@@ -78,17 +79,19 @@ namespace VehicleTender.DAL.Concrete
 
 						db.SaveChanges();
 						tran.Complete();
+						return new Result( "İhale başarıyla eklendi" ,true);
 					}// todo log yapılınca dispose edilmeden önce log alınacak
 					catch
 					{
 						tran.Dispose();
+						return new Result("İhale eklenirken bir hata oluştu", false);	
 					}
 				}
 
 			}
 		}
 
-		public List<TenderListVMForAdmin> GetAll()
+		public DataResult<List<TenderListVMForAdmin>> GetAll()
 		{
 			List<TenderListVMForAdmin> list = null;
 			using (EfVehicleTenderContext db = new EfVehicleTenderContext())
@@ -107,17 +110,19 @@ namespace VehicleTender.DAL.Concrete
 							IsActive = tender.IsActive,
 						}).ToList();
 			}
-			return list;
+			return new DataResult<List<TenderListVMForAdmin>>(list!=null ?"Data Getirildi" :"Data Yok",list,list!=null);
 		}
 
-		public int SoftDelete(int tenderId)
+		public Result SoftDelete(int tenderId)
 		{
 			Tender tender = Get(x => x.Id == tenderId);
 			if (tender != null)
 			{
 				tender.IsActive = false;
 			}
-			return Save();
+
+			var result = Save();
+			return new Result(result>0?"Silme İşlemi Başarılı":"Hata",result>0);
 		}
 
 		public TenderUpdateVMForAdmin GetTenderById(int tenderId)
